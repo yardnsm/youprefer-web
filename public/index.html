@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html dir="rtl">
   <head>
-    <meta charset="utf-8">
-    <title>מה אתה מעדיף?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-    <style media="screen">
-      html, body {
-        margin: 0;
-          padding: 0;
-      }
+    <meta charset="UTF-8">
+    <title>מה אתה מעדיף? - גרסת דפדפן</title>
 
-      body {
-        font-family: Roboto, Arial, sans-serif;
-        background: #ffffff;
-        color: #ffffff;
-      }
+    <meta name='description' content='מה אתה מעדיף - לחיות בעתיד או לחיות בעבר?'>
 
-      .bg-elem {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: rotate(-30deg) scale(3);
-      }
+    <link rel='manifest' href='manifest.json'>
+    <link rel="author" href="humans.txt">
 
-      .bg-elem::before,
-      .bg-elem::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 50%;
-      }
+    <!-- Meta -->
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name='application-name' content='מה אתה מעדיף - משחק של העדפה'>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" href="/touch/favicon.ico">
 
-      .bg-elem::before {
-        background-color: #2196f3;
-        left: 0;
-      }
+    <!-- Apple -->
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    <meta name='apple-mobile-web-app-title' content='מה אתה מעדיף'>
+    <link rel="apple-touch-icon" sizes="180x180" href="/touch/apple-touch-icon.png">
+    <link rel="mask-icon" href="/touch/safari-pinned-tab.svg" color="#5bbad5">
 
-      .bg-elem::after {
-        background-color: #f44336;
-        right: 0;
-      }
-    </style>
+    <!-- Microsoft -->
+    <meta name="msapplication-config" content="/touch/browserconfig.xml">
+    <link rel="mask-icon" href="/touch/safari-pinned-tab.svg" color="#5bbad5">
+
+    <meta name="theme-color" content="#424242">
+    <link rel="icon" type="image/png" sizes="32x32" href="/touch/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/touch/favicon-16x16.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Heebo:300,400,500,700&amp;subset=hebrew" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <body>
-    
-    <div class="bg-elem"></div>
 
-    <div class="wrapper">
-      
+  <body>
+
+    <!-- App Container -->
+    <div id="root">
+      TODO: make a loader...
     </div>
+
+    <!-- JS -->
+    <script src="assets/bundle.js"></script>
+
+    <script type="text/javascript">
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function(registration) {
+            console.log('Service worker registered with scope', registration.scope);
+          }).catch(function(err) {
+            console.log('Service worker failed to install!', err);
+          });
+      }
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+        window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+        ga('create','UA-54142662-1','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
   </body>
 </html>

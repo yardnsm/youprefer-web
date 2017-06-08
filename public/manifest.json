@@ -1,0 +1,25 @@
+{
+  "name": "מה אתה מעדיף - משחק של העדפה",
+  "short_name": "מה אתה מעדיף",
+  "description": "משחק של העדפה",
+  "icons": [{
+    "src": "/touch/android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }, {
+    "src": "/touch/android-chrome-512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "lang": "he-IL",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait",
+  "theme_color": "#212121",
+  "background_color": "#424242",
+  "related_applications": [{
+    "platform": "play",
+    "id": "com.yardnsm.youprefer",
+    "url": "https://play.google.com/store/apps/details?id=com.yardnsm.youprefer"
+  }]
+}

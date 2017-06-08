@@ -1,0 +1,61 @@
+{
+  "name": "youprefer-website",
+  "version": "0.1.0",
+  "description": "A  website for the youprefer app",
+  "license": "MIT",
+  "author": {
+    "name": "Yarden Sod-Moriah",
+    "email": "yardnsm@gmail.com",
+    "url": "yardnsm.net"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/yardnsm/youprefer"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --https --cert ./ssl/server.pem --key ./ssl/server.pem",
+    "build": "webpack -p --progress --colors",
+    "test": "jest --config .jestrc",
+    "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx",
+    "clean": "rm -rf ./dist"
+  },
+  "dependencies": {
+    "babel-preset-stage-3": "^6.24.1",
+    "classnames": "^2.2.5",
+    "firebase": "^4.1.1",
+    "jss": "^7.1.5",
+    "jss-preset-default": "^2.0.0",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-hot-loader": "next",
+    "react-jss": "^6.1.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "jest": "^20.0.4",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "private": true
+}
