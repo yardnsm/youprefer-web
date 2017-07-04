@@ -4,26 +4,30 @@ import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 import FlatButton from '../../../../components/FlatButton';
 
-const NavigationButtons = ({ classes, handlePrevClick, showPrev, handleNextClick, showNext }) =>
+const NavigationButtons = ({ classes, handlePrevClick, showPrev, handleNextClick, showNext }) => (
   <div className={classes.navigationButtonsWrapper}>
     <FlatButton
       text={'אחורה'}
       handleClick={handlePrevClick}
-      fullWidth={true}
-      hidden={!showPrev} />
+      fullWidth
+      hidden={!showPrev}
+    />
 
     <FlatButton
       text={'קדימה'}
       handleClick={handleNextClick}
-      fullWidth={true}
-      hidden={!showNext} />
-  </div>;
+      fullWidth
+      hidden={!showNext}
+    />
+  </div>
+);
 
 NavigationButtons.propTypes = {
-  handlePrevClick: PropTypes.func,
-  showPrev: PropTypes.bool,
-  handleNextClick: PropTypes.func,
-  showNext: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+  handlePrevClick: PropTypes.func.isRequired,
+  showPrev: PropTypes.bool.isRequired,
+  handleNextClick: PropTypes.func.isRequired,
+  showNext: PropTypes.bool.isRequired,
 };
 
 export default injectSheet(styles)(NavigationButtons);

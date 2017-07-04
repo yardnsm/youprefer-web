@@ -4,16 +4,23 @@ import PropTypes from 'prop-types';
 import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 
-const IconButton = ({ classes, iconClassName, handleClick }) =>
+const IconButton = ({ classes, iconClassName, handleClick }) => (
   <a
     onClick={handleClick}
-    className={classNames(classes.iconButton, 'material-icons')}>
-      {iconClassName}
-    </a>;
+    className={classNames(classes.iconButton, 'material-icons')}
+  >
+    {iconClassName}
+  </a>
+);
 
 IconButton.propTypes = {
-  iconClassName: PropTypes.string,
-  handleClick: PropTypes.func
+  classes: PropTypes.object.isRequired,
+  iconClassName: PropTypes.string.isRequired,
+  handleClick: PropTypes.func,
+};
+
+IconButton.defaultProps = {
+  handleClick: () => {},
 };
 
 export default injectSheet(styles)(IconButton);

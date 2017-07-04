@@ -1,4 +1,6 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+/* global __DEV__ */
+
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { logger } from 'redux-logger';
 import rootReducer from './reducers';
@@ -6,7 +8,7 @@ import rootReducer from './reducers';
 const initialState = {};
 
 const middlewares = [
-  thunkMiddleware
+  thunkMiddleware,
 ];
 
 if (__DEV__) {
@@ -16,7 +18,7 @@ if (__DEV__) {
 const store = createStore(
   rootReducer,
   initialState,
-  applyMiddleware(...middlewares)
+  applyMiddleware(...middlewares),
 );
 
 // Support for HMR

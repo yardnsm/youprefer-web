@@ -15,6 +15,6 @@ export default {
     width: '60px',
     height: '60px',
     border: '1px solid #616161',
-    boxShadow: `0px 0px 18px 3px rgba(0, 0, 0, 0.1)`
-  }
+    boxShadow: '0px 0px 18px 3px rgba(0, 0, 0, 0.1)',
+  },
 };

@@ -2,9 +2,10 @@ import React from 'react';
 import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 
-const LoadingQuestions = ({ classes }) =>
+const LoadingQuestions = () => (
   <div>
     <span>טוען...</span>
-  </div>;
+  </div>
+);
 
 export default injectSheet(styles)(LoadingQuestions);

@@ -1,15 +1,17 @@
 import React from 'react';
-import { Switch } from 'react-router';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Game from './Game';
+import NotFound from './NotFound';
 
-const Routes = () =>
+const Routes = () => (
   <Router>
     <Switch>
-      <Route path='/:questionId' component={Game} />
-      <Route path='/' component={Game} />
+      <Route path="/not-found" component={NotFound} />
+      <Route path="/:questionId" component={Game} />
+      <Route path="/" component={Game} />
     </Switch>
-  </Router>;
+  </Router>
+);
 
 export default Routes;

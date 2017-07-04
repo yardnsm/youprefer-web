@@ -4,6 +4,6 @@ export default {
     letterSpacing: '0.04em',
     margin: 0,
     padding: 0,
-    lineHeight: '1.5rem'
-  }
+    lineHeight: '1.5rem',
+  },
 };

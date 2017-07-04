@@ -4,6 +4,6 @@ export default {
     margin: '20px',
     height: 'auto',
     boxSizing: 'border-box',
-    display: 'flex'
+    display: 'flex',
   },
 };

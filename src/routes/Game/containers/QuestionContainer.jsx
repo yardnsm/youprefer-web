@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'jss-inject-sheet';
+import { encode } from '../../../utils/encode';
 
 import OptionCard from '../components/OptionCard';
 import OrCircle from '../components/OrCircle';
@@ -13,19 +14,19 @@ const styles = {
 
     '@media (max-width : 768px)': {
       flexDirection: 'column',
-      alignItems: 'center'
-    }
-  }
+      alignItems: 'center',
+    },
+  },
 };
 
 const calculateVotesPercentage = (votes, totalVotes, floorFunc) =>
-  floorFunc(100 * votes / totalVotes);
+  floorFunc(100 * (votes / totalVotes));
 
 const QuestionContainer = ({
   classes,
   question,
   handleFirstOptionSelect,
-  handleSecondOptionSelect
+  handleSecondOptionSelect,
 }) => {
   const { payload, selected, id } = question;
   const { firstOption, secondOption } = payload;
@@ -34,45 +35,52 @@ const QuestionContainer = ({
   const secondOptionVotes = secondOption.votes;
   const totalVotes = firstOptionVotes + secondOptionVotes;
 
-  const firstOptionPercentage = calculateVotesPercentage(firstOptionVotes, totalVotes, Math.ceil);
-  const secondOptionPercentage = calculateVotesPercentage(secondOptionVotes, totalVotes, Math.floor);
+  const firstOptionPercentage =
+    calculateVotesPercentage(firstOptionVotes, totalVotes, Math.ceil);
+
+  const secondOptionPercentage =
+    calculateVotesPercentage(secondOptionVotes, totalVotes, Math.floor);
 
   return (
     <div>
       <div className={classes.optionsContainer}>
 
         <OptionCard
-          type='first'
+          type="first"
           showBack={!!selected}
           selected={selected === 'first'}
           value={firstOption.value}
           votes={firstOption.votes}
           percentage={firstOptionPercentage}
-          handleOptionSelect={handleFirstOptionSelect} />
+          handleOptionSelect={handleFirstOptionSelect}
+        />
 
         <OrCircle />
 
         <OptionCard
-          type='second'
+          type="second"
           showBack={!!selected}
           selected={selected === 'second'}
           value={secondOption.value}
           votes={secondOption.votes}
           percentage={secondOptionPercentage}
-          handleOptionSelect={handleSecondOptionSelect} />
+          handleOptionSelect={handleSecondOptionSelect}
+        />
       </div>
 
       <QuestionStats
-        questionId={id}
-        totalVotes={totalVotes} />
+        questionId={encode(id)}
+        totalVotes={totalVotes}
+      />
     </div>
   );
 };
 
 QuestionContainer.propTypes = {
-  question: PropTypes.object,
-  handleFirstOptionSelect: PropTypes.func,
-  handleSecondOptionSelect: PropTypes.func
+  classes: PropTypes.object.isRequired,
+  question: PropTypes.object.isRequired,
+  handleFirstOptionSelect: PropTypes.func.isRequired,
+  handleSecondOptionSelect: PropTypes.func.isRequired,
 };
 
 export default injectSheet(styles)(QuestionContainer);

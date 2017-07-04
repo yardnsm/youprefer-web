@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 
-const Toolbar = ({ classes, rightElement, leftElement }) =>
+const Toolbar = ({ classes, rightElement, leftElement }) => (
   <header className={classes.toolbar}>
     <div className={classes.toolbarRow}>
       <div className={classes.toolbarRowInner}>
@@ -12,11 +12,13 @@ const Toolbar = ({ classes, rightElement, leftElement }) =>
         {leftElement}
       </div>
     </div>
-  </header>;
+  </header>
+);
 
 Toolbar.propTypes = {
-  rightElement: PropTypes.object,
-  leftElement: PropTypes.object
+  classes: PropTypes.object.isRequired,
+  rightElement: PropTypes.node.isRequired,
+  leftElement: PropTypes.node.isRequired,
 };
 
 export default injectSheet(styles)(Toolbar);

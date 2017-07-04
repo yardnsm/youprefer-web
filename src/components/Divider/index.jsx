@@ -1,8 +1,10 @@
-import React from 'react';
-import injectSheet from 'jss-inject-sheet';
-import styles from './styles';
+import styled from 'styled-components';
 
-const Divider = ({ classes }) =>
-  <hr className={classes.divider} />;
+const Divider = styled.hr`
+  height: 0;
+  margin: 0;
+  border: none;
+  borderBottom: 1px solid rgba(0, 0, 0, 0.12);
+`;
 
-export default injectSheet(styles)(Divider);
+export default Divider;

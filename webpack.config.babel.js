@@ -8,7 +8,7 @@ export const isProduction = process.env.NODE_ENV === 'production';
  */
 const common = {
   entry: [
-    './src'
+    './src',
   ],
 
   output: {
@@ -27,15 +27,15 @@ const common = {
           babelrc: false,
           presets: [
             ['env', {
-              modules: false
+              modules: false,
             }],
             'react',
-            'stage-3'
+            'stage-3',
           ],
-          plugins: ['react-hot-loader/babel']
-        }
-      }
-    }]
+          plugins: ['react-hot-loader/babel'],
+        },
+      },
+    }],
   },
 
   plugins: [
@@ -47,11 +47,7 @@ const common = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
-
-    alias: {
-      'jss-inject-sheet': path.resolve(__dirname, 'src/config/jss.js')
-    }
-  }
+  },
 };
 
 /**
@@ -66,16 +62,16 @@ const dev = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
   ].concat(common.plugins),
 
   devtool: 'source-maps',
 
   devServer: {
-    contentBase: path.join(__dirname, "public"),
+    contentBase: path.join(__dirname, 'public'),
     hot: true,
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+  },
 };
 
 /**

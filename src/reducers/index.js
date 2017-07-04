@@ -5,7 +5,7 @@ import game from './game';
 
 const rootReducer = combineReducers({
   ui,
-  game
+  game,
 });
 
 export default rootReducer;

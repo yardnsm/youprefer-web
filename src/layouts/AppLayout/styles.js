@@ -1,14 +1,14 @@
 export default {
   '@global': {
     body: {
-      backgroundColor: '#424242'
-    }
+      backgroundColor: '#424242',
+    },
   },
 
   default: {
     fontFamily: ['Heebo', 'sans-serif'],
     direction: 'rtl',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
   },
 
   main: {
@@ -18,7 +18,7 @@ export default {
     top: '0',
     left: '0',
     width: '100%',
-    height: 'auto'
+    height: 'auto',
   },
 
   wrapper: {
@@ -28,7 +28,7 @@ export default {
     paddingTop: '80px',
 
     '@media (max-width: 940px)': {
-      width: 'auto'
-    }
-  }
+      width: 'auto',
+    },
+  },
 };

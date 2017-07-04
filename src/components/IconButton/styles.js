@@ -9,7 +9,7 @@ export default {
     '&::before': {
       position: 'absolute',
       top: '-30%',
-      left: '-35%',
+      left: '-33%',
       width: '40px',
       height: '40px',
       content: '""',
@@ -17,15 +17,15 @@ export default {
       backgroundColor: 'rgba(255, 255, 255, 0.15)',
       opacity: 0,
       willChange: 'opacity',
-      transition: 'opacity cubic-bezier(0, 0, .2, 1) 100ms'
+      transition: 'opacity cubic-bezier(0, 0, .2, 1) 100ms',
     },
 
     '&:hover::before': {
-      opacity: 0.4
+      opacity: 0.4,
     },
 
     '&:active::before': {
-      opacity: 1
+      opacity: 1,
     },
-  }
+  },
 };

@@ -26,6 +26,6 @@ export default {
       marginLeft: '32px',
       marginRight: 0,
       color: 'rgba(0, 0, 0, 0.55)',
-    }
-  }
+    },
+  },
 };

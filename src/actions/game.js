@@ -1,9 +1,13 @@
 import {
+  fetchQuestionCount,
   fetchSingleQuestion,
-  incrementQuestionVotes
+  incrementQuestionVotes,
 } from '../utils/database';
 
 const types = {
+  REQUEST_QUESTION_COUNT: 'REQUEST_QUESTION_COUNT',
+  RECEIVE_QUESTION_COUNT: 'RECEIVE_QUESTION_COUNT',
+
   REQUEST_QUESTION: 'REQUEST_QUESTION',
   RECEIVE_QUESTION: 'RECEIVE_QUESTION',
 
@@ -15,37 +19,39 @@ const types = {
 };
 
 const actions = {
+  requestQuestionCount: () => ({ type: types.REQUEST_QUESTION_COUNT }),
+  receiveQuestionCount: count => ({ type: types.RECEIVE_QUESTION_COUNT, payload: { count } }),
+
+  fetchQuestionCount: () => (dispatch) => {
+    dispatch(actions.requestQuestionCount());
+    return fetchQuestionCount()
+      .then((count) => { dispatch(actions.receiveQuestionCount(count)); })
+  },
+
   requestQuestion: () => ({ type: types.REQUEST_QUESTION }),
   receiveQuestion: (id, question) => ({ type: types.RECEIVE_QUESTION, payload: { id, question } }),
 
-  fetchQuestion: id => dispatch => {
+  fetchQuestion: id => (dispatch) => {
     dispatch(actions.requestQuestion());
     return fetchSingleQuestion(id)
-      .then((question) => { dispatch(actions.receiveQuestion(id, question)) })
+      .then((question) => { dispatch(actions.receiveQuestion(id, question)); });
   },
 
   selectFirstOption: () => ({ type: types.SELECT_FIRST_OPTION }),
   selectSecondOption: () => ({ type: types.SELECT_SECOND_OPTION }),
 
-  incrementOptionVotes: (option, question) => dispatch => {
-    const field = option === 'first' ?
-      'firstOption' :
-      'secondOption';
+  incrementFirstOption: question => (dispatch) => {
+    dispatch(actions.selectFirstOption());
+    incrementQuestionVotes(question, 'firstOption');
+  },
 
-    switch (option) {
-      case 'first':
-        dispatch(actions.selectFirstOption());
-        break;
-      case 'second':
-        dispatch(actions.selectSecondOption());
-        break;
-    }
-
-    return incrementQuestionVotes(question, field);
+  incrementSecondOption: question => (dispatch) => {
+    dispatch(actions.selectSecondOption());
+    incrementQuestionVotes(question, 'secondOption');
   },
 
   nextQuestion: () => ({ type: types.NEXT_QUESTION }),
   prevQuestion: () => ({ type: types.PREV_QUESTION }),
 };
 
-export { types, actions }
+export { types, actions };

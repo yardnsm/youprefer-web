@@ -23,19 +23,19 @@ export default {
     transition: 'background cubic-bezier(0, 0, .2, 1) 100ms',
 
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.15)'
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
     },
 
     '&:active': {
-      backgroundColor: 'rgba(255, 255, 255, 0.25)'
+      backgroundColor: 'rgba(255, 255, 255, 0.25)',
     },
 
     '&.fullWidth': {
-      width: '100%'
+      width: '100%',
     },
 
     '&.hidden': {
-      visibility: 'hidden'
-    }
-  }
+      visibility: 'hidden',
+    },
+  },
 };

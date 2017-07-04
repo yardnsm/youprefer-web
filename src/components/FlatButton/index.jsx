@@ -4,21 +4,24 @@ import PropTypes from 'prop-types';
 import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 
-const FlatButton = ({ classes, text, fullWidth, hidden, handleClick }) =>
+const FlatButton = ({ classes, text, fullWidth, hidden, handleClick }) => (
   <button
     className={classNames(classes.flatButton, {
-      'fullWidth': fullWidth,
-      'hidden': hidden,
+      fullWidth,
+      hidden,
     })}
-    onClick={handleClick}>
+    onClick={handleClick}
+  >
     {text}
-  </button>;
+  </button>
+);
 
 FlatButton.propTypes = {
-  text: PropTypes.string,
-  fullWidth: PropTypes.bool,
-  hidden: PropTypes.bool,
-  handleClick: PropTypes.func
+  classes: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
+  fullWidth: PropTypes.bool.isRequired,
+  hidden: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default injectSheet(styles)(FlatButton);

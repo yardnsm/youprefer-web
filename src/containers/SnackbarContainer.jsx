@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 import Snackbar from '../components/Snackbar';
 
 const mapStateToProps = ({ ui: { snackbars } }) => ({
-  snackbars
+  snackbars,
 });
 
 const SnackbarContainer = ({ snackbars }) =>
-  <div>
+  (<div>
     {snackbars.map(({ id, message, action }) =>
-      <Snackbar
+      (<Snackbar
         key={id}
         message={message}
-        action={action} />
+        action={action}
+      />),
     )}
-  </div>;
+  </div>);
 
 SnackbarContainer.propTypes = {
-  snackbars: PropTypes.array
+  snackbars: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps)(SnackbarContainer);

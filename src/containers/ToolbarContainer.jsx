@@ -9,23 +9,23 @@ import IconButton from '../components/IconButton';
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  handleDrawerToggle: () => { dispatch(uiActions.toggleDrawer()) }
+  handleDrawerToggle: () => { dispatch(uiActions.toggleDrawer()); },
 });
 
 const ToolbarContainer = ({ handleDrawerToggle }) =>
-  <Toolbar
+  (<Toolbar
     rightElement={(
-      <IconButton iconClassName='menu' handleClick={handleDrawerToggle} />
+      <IconButton iconClassName="menu" handleClick={handleDrawerToggle} />
     )}
     leftElement={(
       <div>
-        <IconButton iconClassName='share' />
-        <IconButton iconClassName='settings' />
+        <IconButton iconClassName="share" />
       </div>
-    )}/>;
+    )}
+  />);
 
 ToolbarContainer.propTypes = {
-  handleDrawerToggle: PropTypes.func
+  handleDrawerToggle: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolbarContainer);

@@ -1,4 +1,4 @@
-const encode = val => window.btoa(val);
-const decode = hash => window.atob(hash);
+const encode = val => val ^ 1000;
+const decode = hash => hash ^ 1000;
 
 export { encode, decode };

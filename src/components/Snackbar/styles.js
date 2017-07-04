@@ -14,7 +14,7 @@ export default {
     '@media (max-width : 768px)': {
       width: '100%',
       left: 0,
-      transform: 'none'
+      transform: 'none',
     },
 
     '& span': {
@@ -23,7 +23,7 @@ export default {
       marginRight: 0,
       height: '48px',
       display: 'flex',
-      alignItems: 'center'
-    }
-  }
+      alignItems: 'center',
+    },
+  },
 };

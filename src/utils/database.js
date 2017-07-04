@@ -1,5 +1,11 @@
 import firebase from '../config/firebase';
 
+const fetchQuestionCount = () =>
+  firebase.database()
+    .ref('quest_packs/pack_1/count')
+    .once('value')
+    .then(snapshot => snapshot.val());
+
 const fetchSingleQuestion = id =>
   firebase.database()
     .ref(`quest_packs/pack_1/quests/${id}`)
@@ -13,4 +19,4 @@ const incrementQuestionVotes = ({ id, payload }, optionField) =>
       votes: payload[optionField].votes + 1,
     });
 
-export { fetchSingleQuestion, incrementQuestionVotes };
+export { fetchQuestionCount, fetchSingleQuestion, incrementQuestionVotes };

@@ -2,11 +2,10 @@ import { types } from '../actions/ui';
 
 const initialState = {
   drawerToggled: false,
-  snackbars: []
+  snackbars: [],
 };
 
 export default (state = initialState, action) => {
-
   const { payload } = action;
 
   switch (action.type) {
@@ -25,19 +24,19 @@ export default (state = initialState, action) => {
         snackbars: [{
           id: payload.id,
           text: payload.text,
-          action: payload.action
-        }, ...state.snackbars]
+          action: payload.action,
+        }, ...state.snackbars],
       };
 
     case types.REMOVE_SNACKBAR:
       return {
         ...state,
-        snackbars: state.snackbars.filter(e => e.id !== payload.id)
+        snackbars: state.snackbars.filter(e => e.id !== payload.id),
       };
 
     default:
       return state;
-  };
+  }
 };
 
-export { initialState }
+export { initialState };

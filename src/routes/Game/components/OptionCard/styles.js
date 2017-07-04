@@ -26,20 +26,20 @@ export default {
       '&::after': {
         top: '100% !important',
         left: '50% !important',
-        transform: 'translate(-50%, -38%) !important'
+        transform: 'translate(-50%, -38%) !important',
       },
 
       '&.second::after': {
         top: '0 !important',
         right: '50% !important',
-        transform: 'translate(50%, -62%) !important'
-      }
+        transform: 'translate(50%, -62%) !important',
+      },
     },
 
     '@media (max-width: 480px)': {
-      width: '90%'
+      width: '90%',
     },
-    
+
     // Hover effect
     '&::before': {
       position: 'absolute',
@@ -52,15 +52,15 @@ export default {
       opacity: 0,
       zIndex: 1,
       willChange: 'opacity',
-      transition: 'opacity cubic-bezier(0, 0, .2, 1) 700ms'
+      transition: 'opacity cubic-bezier(0, 0, .2, 1) 700ms',
     },
 
     '&:hover::before': {
-      opacity: 0.6
+      opacity: 0.6,
     },
 
     '&:active::before': {
-      opacity: 1
+      opacity: 1,
     },
 
     // When selected
@@ -69,7 +69,7 @@ export default {
       backgroundImage: 'url("assets/img/check_sign.png")',
       backgroundPosition: '10px 10px',
       backgroundSize: '40px',
-      backgroundRepeat: 'no-repeat'
+      backgroundRepeat: 'no-repeat',
     },
 
     // The 'sliced' shape
@@ -89,11 +89,11 @@ export default {
                   0px 1px 0px 1px rgba(255, 255, 255, 0.15),
                   0px 0px 0px 1px rgba(255, 255, 255, 0.1)`,
     },
-    
+
     // Colors
     '&.first': {
       backgroundColor: '#2196f3',
-      marginLeft: '10px'
+      marginLeft: '10px',
     },
 
     '&.second': {
@@ -106,7 +106,7 @@ export default {
         right: 0,
         transform: 'translate(62%, -50%)',
       },
-    }
+    },
   },
 
   optionCardInner: {
@@ -117,7 +117,7 @@ export default {
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    zIndex: 3
+    zIndex: 3,
   },
 
   // ----------------
@@ -125,18 +125,18 @@ export default {
   backPercentage: {
     fontSize: '3em',
     color: 'rgba(255, 255, 255, 0.85)',
-    textShadow: `0px 3px 40px rgba(0, 0, 0, 0.55)`,
-    marginBottom: '8px'
+    textShadow: '0px 3px 40px rgba(0, 0, 0, 0.55)',
+    marginBottom: '8px',
   },
 
   backVotes: {
     fontWeight: 300,
     letterSpacing: 1.5,
     fontSize: '0.75em',
-    marginBottom: '18px'
+    marginBottom: '18px',
   },
 
   backValue: {
-    letterSpacing: 1.5
-  }
+    letterSpacing: 1.5,
+  },
 };

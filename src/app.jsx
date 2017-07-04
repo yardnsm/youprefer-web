@@ -2,9 +2,10 @@ import React from 'react';
 import AppLayout from './layouts/AppLayout';
 import Routes from './routes';
 
-const App = () => 
+const App = () => (
   <AppLayout>
     <Routes />
-  </AppLayout>;
+  </AppLayout>
+);
 
 export default App;

@@ -12,11 +12,12 @@ const OptionCard = ({
   value,
   votes,
   percentage,
-  handleOptionSelect
-}) =>
+  handleOptionSelect,
+}) => (
   <div
     className={classNames(classes.optionCard, type, { selected })}
-    onClick={!showBack && (() => { handleOptionSelect(type) })}>
+    onClick={!showBack && (() => { handleOptionSelect(type); })}
+  >
     <div className={classes.optionCardInner}>
       {!showBack ?
         <span>{value}</span> :
@@ -24,18 +25,20 @@ const OptionCard = ({
           <div className={classes.backPercentage}>{`${percentage}%`}</div>
           <div className={classes.backVotes}>{`${votes} הצבעות`}</div>
           <div className={classes.backValue}>{value}</div>
-         </div>}
+        </div>}
     </div>
-  </div>;
+  </div>
+);
 
 OptionCard.propTypes = {
-  type: PropTypes.string,
-  showBack: PropTypes.bool,
-  selected: PropTypes.bool,
-  value: PropTypes.string,
-  votes: PropTypes.number,
-  percentage: PropTypes.number,
-  handleOptionSelect: PropTypes.func,
+  classes: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  showBack: PropTypes.bool.isRequired,
+  selected: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
+  votes: PropTypes.number.isRequired,
+  percentage: PropTypes.number.isRequired,
+  handleOptionSelect: PropTypes.func.isRequired,
 };
 
 export default injectSheet(styles)(OptionCard);

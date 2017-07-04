@@ -4,7 +4,7 @@ import injectSheet from 'jss-inject-sheet';
 import styles from './styles';
 
 const QuestionStats = ({ classes, questionId, totalVotes }) =>
-  <div className={classes.questionStatsCard}>
+  (<div className={classes.questionStatsCard}>
     <div className={classes.stat}>
       <i className="material-icons">poll</i>
       <span>{`${totalVotes} הצבעות`}</span>
@@ -14,11 +14,12 @@ const QuestionStats = ({ classes, questionId, totalVotes }) =>
       <i className="material-icons">link</i>
       <span>{`http://ypfr.co/q/${questionId}`}</span>
     </div>
-  </div>;
+  </div>);
 
 QuestionStats.propTypes = {
-  questionId: PropTypes.number,
-  totalVotes: PropTypes.number,
+  classes: PropTypes.object.isRequired,
+  questionId: PropTypes.number.isRequired,
+  totalVotes: PropTypes.number.isRequired,
 };
 
 export default injectSheet(styles)(QuestionStats);

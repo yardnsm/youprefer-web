@@ -10,37 +10,50 @@ import MenuItem from '../components/MenuItem';
 import Divider from '../components/Divider';
 
 const mapStateToProps = ({ ui: { drawerToggled } }) => ({
-  drawerToggled
+  drawerToggled,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDrawerClose: () => { dispatch(uiActions.hideDrawer()) }
+  handleDrawerClose: () => { dispatch(uiActions.hideDrawer()); },
 });
 
-const DrawerContainer = ({ drawerToggled, handleDrawerClose }) =>
+const DrawerContainer = ({ drawerToggled, handleDrawerClose }) => (
   <Drawer open={drawerToggled} handleDrawerClose={handleDrawerClose}>
     <DrawerHeader />
 
     <Menu>
-      <MenuItem iconClassName='send' text='הצע שאלות' handleClick={() => {
-        window.open('mailto:support@youprefer.co.il');
-      }} />
+      <MenuItem
+        iconClassName="send"
+        text="הצע שאלות"
+        handleClick={() => {
+          window.open('mailto:support@youprefer.co.il');
+        }}
+      />
 
-      <MenuItem iconClassName='get_app' text='הורד את האפליקציה' handleClick={() => {
+      <MenuItem
+        iconClassName="get_app"
+        text="הורד את האפליקציה"
+        handleClick={() => {
           window.open('https://play.google.com/store/apps/details?id=com.yardnsm.youprefer');
-        }} />
+        }}
+      />
 
       <Divider />
 
-      <MenuItem iconClassName='info' text='אודות' handleClick={() => {
-          console.log('tbd')
-        }}/>
+      <MenuItem
+        iconClassName="info"
+        text="אודות"
+        handleClick={() => {
+          // tbd
+        }}
+      />
     </Menu>
-  </Drawer>;
+  </Drawer>
+);
 
 DrawerContainer.propTypes = {
-  drawerToggled: PropTypes.bool,
-  handleDrawerClose: PropTypes.func
+  drawerToggled: PropTypes.bool.isRequired,
+  handleDrawerClose: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContainer);
