@@ -1,17 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import injectSheet from 'jss-inject-sheet';
-import styles from './styles';
+import styled from 'styled-components';
 
-const Menu = ({ classes, children }) => (
-  <nav className={classes.menu}>
-    {children}
-  </nav>
-);
+const Menu = styled.nav`
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5rem;
+`;
 
-Menu.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-export default injectSheet(styles)(Menu);
+export default Menu;

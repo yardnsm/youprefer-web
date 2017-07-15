@@ -7,8 +7,8 @@ const mapStateToProps = ({ ui: { snackbars } }) => ({
   snackbars,
 });
 
-const SnackbarContainer = ({ snackbars }) =>
-  (<div>
+const SnackbarContainer = ({ snackbars }) => (
+  <div>
     {snackbars.map(({ id, message, action }) =>
       (<Snackbar
         key={id}
@@ -16,7 +16,8 @@ const SnackbarContainer = ({ snackbars }) =>
         action={action}
       />),
     )}
-  </div>);
+  </div>
+);
 
 SnackbarContainer.propTypes = {
   snackbars: PropTypes.array.isRequired,

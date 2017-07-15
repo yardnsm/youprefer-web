@@ -25,7 +25,7 @@ const actions = {
   fetchQuestionCount: () => (dispatch) => {
     dispatch(actions.requestQuestionCount());
     return fetchQuestionCount()
-      .then((count) => { dispatch(actions.receiveQuestionCount(count)); })
+      .then((count) => { dispatch(actions.receiveQuestionCount(count)); });
   },
 
   requestQuestion: () => ({ type: types.REQUEST_QUESTION }),

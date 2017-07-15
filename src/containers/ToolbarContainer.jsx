@@ -6,25 +6,30 @@ import { actions as uiActions } from '../actions/ui';
 import Toolbar from '../components/Toolbar';
 import IconButton from '../components/IconButton';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({ game: { questions: { current } } }) => ({
+  currentQuestion: current
+});
 
 const mapDispatchToProps = dispatch => ({
   handleDrawerToggle: () => { dispatch(uiActions.toggleDrawer()); },
+  showShareDialog: () => { dispatch(uiActions.showShareDialog()); },
 });
 
-const ToolbarContainer = ({ handleDrawerToggle }) =>
-  (<Toolbar
+const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog }) => (
+  <Toolbar
     rightElement={(
       <IconButton iconClassName="menu" handleClick={handleDrawerToggle} />
     )}
-    leftElement={(
+    leftElement={currentQuestion && (
       <div>
-        <IconButton iconClassName="share" />
+        <IconButton iconClassName="share" handleClick={showShareDialog} />
       </div>
     )}
-  />);
+  />
+);
 
 ToolbarContainer.propTypes = {
+  currentQuestion: PropTypes.object.isRequired,
   handleDrawerToggle: PropTypes.func.isRequired,
 };
 

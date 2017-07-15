@@ -15,9 +15,10 @@ const mapStateToProps = ({ ui: { drawerToggled } }) => ({
 
 const mapDispatchToProps = dispatch => ({
   handleDrawerClose: () => { dispatch(uiActions.hideDrawer()); },
+  showAboutDialog: () => { dispatch(uiActions.showAboutDialog()); },
 });
 
-const DrawerContainer = ({ drawerToggled, handleDrawerClose }) => (
+const DrawerContainer = ({ drawerToggled, handleDrawerClose, showAboutDialog }) => (
   <Drawer open={drawerToggled} handleDrawerClose={handleDrawerClose}>
     <DrawerHeader />
 
@@ -44,7 +45,8 @@ const DrawerContainer = ({ drawerToggled, handleDrawerClose }) => (
         iconClassName="info"
         text="אודות"
         handleClick={() => {
-          // tbd
+          handleDrawerClose();
+          showAboutDialog();
         }}
       />
     </Menu>

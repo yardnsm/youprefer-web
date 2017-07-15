@@ -1,6 +1,4 @@
 import React from 'react';
-import injectSheet from 'jss-inject-sheet';
-import styles from './styles';
 
 const LoadingQuestions = () => (
   <div>
@@ -8,4 +6,4 @@ const LoadingQuestions = () => (
   </div>
 );
 
-export default injectSheet(styles)(LoadingQuestions);
+export default LoadingQuestions;

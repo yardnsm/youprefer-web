@@ -1,29 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'jss-inject-sheet';
+import styled from 'styled-components';
 import { encode } from '../../../utils/encode';
 
 import OptionCard from '../components/OptionCard';
 import OrCircle from '../components/OrCircle';
 import QuestionStats from '../components/QuestionStats';
 
-const styles = {
-  optionsContainer: {
-    display: 'flex',
-    position: 'relative',
+const OptionsContainer = styled.div`
+  display: flex;
+  position: relative;
 
-    '@media (max-width : 768px)': {
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-  },
-};
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 const calculateVotesPercentage = (votes, totalVotes, floorFunc) =>
   floorFunc(100 * (votes / totalVotes));
 
 const QuestionContainer = ({
-  classes,
   question,
   handleFirstOptionSelect,
   handleSecondOptionSelect,
@@ -43,7 +40,7 @@ const QuestionContainer = ({
 
   return (
     <div>
-      <div className={classes.optionsContainer}>
+      <OptionsContainer>
 
         <OptionCard
           type="first"
@@ -66,7 +63,7 @@ const QuestionContainer = ({
           percentage={secondOptionPercentage}
           handleOptionSelect={handleSecondOptionSelect}
         />
-      </div>
+      </OptionsContainer>
 
       <QuestionStats
         questionId={encode(id)}
@@ -77,10 +74,9 @@ const QuestionContainer = ({
 };
 
 QuestionContainer.propTypes = {
-  classes: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   handleFirstOptionSelect: PropTypes.func.isRequired,
   handleSecondOptionSelect: PropTypes.func.isRequired,
 };
 
-export default injectSheet(styles)(QuestionContainer);
+export default QuestionContainer;

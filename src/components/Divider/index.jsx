@@ -4,7 +4,7 @@ const Divider = styled.hr`
   height: 0;
   margin: 0;
   border: none;
-  borderBottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 `;
 
 export default Divider;

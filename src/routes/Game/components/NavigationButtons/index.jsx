@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'jss-inject-sheet';
-import styles from './styles';
+import styled from 'styled-components';
 import FlatButton from '../../../../components/FlatButton';
 
-const NavigationButtons = ({ classes, handlePrevClick, showPrev, handleNextClick, showNext }) => (
-  <div className={classes.navigationButtonsWrapper}>
+const NavigationButtonsWrapper = styled.div`
+  padding: 5px 20px;
+  margin: 20px;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+`;
+
+const NavigationButtons = ({ handlePrevClick, showPrev, handleNextClick, showNext }) => (
+  <NavigationButtonsWrapper>
     <FlatButton
       text={'אחורה'}
       handleClick={handlePrevClick}
@@ -19,15 +26,14 @@ const NavigationButtons = ({ classes, handlePrevClick, showPrev, handleNextClick
       fullWidth
       hidden={!showNext}
     />
-  </div>
+  </NavigationButtonsWrapper>
 );
 
 NavigationButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
   handlePrevClick: PropTypes.func.isRequired,
   showPrev: PropTypes.bool.isRequired,
   handleNextClick: PropTypes.func.isRequired,
   showNext: PropTypes.bool.isRequired,
 };
 
-export default injectSheet(styles)(NavigationButtons);
+export default NavigationButtons;

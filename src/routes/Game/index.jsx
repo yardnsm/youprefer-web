@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import injectSheet from 'jss-inject-sheet';
+import { connect } from 'react-redux';
 import { actions as gameActions } from '../../actions/game';
-import styles from './styles';
 import { encode, decode } from '../../utils/encode';
-import { generateRandomInteger } from '../../utils/random';
+import generateRandomInteger from '../../utils/random';
 
+import Title from './components/Title';
+import Wrapper from './components/Wrapper';
 import LoadingQuestions from './components/LoadingQuestions';
 import NavigationButtons from './components/NavigationButtons';
 import QuestionContainer from './containers/QuestionContainer';
@@ -26,20 +26,29 @@ const mapDispatchToProps = dispatch => ({
   goToPrevQuestion: () => { dispatch(gameActions.prevQuestion()); },
   goToNextQuestion: () => { dispatch(gameActions.nextQuestion()); },
 
-  fetchQuestionCount: () => { dispatch(gameActions.fetchQuestionCount()) },
+  fetchQuestionCount: () => { dispatch(gameActions.fetchQuestionCount()); },
   fetchQuestion: (id) => { dispatch(gameActions.fetchQuestion(id)); },
 
   incrementFirstOption: (question) => { dispatch(gameActions.incrementFirstOption(question)); },
   incrementSecondOption: (question) => { dispatch(gameActions.incrementSecondOption(question)); },
 });
 
+/*
+ * Just to be clear - we're relying in the history to swap
+ * questions. When the user presses the 'back' or 'forward'
+ * buttons to switch question, we're only changing the
+ * history state. Thanks to `react-router`, we can listen
+ * to history events and decide what to do next.
+ */
+
 class GamePage extends React.Component {
   constructor() {
     super();
 
+    // (ノಠ益ಠ)ノ
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
-    this.handleHistoryUpdate = this.handleHistoryUpdate.bind(this);
+    this.pushQuestionToHistory = this.pushQuestionToHistory.bind(this);
     this.fetchRandomQuestion = this.fetchRandomQuestion.bind(this);
     this.fetchQuestion = this.fetchQuestion.bind(this);
   }
@@ -61,7 +70,7 @@ class GamePage extends React.Component {
         prevQuestion,
         nextQuestion,
         goToPrevQuestion,
-        goToNextQuestion
+        goToNextQuestion,
       } = this.props;
 
       let { questionId } = match.params;
@@ -79,8 +88,11 @@ class GamePage extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { match, history, questionCount } = this.props;
 
+    // Check if we've got the question count
     if (questionCount !== nextProps.questionCount) {
       const { questionId } = match.params;
+
+      // Check if valid number
       if (questionId) {
         if (/^(\d)+$/.test(questionId)) {
           this.fetchQuestion(decode(parseInt(questionId, 10)));
@@ -97,22 +109,28 @@ class GamePage extends React.Component {
     this.unlistenForHistory();
   }
 
-  handlePrevQuestion() {
-    const { prevQuestion, goToPrevQuestion } = this.props;
+  // ------------------------------------------------
 
-    this.handleHistoryUpdate(prevQuestion.id);
-    goToPrevQuestion();
+  pushQuestionToHistory(id) {
+    this.props.history.push(`/${encode(id)}`);
+  }
+
+  handlePrevQuestion() {
+    const { prevQuestion, history } = this.props;
+
+    if (prevQuestion) {
+      history.goBack();
+    }
   }
 
   handleNextQuestion() {
-    const { nextQuestion, goToNextQuestion } = this.props;
+    const { nextQuestion, history } = this.props;
 
-    this.handleHistoryUpdate(nextQuestion.id);
-    goToNextQuestion();
-  }
-
-  handleHistoryUpdate(id) {
-    this.props.history.push(`/${encode(id)}`);
+    if (nextQuestion) {
+      history.goForward();
+    } else {
+      this.fetchRandomQuestion();
+    }
   }
 
   fetchRandomQuestion(questionCount = this.props.questionCount) {
@@ -121,22 +139,22 @@ class GamePage extends React.Component {
 
   fetchQuestion(id) {
     this.props.fetchQuestion(id);
-    this.handleHistoryUpdate(id);
+    this.pushQuestionToHistory(id);
   }
+
+  // ------------------------------------------------
 
   render() {
     const {
-      classes,
       currentQuestion,
       hasPrev,
-      hasNext,
       incrementFirstOption,
       incrementSecondOption,
     } = this.props;
 
     return (
-      <div className={classes.wrapper}>
-        <h2 className={classes.title}>מה אתה מעדיף?</h2>
+      <Wrapper>
+        <Title>מה אתה מעדיף?</Title>
 
         {currentQuestion ?
 
@@ -150,20 +168,31 @@ class GamePage extends React.Component {
         <NavigationButtons
           handlePrevClick={this.handlePrevQuestion}
           showPrev={hasPrev}
-          handleNextClick={hasNext ? this.handleNextQuestion : () => { this.fetchRandomQuestion() }}
+          handleNextClick={this.handleNextQuestion}
           showNext
         />
-      </div>
+      </Wrapper>
     );
   }
 }
 
 GamePage.propTypes = {
-  currentQuestion: PropTypes.object,
-  hasPrev: PropTypes.bool,
-  hasNext: PropTypes.bool,
+  questionCount: PropTypes.number.isRequired,
+  currentQuestion: PropTypes.object.isRequired,
+  prevQuestion: PropTypes.object.isRequired,
+  nextQuestion: PropTypes.object.isRequired,
+  hasPrev: PropTypes.bool.isRequired,
+  hasNext: PropTypes.bool.isRequired,
+
+  goToPrevQuestion: PropTypes.func.isRequired,
+  goToNextQuestion: PropTypes.func.isRequired,
+  fetchQuestionCount: PropTypes.func.isRequired,
+  fetchQuestion: PropTypes.func.isRequired,
+  incrementFirstOption: PropTypes.func.isRequired,
+  incrementSecondOption: PropTypes.func.isRequired,
+
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  injectSheet(styles)(GamePage),
-);
+export default connect(mapStateToProps, mapDispatchToProps)(GamePage);

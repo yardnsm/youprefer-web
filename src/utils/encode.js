@@ -1,3 +1,5 @@
+/* eslint-disable no-bitwise */
+
 const encode = val => val ^ 1000;
 const decode = hash => hash ^ 1000;
 
