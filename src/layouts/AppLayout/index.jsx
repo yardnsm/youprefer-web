@@ -35,6 +35,7 @@ const Container = styled.div`
 
   @media (max-width: 940px) {
     width: auto;
+    padding-top: 64px;
   }
 `;
 
@@ -43,14 +44,15 @@ const AppLayout = ({ children }) => (
 
     <ToolbarContainer />
     <DrawerContainer />
-    <AboutDialogContainer />
-    <ShareDialogContainer />
-
     <Container>
       {children}
     </Container>
 
     <SnackbarContainer />
+
+    <AboutDialogContainer />
+    <ShareDialogContainer />
+
   </Wrapper>
 );
 

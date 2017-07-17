@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { encode } from '../../../utils/encode';
+import { mask } from '../../../utils/mask';
 
 import OptionCard from '../components/OptionCard';
 import OrCircle from '../components/OrCircle';
@@ -66,7 +66,7 @@ const QuestionContainer = ({
       </OptionsContainer>
 
       <QuestionStats
-        questionId={encode(id)}
+        questionId={mask(id)}
         totalVotes={totalVotes}
       />
     </div>

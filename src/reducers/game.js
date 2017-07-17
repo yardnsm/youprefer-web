@@ -106,6 +106,17 @@ export default (state = initialState, action) => {
         },
       };
 
+    case types.REMOVE_CURRENT_QUESTION:
+      // prev[1,2] current(3) next[4,5,6] -->
+      // prev[1,2] current(null) next[4,5,6]
+      return {
+        ...state,
+        questions: {
+          ...state.questions,
+          current: null,
+        },
+      };
+
     default:
       return state;
   }

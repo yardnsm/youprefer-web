@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {
+  orCircleValue,
+} from '../../../../config/strings';
+
 const OrCircleWrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -22,7 +26,7 @@ const OrCircleWrapper = styled.div`
 
 const OrCircle = () => (
   <OrCircleWrapper>
-    <span>או</span>
+    <span>{orCircleValue}</span>
   </OrCircleWrapper>
 );
 

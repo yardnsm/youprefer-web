@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as uiActions } from '../actions/ui';
 
+import {
+  dialogClose,
+  gameTitle,
+  aboutDialogContents,
+} from '../config/strings';
+
 import Dialog from '../components/Dialog';
 import DrawerHeader from '../components/DrawerHeader';
 import DialogTitle from '../components/DialogTitle';
@@ -23,18 +29,14 @@ const AboutDialogContainer = ({ aboutDialogToggled, handleDialogClose }) => (
 
     <DrawerHeader height="100px" />
 
-    <DialogTitle>מה אתה מעדיף?</DialogTitle>
+    <DialogTitle>{gameTitle}</DialogTitle>
 
     <DialogContent>
-      <p>
-        <span>עיצוב, אפיון, קונספט ופיתוח ע"י</span>&nbsp;
-        <a href="http://yardnsm.net/" target="_blank">ירדן סוד-מוריה</a>.&nbsp;
-        <span>מטרת המשחק היא לבידור בלבד ואין במטרה לפגוע באף אחד.</span>
-      </p>
+      {aboutDialogContents()}
     </DialogContent>
 
     <DialogActions>
-      <FlatButton text="הבנתי" textColor="#000000" handleClick={handleDialogClose} />
+      <FlatButton text={dialogClose} textColor="#000000" handleClick={handleDialogClose} />
     </DialogActions>
 
   </Dialog>

@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as gameActions } from '../../actions/game';
-import { encode, decode } from '../../utils/encode';
+import { mask, unmask } from '../../utils/mask';
 import generateRandomInteger from '../../utils/random';
+import { isNumber } from '../../utils/validations';
 
-import Title from './components/Title';
+import {
+  gameTitle,
+} from '../../config/strings';
+
+import Title from '../../components/Title';
 import Wrapper from './components/Wrapper';
 import LoadingQuestions from './components/LoadingQuestions';
 import NavigationButtons from './components/NavigationButtons';
@@ -31,6 +36,8 @@ const mapDispatchToProps = dispatch => ({
 
   incrementFirstOption: (question) => { dispatch(gameActions.incrementFirstOption(question)); },
   incrementSecondOption: (question) => { dispatch(gameActions.incrementSecondOption(question)); },
+
+  removeCurrentQuestion: () => { dispatch(gameActions.removeCurrentQuestion()) },
 });
 
 /*
@@ -46,6 +53,7 @@ class GamePage extends React.Component {
     super();
 
     // (ノಠ益ಠ)ノ
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
     this.pushQuestionToHistory = this.pushQuestionToHistory.bind(this);
@@ -75,7 +83,7 @@ class GamePage extends React.Component {
 
       let { questionId } = match.params;
 
-      questionId = decode(parseInt(questionId, 10));
+      questionId = unmask(questionId);
 
       if (hasPrev && prevQuestion.id === questionId) {
         goToPrevQuestion();
@@ -83,10 +91,21 @@ class GamePage extends React.Component {
         goToNextQuestion();
       }
     });
+
+    // Nah.
+    // document.addEventListener('keydown', this.handleKeyDown, false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { match, history, questionCount } = this.props;
+    const { match, history, questionCount, removeCurrentQuestion } = this.props;
+
+    // Check if question shouldn't we available
+    if (nextProps.currentQuestion) {
+      if (!nextProps.currentQuestion.payload.isAvailable) {
+        removeCurrentQuestion();
+        this.fetchRandomQuestion();
+      }
+    }
 
     // Check if we've got the question count
     if (questionCount !== nextProps.questionCount) {
@@ -94,8 +113,8 @@ class GamePage extends React.Component {
 
       // Check if valid number
       if (questionId) {
-        if (/^(\d)+$/.test(questionId)) {
-          this.fetchQuestion(decode(parseInt(questionId, 10)));
+        if (isNumber(questionId) && unmask(questionId) <= nextProps.questionCount) {
+          this.fetchQuestion(unmask(questionId));
         } else {
           history.push('not-found');
         }
@@ -107,12 +126,25 @@ class GamePage extends React.Component {
 
   componentWillUnmount() {
     this.unlistenForHistory();
+    // document.removeEventListener('keydown', this.handleKeyDown, false);
   }
 
   // ------------------------------------------------
 
+  handleKeyDown(evt) {
+    switch (evt.keyCode) {
+      case 39: // left
+        this.handlePrevQuestion();
+        break;
+
+      case 37: // right
+        this.handleNextQuestion();
+        break;
+    }
+  }
+
   pushQuestionToHistory(id) {
-    this.props.history.push(`/${encode(id)}`);
+    this.props.history.push(`/${mask(id)}`);
   }
 
   handlePrevQuestion() {
@@ -138,8 +170,8 @@ class GamePage extends React.Component {
   }
 
   fetchQuestion(id) {
-    this.props.fetchQuestion(id);
     this.pushQuestionToHistory(id);
+    this.props.fetchQuestion(id);
   }
 
   // ------------------------------------------------
@@ -154,33 +186,33 @@ class GamePage extends React.Component {
 
     return (
       <Wrapper>
-        <Title>מה אתה מעדיף?</Title>
+        <Title>{gameTitle}</Title>
 
         {currentQuestion ?
-
-          <QuestionContainer
-            question={currentQuestion}
-            handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
-            handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
-          /> :
+          <div>
+            <QuestionContainer
+              question={currentQuestion}
+              handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
+              handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
+            />
+            <NavigationButtons
+              handlePrevClick={this.handlePrevQuestion}
+              showPrev={hasPrev}
+              handleNextClick={this.handleNextQuestion}
+              showNext
+            />
+          </div>:
           <LoadingQuestions />}
-
-        <NavigationButtons
-          handlePrevClick={this.handlePrevQuestion}
-          showPrev={hasPrev}
-          handleNextClick={this.handleNextQuestion}
-          showNext
-        />
       </Wrapper>
     );
   }
 }
 
 GamePage.propTypes = {
-  questionCount: PropTypes.number.isRequired,
-  currentQuestion: PropTypes.object.isRequired,
-  prevQuestion: PropTypes.object.isRequired,
-  nextQuestion: PropTypes.object.isRequired,
+  questionCount: PropTypes.number,
+  currentQuestion: PropTypes.object,
+  prevQuestion: PropTypes.object,
+  nextQuestion: PropTypes.object,
   hasPrev: PropTypes.bool.isRequired,
   hasNext: PropTypes.bool.isRequired,
 
@@ -190,6 +222,7 @@ GamePage.propTypes = {
   fetchQuestion: PropTypes.func.isRequired,
   incrementFirstOption: PropTypes.func.isRequired,
   incrementSecondOption: PropTypes.func.isRequired,
+  removeCurrentQuestion: PropTypes.func.isRequired,
 
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,

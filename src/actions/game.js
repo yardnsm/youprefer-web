@@ -16,6 +16,8 @@ const types = {
 
   NEXT_QUESTION: 'NEXT_QUESTION',
   PREV_QUESTION: 'PREV_QUESTION',
+
+  REMOVE_CURRENT_QUESTION: 'REMOVE_CURRENT_QUESTION',
 };
 
 const actions = {
@@ -52,6 +54,8 @@ const actions = {
 
   nextQuestion: () => ({ type: types.NEXT_QUESTION }),
   prevQuestion: () => ({ type: types.PREV_QUESTION }),
+
+  removeCurrentQuestion: () => ({ type: types.REMOVE_CURRENT_QUESTION }),
 };
 
 export { types, actions };

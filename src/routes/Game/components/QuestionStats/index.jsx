@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import {
+  rootUrl,
+  questionStatsVotes,
+} from '../../../../config/strings';
+
 const QuestionStatsWrapper = styled.div`
   padding: 25px 40px;
   margin: 20px;
@@ -15,6 +20,10 @@ const QuestionStatsWrapper = styled.div`
   box-shadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2),
               0px 2px 2px 0px rgba(0, 0, 0, 0.14),
               0px 1px 5px 0px rgba(0, 0, 0, 0.12)';
+
+  @media (max-width: 768px) {
+    margin: 5px 20px;
+  }
 `;
 
 const Stat = styled.div`
@@ -23,6 +32,12 @@ const Stat = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  ${props => props.hideOnMobile && `
+      @media (max-width: 768px) {
+        display: none;
+      }
+  `}
 
   & i.material-icons {
     width: 24px;
@@ -37,12 +52,12 @@ const QuestionStats = ({ questionId, totalVotes }) => (
   <QuestionStatsWrapper>
     <Stat>
       <i className="material-icons">poll</i>
-      <span>{`${totalVotes} הצבעות`}</span>
+      <span>{`${totalVotes} ${questionStatsVotes}`}</span>
     </Stat>
 
-    <Stat>
+    <Stat hideOnMobile>
       <i className="material-icons">link</i>
-      <span>{`http://youprefer.co.il/${questionId}`}</span>
+      <span>{`${rootUrl}/${questionId}`}</span>
     </Stat>
   </QuestionStatsWrapper>
 );

@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import {
+  optionCardVotes,
+} from '../../../../config/strings';
+
 const OptionCardWrapper = styled.div`
   padding: 15px 50px;
   margin: 20px;
@@ -27,7 +31,8 @@ const OptionCardWrapper = styled.div`
   /* Small devices, need to set properly for row aligning */
   @media (max-width: 768px) {
     margin: 10px !important;
-    width: 80%;
+    width: 90%;
+    max-height: 170px;
 
     /* Positioning the sliced shape based on type */
     &::after {
@@ -38,10 +43,6 @@ const OptionCardWrapper = styled.div`
         'translate(-50%, -38%)' :
         'translate(50%, -62%)'} !important;
     }
-  }
-
-  @media (max-width: 480px) {
-    width: 90%;
   }
 
   /* Hover effect */
@@ -115,6 +116,11 @@ const PercentageText = styled.div`
   color: rgba(255, 255, 255, 0.85);
   text-shadow: 0px 3px 40px rgba(0, 0, 0, 0.55);
   margin-bottom: 8px;
+
+  @media (max-width: 768px) {
+    font-size: 2.2em;
+    margin-bottom: 4px;
+  }
 `;
 
 const VotesText = styled.div`
@@ -122,6 +128,10 @@ const VotesText = styled.div`
   letter-spacing: 1.5px;
   font-size: 0.75em;
   margin-bottom: 18px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 8px;
+  }
 `;
 
 const ValueText = styled.div`

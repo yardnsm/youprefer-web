@@ -25,7 +25,7 @@ const IconButtonWrapper = styled.a`
 
   &:hover::before {
     opacity: 0.4;
-  },
+  }
 
   &:active::before {
     opacity: 1;

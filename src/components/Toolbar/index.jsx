@@ -23,6 +23,7 @@ const ToolbarRow = styled.div`
   width: 100%;
   height: auto;
   min-height: 64px;
+  max-height: 64px;
   padding: 20px 28px;
   padding-left: 16px;
   box-sizing: border-box;

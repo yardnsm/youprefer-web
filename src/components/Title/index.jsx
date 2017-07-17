@@ -5,6 +5,10 @@ const Title = styled.h2`
   display: block;
   text-align: center;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 1.8em;
+  }
 `;
 
 export default Title;

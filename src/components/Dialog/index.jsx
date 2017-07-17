@@ -54,7 +54,6 @@ const DialogInner = styled.div`
 const Dialog = ({ children, open, handleDialogClose }) => (
   <DialogWrapper toggled={open}>
     <DialogOverlay onClick={handleDialogClose} />
-
     <DialogInner>
       { children }
     </DialogInner>

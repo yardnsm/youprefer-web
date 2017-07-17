@@ -4,6 +4,13 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { actions as uiActions } from '../actions/ui';
 
+import {
+  blankUrl,
+  dialogClose,
+  shareDialogTitle,
+  shareButtonsUrl,
+} from '../config/strings';
+
 import Dialog from '../components/Dialog';
 import DialogTitle from '../components/DialogTitle';
 import DialogContent from '../components/DialogContent';
@@ -16,18 +23,9 @@ const ShareButtonsIframe = styled.iframe`
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 35vh;
+    height: 38vh;
   }
 `;
-
-// TODO: update
-const createIframeUrl = (currentQuestion) => {
-  if (!currentQuestion) {
-    return '';
-  }
-  console.log(currentQuestion)
-  return `/share-buttons.html?questionId=${currentQuestion.id}&text=${currentQuestion.payload.firstOption.value}`;
-};
 
 const mapStateToProps = ({ ui: { shareDialogToggled }, game: { questions } }) => ({
   shareDialogToggled,
@@ -38,31 +36,62 @@ const mapDispatchToProps = dispatch => ({
   handleDialogClose: () => { dispatch(uiActions.hideShareDialog()); },
 });
 
-const ShareDialogContainer = ({ shareDialogToggled, currentQuestion, handleDialogClose }) => (
-  <Dialog open={shareDialogToggled} handleDialogClose={handleDialogClose}>
+class ShareDialogContainer extends React.Component {
 
-    <DialogTitle>שתף שאלה</DialogTitle>
+  constructor() {
+    super();
 
-    <DialogContent>
-      <div>
-        <ShareButtonsIframe
-          src={createIframeUrl(currentQuestion)}
-          title="Share Buttons"
-          frameborder="0"
-          scrolling="no"
-        />
-      </div>
-    </DialogContent>
+    this.handleIframeLoad = this.handleIframeLoad.bind(this);
+  }
 
-    <DialogActions>
-      <FlatButton text="סגור" textColor="#000000" handleClick={handleDialogClose} />
-    </DialogActions>
+  handleIframeLoad(evt) {
+    const { currentQuestion } = this.props;
 
-  </Dialog>
-);
+    if (!currentQuestion) {
+      return;
+    }
+
+    const { id, payload: { firstOption, secondOption } } = currentQuestion;
+    const { location } = evt.target.contentWindow;
+
+    if (location.pathname === blankUrl) {
+      location.replace(shareButtonsUrl(id, firstOption.value, secondOption.value));
+    }
+  }
+
+  render () {
+
+    const { shareDialogToggled, currentQuestion, handleDialogClose } = this.props;
+
+    return (
+      <Dialog open={shareDialogToggled} handleDialogClose={handleDialogClose}>
+
+        <DialogTitle>{shareDialogTitle}</DialogTitle>
+
+        <DialogContent>
+          <div>
+            {currentQuestion && <ShareButtonsIframe
+              src={blankUrl}
+              title="Share Buttons"
+              frameborder="0"
+              scrolling="no"
+              onLoad={this.handleIframeLoad}
+            />}
+          </div>
+        </DialogContent>
+
+        <DialogActions>
+          <FlatButton text={dialogClose} textColor="#000000" handleClick={handleDialogClose} />
+        </DialogActions>
+
+      </Dialog>
+    );
+  }
+}
 
 ShareDialogContainer.propTypes = {
   shareDialogToggled: PropTypes.bool.isRequired,
+  currentQuestion: PropTypes.object,
   handleDialogClose: PropTypes.func.isRequired,
 };
 

@@ -20,16 +20,17 @@ const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog
     rightElement={(
       <IconButton iconClassName="menu" handleClick={handleDrawerToggle} />
     )}
-    leftElement={currentQuestion && (
+    leftElement={(
       <div>
-        <IconButton iconClassName="share" handleClick={showShareDialog} />
+        {currentQuestion &&
+          <IconButton iconClassName="share" handleClick={showShareDialog} />}
       </div>
     )}
   />
 );
 
 ToolbarContainer.propTypes = {
-  currentQuestion: PropTypes.object.isRequired,
+  currentQuestion: PropTypes.object,
   handleDrawerToggle: PropTypes.func.isRequired,
 };
 

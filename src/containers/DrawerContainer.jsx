@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as uiActions } from '../actions/ui';
 
+import {
+  sendQuestionsUrl,
+  androidAppUrl,
+  drawerSendQuestions,
+  drawerGetTheApp,
+  drawerAbout
+} from '../config/strings.jsx';
+
 import Drawer from '../components/Drawer';
 import DrawerHeader from '../components/DrawerHeader';
 import Menu from '../components/Menu';
@@ -25,17 +33,17 @@ const DrawerContainer = ({ drawerToggled, handleDrawerClose, showAboutDialog }) 
     <Menu>
       <MenuItem
         iconClassName="send"
-        text="הצע שאלות"
+        text={drawerSendQuestions}
         handleClick={() => {
-          window.open('mailto:support@youprefer.co.il');
+          window.open(sendQuestionsUrl);
         }}
       />
 
       <MenuItem
         iconClassName="get_app"
-        text="הורד את האפליקציה"
+        text={drawerGetTheApp}
         handleClick={() => {
-          window.open('https://play.google.com/store/apps/details?id=com.yardnsm.youprefer');
+          window.open(androidAppUrl);
         }}
       />
 
@@ -43,7 +51,7 @@ const DrawerContainer = ({ drawerToggled, handleDrawerClose, showAboutDialog }) 
 
       <MenuItem
         iconClassName="info"
-        text="אודות"
+        text={drawerAbout}
         handleClick={() => {
           handleDrawerClose();
           showAboutDialog();
