@@ -1,6 +1,17 @@
+# youprefer-web
+
+YouPrefer's webapp, built with react, redux and shit.
+
+## Run
+
+```console
+yarn
+yarn start
+```
+
 ## Recipes
 
-### HTTP and HTTPS simultaneously
+### HTTP and HTTPS simultaneously for local testing
 
 ```console
 sudo -v # run this first and enter password when prompted
