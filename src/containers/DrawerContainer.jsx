@@ -8,8 +8,8 @@ import {
   androidAppUrl,
   drawerSendQuestions,
   drawerGetTheApp,
-  drawerAbout
-} from '../config/strings.jsx';
+  drawerAbout,
+} from '../config/strings';
 
 import Drawer from '../components/Drawer';
 import DrawerHeader from '../components/DrawerHeader';
@@ -64,6 +64,7 @@ const DrawerContainer = ({ drawerToggled, handleDrawerClose, showAboutDialog }) 
 DrawerContainer.propTypes = {
   drawerToggled: PropTypes.bool.isRequired,
   handleDrawerClose: PropTypes.func.isRequired,
+  showAboutDialog: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContainer);

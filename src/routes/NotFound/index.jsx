@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import {
-  rootUrl,
   pageNotFoundTitle,
   pageNotFoundButton,
 } from '../../config/strings';
@@ -20,7 +19,7 @@ const NotFoundPage = ({ history }) => (
     <Title>{pageNotFoundTitle}</Title>
 
     <br />
-    
+
     <FlatButton
       text={pageNotFoundButton}
       handleClick={() => {
@@ -29,5 +28,9 @@ const NotFoundPage = ({ history }) => (
     />
   </Wrapper>
 );
+
+NotFoundPage.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default NotFoundPage;

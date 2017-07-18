@@ -59,8 +59,7 @@ class ShareDialogContainer extends React.Component {
     }
   }
 
-  render () {
-
+  render() {
     const { shareDialogToggled, currentQuestion, handleDialogClose } = this.props;
 
     return (
@@ -91,7 +90,7 @@ class ShareDialogContainer extends React.Component {
 
 ShareDialogContainer.propTypes = {
   shareDialogToggled: PropTypes.bool.isRequired,
-  currentQuestion: PropTypes.object,
+  currentQuestion: PropTypes.object.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
 };
 

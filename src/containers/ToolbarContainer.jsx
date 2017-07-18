@@ -7,7 +7,7 @@ import Toolbar from '../components/Toolbar';
 import IconButton from '../components/IconButton';
 
 const mapStateToProps = ({ game: { questions: { current } } }) => ({
-  currentQuestion: current
+  currentQuestion: current,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -30,8 +30,9 @@ const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog
 );
 
 ToolbarContainer.propTypes = {
-  currentQuestion: PropTypes.object,
+  currentQuestion: PropTypes.object.isRequired,
   handleDrawerToggle: PropTypes.func.isRequired,
+  showShareDialog: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolbarContainer);

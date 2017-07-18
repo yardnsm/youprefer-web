@@ -10,7 +10,7 @@ export const sendQuestionsUrl = `mailto:${sendQuestionsEmail}`;
 
 export const androidAppUrl = 'https://play.google.com/store/apps/details?id=com.yardnsm.youprefer';
 
-export const singleQuestionUrl = (questionId) =>
+export const singleQuestionUrl = questionId =>
   `${rootUrl}/${questionId}`;
 
 // Plain strings...

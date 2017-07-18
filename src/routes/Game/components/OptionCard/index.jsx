@@ -157,7 +157,7 @@ const OptionCard = ({
         <span>{value}</span> :
         <div>
           <PercentageText>{`${percentage}%`}</PercentageText>
-          <VotesText>{`${votes} הצבעות`}</VotesText>
+          <VotesText>{`${votes} ${optionCardVotes}`}</VotesText>
           <ValueText>{value}</ValueText>
         </div>}
     </OptionCardInner>

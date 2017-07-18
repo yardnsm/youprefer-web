@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   incrementFirstOption: (question) => { dispatch(gameActions.incrementFirstOption(question)); },
   incrementSecondOption: (question) => { dispatch(gameActions.incrementSecondOption(question)); },
 
-  removeCurrentQuestion: () => { dispatch(gameActions.removeCurrentQuestion()) },
+  removeCurrentQuestion: () => { dispatch(gameActions.removeCurrentQuestion()); },
 });
 
 /*
@@ -140,6 +140,9 @@ class GamePage extends React.Component {
       case 37: // right
         this.handleNextQuestion();
         break;
+
+      default:
+        break;
     }
   }
 
@@ -201,7 +204,7 @@ class GamePage extends React.Component {
               handleNextClick={this.handleNextQuestion}
               showNext
             />
-          </div>:
+          </div> :
           <LoadingQuestions />}
       </Wrapper>
     );
@@ -209,10 +212,10 @@ class GamePage extends React.Component {
 }
 
 GamePage.propTypes = {
-  questionCount: PropTypes.number,
-  currentQuestion: PropTypes.object,
-  prevQuestion: PropTypes.object,
-  nextQuestion: PropTypes.object,
+  questionCount: PropTypes.number.isRequired,
+  currentQuestion: PropTypes.object.isRequired,
+  prevQuestion: PropTypes.object.isRequired,
+  nextQuestion: PropTypes.object.isRequired,
   hasPrev: PropTypes.bool.isRequired,
   hasNext: PropTypes.bool.isRequired,
 

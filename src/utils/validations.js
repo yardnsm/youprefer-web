@@ -1,4 +1,4 @@
 const isNumber = val =>
   /^(\d)+$/.test(val);
 
-export { isNumber };
+export { isNumber }; // eslint-disable-line
