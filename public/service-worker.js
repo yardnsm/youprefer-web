@@ -7,6 +7,9 @@ const config = {
     'youprefer-statics-v1': [
       '/',
       '/index.html',
+      '/ayyy.html',
+      '/share-buttons.html',
+
       '/assets/css/reset.css',
       '/assets/img/check_sign.png',
       '/assets/img/lighting_overlay.png',

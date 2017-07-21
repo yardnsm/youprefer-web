@@ -41,7 +41,7 @@ class App extends React.Component {
 
         setTimeout(() => {
           progressIndicatorElem.outerHTML = '';
-        }, 2000);
+        }, 1500);
       }, 1000);
     }
   }

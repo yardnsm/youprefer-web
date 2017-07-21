@@ -38,10 +38,10 @@ export const aboutDialogContents = () => (
 export const shareDialogTitle = 'שתף שאלה';
 
 export const shareText = (firstOption, secondOption) =>
-  `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? הורד עכשיו את האפליקציה בחנות האפליקציות! ${rootUrl}`;
+  `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 
 export const shareButtonsUrl = (questionId, firstOption, secondOption) =>
-  `/share-buttons.html?questionId=${questionId}&text=${shareText(firstOption, secondOption)}`;
+  `/share-buttons.html?questionId=${questionId}&text=${shareText(firstOption, secondOption)}&baseUrl=${rootUrl}`;
 
 // Navigation buttons
 export const navigationButtonsPrev = 'אחורה';

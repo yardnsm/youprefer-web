@@ -244,6 +244,7 @@
         <a class="resp-sharing-button__link"
           id="whatsapp"
           href="whatsapp://send?text=yyyy%20xxxx"
+          data-action="share/whatsapp/share"
           target="_blank"
           rel="noopener"
           aria-label="Share on WhatsApp">
@@ -306,7 +307,7 @@
         config.selectors.forEach(selector => {
           const elem = document.querySelector(selector);
           elem.href = elem.href.replace(config.textRegexp, options.text)
-          elem.href = elem.href.replace(config.urlRegexp, options.questionId)
+          elem.href = elem.href.replace(config.urlRegexp, options.baseUrl + '/' + options.questionId)
         });
       })();
 

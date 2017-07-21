@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { actions as uiActions } from '../actions/ui';
+import { mask } from '../utils/mask';
 
 import {
   blankUrl,
@@ -55,7 +56,7 @@ class ShareDialogContainer extends React.Component {
     const { location } = evt.target.contentWindow;
 
     if (location.pathname === blankUrl) {
-      location.replace(shareButtonsUrl(id, firstOption.value, secondOption.value));
+      location.replace(shareButtonsUrl(mask(id), firstOption.value, secondOption.value));
     }
   }
 
