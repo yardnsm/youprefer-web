@@ -1,5 +1,9 @@
 # humanstxt.org/
 
+#
+# This is probably outdated
+#
+
 # TEAM
 
   Yarden Sod-Moriah -- Owner -- @yardnsm
@@ -11,4 +15,4 @@
 # TECHNOLOGY COLOPHON
 
   CSS3, HTML5
-  React, Redux, React Router, JSS, Firebase
+  React, Redux, React Router, styled-components, Firebase

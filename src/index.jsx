@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
+import { register as registerServiceWorker } from './registerServiceWorker';
 import store from './store';
 import App from './app';
 
@@ -18,6 +19,7 @@ const render = (Component) => {
 };
 
 render(App);
+registerServiceWorker();
 
 // Support for HMR
 if (module.hot) {

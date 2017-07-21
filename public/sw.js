@@ -4,13 +4,13 @@ const assetsHash = 'xxxxxx';
 
 const config = {
   caches: {
-    'youprefer-statics-v1': [
-      '/',
-      '/index.html',
-      '/ayyy.html',
-      '/share-buttons.html',
+    'youprefer-statics-v2': [
 
       '/assets/css/reset.css',
+
+      '/assets/html/ayyy.html',
+      '/assets/html/share-buttons.html',
+
       '/assets/img/check_sign.png',
       '/assets/img/lighting_overlay.png',
       '/assets/img/question_circle.png',
@@ -18,6 +18,9 @@ const config = {
 
       `/assets/main.bundle.${assetsHash}.js`,
       `/assets/vendor.bundle.${assetsHash}.js`,
+
+      '/index.html',
+      '/',
     ],
   },
 

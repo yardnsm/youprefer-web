@@ -4,7 +4,8 @@ import React from 'react';
 export const appName = 'YouPrefer';
 export const version = 'v0.1.7beta';
 export const rootUrl = 'https://youprefer.co.il';
-export const blankUrl = '/ayyy.html';
+export const blankUrl = '/assets/html/ayyy.html';
+export const serviceWorkerUrl = '/sw.js';
 
 export const sendQuestionsEmail = 'support@youprefer.co.il';
 export const sendQuestionsUrl = `mailto:${sendQuestionsEmail}`;
@@ -41,7 +42,7 @@ export const shareText = (firstOption, secondOption) =>
   `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 
 export const shareButtonsUrl = (questionId, firstOption, secondOption) =>
-  `/share-buttons.html?questionId=${questionId}&text=${shareText(firstOption, secondOption)}&baseUrl=${rootUrl}`;
+  `/assets/html/share-buttons.html?questionId=${questionId}&text=${shareText(firstOption, secondOption)}&baseUrl=${rootUrl}`;
 
 // Navigation buttons
 export const navigationButtonsPrev = 'אחורה';
