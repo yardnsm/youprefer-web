@@ -10,7 +10,7 @@ const DrawerHeaderWrapper = styled.div`
   overflow: hidden;
 `;
 
-const DrawerHeaderInner = styled.div`
+const DrawerHeaderBackground = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -46,10 +46,23 @@ const QuestionCircleImg = styled.img`
   height: 80px;
 `;
 
+const DrawerHeaderRibbon = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  background-color: #990000;
+  transform: rotate(-45deg) translate(-25%, -50%);
+  padding: 10px 50px;
+  color: #ffffff;
+`;
+
 const DrawerHeader = ({ height }) => (
   <DrawerHeaderWrapper height={height}>
-    <DrawerHeaderInner />
+    <DrawerHeaderBackground />
     <QuestionCircleImg src="assets/img/question_circle.png" alt="logo" />
+
+    <DrawerHeaderRibbon>BETA</DrawerHeaderRibbon>
   </DrawerHeaderWrapper>
 );
 

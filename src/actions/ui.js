@@ -11,8 +11,6 @@ const types = {
 
   ADD_SNACKBAR: 'ADD_SNACKBAR',
   REMOVE_SNACKBAR: 'REMOVE_SNACKBAR',
-  
-  UPDATE_ONLINE_STATE: 'UPDATE_ONLINE_STATE',
 };
 
 const actions = {
@@ -46,8 +44,6 @@ const actions = {
       dispatch(actions.removeSnackbar(id));
     }, duration);
   },
-
-  updateOnlineState: isOnline => ({ type: types.UPDATE_ONLINE_STATE, payload: { isOnline } }),
 };
 
 export { types, actions };

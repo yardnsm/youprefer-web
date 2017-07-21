@@ -8,9 +8,9 @@ const FlatButtonElem = styled.button`
   will-change: background;
   display: inline-block;
   position: relative;
-  height: 46px;
-  padding: 0 26px;
-  margin: 0 10px;
+  height: ${props => props.compact ? 'auto' : '46px'};
+  padding: ${props => props.compact ? '5px 20px' : '0 26px'};
+  margin: ${props => props.compact ? '0' : '0 10px'};
   border: none;
   border-radius: 2px;
   outline: none;
@@ -37,12 +37,13 @@ const FlatButtonElem = styled.button`
   }
 `;
 
-const FlatButton = ({ text, fullWidth, textColor, hidden, handleClick }) => (
+const FlatButton = ({ text, fullWidth, textColor, hidden, handleClick, compact }) => (
   <FlatButtonElem
     fullWidth={fullWidth}
     textColor={textColor}
     hidden={hidden}
     onClick={handleClick}
+    compact={compact}
   >
     {text}
   </FlatButtonElem>
@@ -54,12 +55,14 @@ FlatButton.propTypes = {
   textColor: PropTypes.string,
   hidden: PropTypes.bool,
   handleClick: PropTypes.func.isRequired,
+  compact: PropTypes.bool.isRequired,
 };
 
 FlatButton.defaultProps = {
   fullWidth: false,
   textColor: '#ffffff',
   hidden: false,
+  compact: false,
 };
 
 export default FlatButton;

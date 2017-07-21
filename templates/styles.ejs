@@ -1,0 +1,128 @@
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/reset.css" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Heebo:300,400,500,700&amp;subset=hebrew" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- CSS for the loader -->
+<style type="text/css">
+.youprefer-progress-indicator {
+  background-color: #f5f5f5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity cubic-bezier(.4, 0, .2, 1) 436ms;
+  z-index: 99999999999; /* lolz */
+}
+
+.youprefer-progress-indicator.available {
+  opacity: 0;
+}
+
+.youprefer-progress-indicator-bg {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-30deg) scale(3);
+}
+
+.youprefer-progress-indicator-bg::before,
+.youprefer-progress-indicator-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+}
+
+.youprefer-progress-indicator-bg::before {
+  background-color: #2196f3;
+  left: 0;
+}
+
+.youprefer-progress-indicator-bg::after {
+  background-color: #f44336;
+  right: 0;
+}
+
+.youprefer-progress-indicator-head {
+  background-color: #c6dafc;
+  height: 4px;
+  overflow: hidden;
+  position: relative;
+  z-index: 7;
+}
+
+.youprefer-progress-indicator-head .first-indicator,
+.youprefer-progress-indicator-head .second-indicator {
+  background-color: #056D8B;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.youprefer-progress-indicator-head .first-indicator {
+  animation: first-indicator-anim 2000ms linear infinite;
+}
+
+.youprefer-progress-indicator-head .second-indicator {
+  animation: second-indicator-anim 2000ms linear infinite;
+}
+
+@keyframes first-indicator-anim {
+  0% {
+    transform: translate(0%) scaleX(0);
+  }
+  25% {
+    transform: translate(0%) scaleX(0.5);
+  }
+  50% {
+    transform: translate(25%) scaleX(0.75);
+  }
+  75% {
+    transform: translate(100%) scaleX(0);
+  }
+  100% {
+    transform: translate(100%) scaleX(0);
+  }
+}
+
+@keyframes second-indicator-anim {
+  0% {
+    transform: translate(0%) scaleX(0);
+  }
+  60% {
+    transform: translate(0%) scaleX(0);
+  }
+  80% {
+    transform: translate(0%) scaleX(0.6);
+  }
+  100% {
+    transform: translate(100%) scaleX(0.1);
+  }
+}
+
+.youprefer-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadein 436ms;
+  height: 98%;
+  position: relative;
+  z-index: 5;
+}
+
+.youprefer-logo-frame .youprefer-logo-frame-img {
+  width: 100px;
+  height: 100px;
+}
+</style>

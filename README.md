@@ -9,6 +9,15 @@ yarn
 yarn start
 ```
 
+## Deploy
+
+:warning: **Important:** you should open `./dist/service-worker.js` and update the `assetsHash` variable accordingly.
+
+```console
+yarn run clean && yarn build
+firebase deploy
+```
+
 ## Recipes
 
 ### HTTP and HTTPS simultaneously for local testing

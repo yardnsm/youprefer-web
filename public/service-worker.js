@@ -1,5 +1,7 @@
 /* eslint comma-dangle: "off" */
 
+const assetsHash = 'xxxxxx';
+
 const config = {
   caches: {
     'youprefer-statics-v1': [
@@ -10,7 +12,9 @@ const config = {
       '/assets/img/lighting_overlay.png',
       '/assets/img/question_circle.png',
       '/assets/img/question_mark_broken.png',
-      '/assets/bundle.js',
+
+      `/assets/main.bundle.${assetsHash}.js`,
+      `/assets/vendor.bundle.${assetsHash}.js`,
     ],
   },
 

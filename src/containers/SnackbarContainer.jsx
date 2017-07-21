@@ -9,13 +9,13 @@ const mapStateToProps = ({ ui: { snackbars } }) => ({
 
 const SnackbarContainer = ({ snackbars }) => (
   <div>
-    {snackbars.map(({ id, message, action }) =>
-      (<Snackbar
+    {snackbars.reverse().map(({ id, message, action }) => (
+      <Snackbar
         key={id}
         message={message}
         action={action}
-      />),
-    )}
+      />
+    ))}
   </div>
 );
 

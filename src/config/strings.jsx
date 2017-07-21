@@ -1,7 +1,8 @@
 import React from 'react';
 
+// App settings
 export const appName = 'YouPrefer';
-export const version = '0.0.1';
+export const version = 'v0.1.7beta';
 export const rootUrl = 'https://youprefer.co.il';
 export const blankUrl = '/ayyy.html';
 
@@ -13,8 +14,10 @@ export const androidAppUrl = 'https://play.google.com/store/apps/details?id=com.
 export const singleQuestionUrl = questionId =>
   `${rootUrl}/${questionId}`;
 
-// Plain strings...
+// Plain strings
 export const gameTitle = 'מה אתה מעדיף?';
+export const connectedToServer = 'מחובר לשרת';
+export const disconnectedFromServer = 'מנותק מהשרת';
 export const dialogClose = 'סגור';
 
 // Drawer stuff
@@ -25,8 +28,8 @@ export const drawerAbout = 'אודות';
 // About dialog
 export const aboutDialogContents = () => (
   <p>
-    <span>עיצוב, אפיון, קונספט ופיתוח ע"י</span>&nbsp;
-    <a href="http://yardnsm.net/" target="_blank">ירדן סוד-מוריה</a>.&nbsp;
+    <span>עיצוב, אפיון, קונספט ופיתוח ע&quot;י</span>&nbsp;
+    <a href="http://yardnsm.net/" target="_blank" rel="noopener noreferrer">ירדן סוד-מוריה</a>.&nbsp;
     <span>מטרת המשחק היא לבידור בלבד ואין במטרה לפגוע באף אחד.</span>
   </p>
 );

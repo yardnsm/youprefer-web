@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+  <head>
+    <meta charset="UTF-8">
+    
+    <%= require('html-loader!./meta.ejs') %>
+    <%= require('html-loader!./styles.ejs') %>
+  </head>
+
+  <body>
+
+    <%= require('html-loader!./loader.ejs') %>
+
+    <!-- App Container -->
+    <div id="root">
+      
+    </div>
+
+    <noscript>
+      You need to enable JavaScript!
+    </noscript>
+
+    <%= require('html-loader!./scripts.ejs') %>
+  </body>
+</html>

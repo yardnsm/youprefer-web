@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { actions as uiActions } from '../actions/ui';
 
 import {
+  version,
   dialogClose,
   gameTitle,
   aboutDialogContents,
@@ -33,6 +34,9 @@ const AboutDialogContainer = ({ aboutDialogToggled, handleDialogClose }) => (
 
     <DialogContent>
       {aboutDialogContents()}
+
+      <br />
+      <em>{version}</em>
     </DialogContent>
 
     <DialogActions>

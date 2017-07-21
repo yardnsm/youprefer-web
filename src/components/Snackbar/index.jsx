@@ -1,32 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+import FlatButton from '../FlatButton';
+
+const snackbarEnterAnim = keyframes`
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+`;
+
+const snackbarEnterAnimMobile = keyframes`
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 const SnackbarWrapper = styled.div`
   display: flex;
   position: fixed;
   bottom: 0;
   left: 50%;
-  alignItems: center;
-  justifyContent: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0 24px;
-  backgroundColor: #323232;
-  minWidth: 568px;
+  background-color: #323232;
+  min-width: 568px;
   transform: translateX(-50%);
 
+  animation: ${snackbarEnterAnim} 200ms cubic-bezier(0, 0, .2, 1);
+
   @media (max-width: 768px) {
-    width: 100%;
     left: 0;
+    right: 0;
+    min-width: auto;
     transform: none;
+
+    animation: ${snackbarEnterAnimMobile} 200ms cubic-bezier(0, 0, .2, 1);
   }
 
   & span {
-    fontSize: 0.875rem;
-    marginLeft: auto;
-    marginRight: 0;
+    font-size: 0.875rem;
+    margin-left: auto;
+    margin-right: 0;
     height: 48px;
     display: flex;
-    alignItems: center;
+    align-items: center;
   }
 `;
 
@@ -35,9 +66,11 @@ const Snackbar = ({ message, action }) => (
     <span>{message}</span>
 
     {action.text && (
-      <a onClick={action.callback} role="button" tabIndex={0}>
-        {action.text}
-      </a>
+      <FlatButton
+        text={action.text}
+        handleClick={action.callback}
+        compact
+      />
     )}
   </SnackbarWrapper>
 );
@@ -50,4 +83,4 @@ Snackbar.propTypes = {
   }).isRequired,
 };
 
-export default SnackbarWrapper;
+export default Snackbar;
