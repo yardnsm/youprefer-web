@@ -48,13 +48,14 @@
     <script src="/assets/bundle.js"></script>
 
     <script type="text/javascript">
+      // Register service worker
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(function(registration) {
-            console.log('Service worker registered with scope', registration.scope);
-          }).catch(function(err) {
-            console.log('Service worker failed to install!', err);
-          });
+        // navigator.serviceWorker.register('service-worker.js')
+        //   .then(function(registration) {
+        //     console.log('Service worker registered with scope', registration.scope);
+        //   }).catch(function(err) {
+        //     console.log('Service worker failed to install!', err);
+        //   });
       }
     </script>
 

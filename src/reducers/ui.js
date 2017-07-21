@@ -5,6 +5,7 @@ const initialState = {
   aboutDialogToggled: false,
   shareDialogToggled: false,
   snackbars: [],
+  isOnline: true,
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +47,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         snackbars: state.snackbars.filter(e => e.id !== payload.id),
+      };
+
+    case types.UPDATE_ONLINE_STATE:
+      return {
+        ...state,
+        isOnline: payload.isOnline
       };
 
     default:

@@ -85,4 +85,6 @@ const prod = {
 
 // ------------------------------------------
 
-export default isProduction ? prod : dev;
+export default isProduction ?
+  prod :
+  dev;
