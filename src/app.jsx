@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.updateConnectionStatus = this.updateConnectionStatus.bind(this);
   }

@@ -59,11 +59,11 @@ export default {
       minify: {
         minifyCSS: true,
         minifyJS: true,
-      }
+      },
     }),
 
     new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer'
+      defaultAttribute: 'defer',
     }),
   ],
 

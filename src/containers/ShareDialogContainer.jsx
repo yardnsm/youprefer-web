@@ -39,8 +39,8 @@ const mapDispatchToProps = dispatch => ({
 
 class ShareDialogContainer extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleIframeLoad = this.handleIframeLoad.bind(this);
   }

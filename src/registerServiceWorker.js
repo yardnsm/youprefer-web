@@ -7,16 +7,16 @@ export const register = () => {
         .then((registration) => {
           console.log('Service worker registered with scope', registration.scope);
         }).catch((err) => {
-          console.error('Error during service worker registration:', error);
+          console.error('Error during service worker registration:', err);
         });
     });
   }
-}
+};
 
 export const unregister = () => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
+    navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }
-}
+};

@@ -11,6 +11,7 @@ import {
 } from '../../config/strings';
 
 import Title from '../../components/Title';
+import AdsenseAdContainer from '../../containers/AdsenseAdContainer';
 import Wrapper from './components/Wrapper';
 import LoadingQuestions from './components/LoadingQuestions';
 import NavigationButtons from './components/NavigationButtons';
@@ -49,8 +50,8 @@ const mapDispatchToProps = dispatch => ({
  */
 
 class GamePage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // (ノಠ益ಠ)ノ
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -206,6 +207,8 @@ class GamePage extends React.Component {
             />
           </div> :
           <LoadingQuestions />}
+
+        <AdsenseAdContainer />
       </Wrapper>
     );
   }

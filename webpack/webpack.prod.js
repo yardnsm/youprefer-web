@@ -9,7 +9,7 @@ export default merge(commonConfig, {
 
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'public' }
+      { from: 'public' },
     ]),
   ],
 });
