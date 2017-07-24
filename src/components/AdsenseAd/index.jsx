@@ -8,7 +8,8 @@ const AdWrapper = styled.div`
 `;
 
 const Ad = styled.ins`
-  display: block;
+  display: inline-block;
+  min-width:400px;max-width:970px;width:100%;height:90px
 `;
 
 class AdsenseAd extends React.Component {

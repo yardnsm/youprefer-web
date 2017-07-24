@@ -22,7 +22,7 @@ const QuestionStatsWrapper = styled.div`
               0px 1px 5px 0px rgba(0, 0, 0, 0.12)';
 
   @media (max-width: 768px) {
-    margin: 5px 20px;
+    display: none;
   }
 `;
 
@@ -32,12 +32,6 @@ const Stat = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
-  ${props => props.hideOnMobile && `
-      @media (max-width: 768px) {
-        display: none;
-      }
-  `}
 
   & i.material-icons {
     width: 24px;
@@ -55,7 +49,7 @@ const QuestionStats = ({ questionId, totalVotes }) => (
       <span>{`${totalVotes} ${questionStatsVotes}`}</span>
     </Stat>
 
-    <Stat hideOnMobile>
+    <Stat>
       <i className="material-icons">link</i>
       <span>{`${rootUrl}/${questionId}`}</span>
     </Stat>
