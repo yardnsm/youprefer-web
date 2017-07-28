@@ -5,11 +5,16 @@ import styled from 'styled-components';
 const AdWrapper = styled.div`
   margin-top: 15px;
   margin-bottom: 20px;
+  overflow: hidden;
 `;
 
 const Ad = styled.ins`
   display: inline-block;
-  min-width:400px;max-width:970px;width:100%;height:90px
+  width: 320px;
+  height: 100px;
+
+  @media(min-width: 500px) { width: 468px; height: 60px; }
+  @media(min-width: 800px) { width: 728px; height: 90px; }
 `;
 
 class AdsenseAd extends React.Component {

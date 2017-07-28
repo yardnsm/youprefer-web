@@ -15,6 +15,8 @@ injectGlobal`
     font-family: "Heebo", sans-serif;
     direction: rtl;
     box-sizing: border-box;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 `;
 
