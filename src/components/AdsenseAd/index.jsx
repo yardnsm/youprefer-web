@@ -9,7 +9,9 @@ const AdWrapper = styled.div`
 `;
 
 const Ad = styled.ins`
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
+
   width: 320px;
   height: 100px;
 
