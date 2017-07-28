@@ -13,10 +13,17 @@ const Ad = styled.ins`
   margin: 0 auto;
 
   width: 320px;
-  height: 100px;
+  height: 60px;
 
-  @media(min-width: 500px) { width: 468px; height: 60px; }
-  @media(min-width: 800px) { width: 728px; height: 90px; }
+  @media(min-width: 800px) {
+    width: 728px;
+    height: 60px;
+  }
+
+  @media(min-width: 500px) {
+    width: 468px;
+    height: 60px;
+  }
 `;
 
 class AdsenseAd extends React.Component {
