@@ -14,9 +14,7 @@ const fetchSingleQuestion = id =>
 
 const incrementQuestionVotes = ({ id, payload }, optionField) =>
   firebase.database()
-    .ref(`quest_packs/pack_1/quests/${id}/${optionField}`)
-    .update({
-      votes: payload[optionField].votes + 1,
-    });
+    .ref(`quest_packs/pack_1/quests/${id}/${optionField}/votes`)
+    .transaction(votes => votes + 1);
 
 export { fetchQuestionCount, fetchSingleQuestion, incrementQuestionVotes };
