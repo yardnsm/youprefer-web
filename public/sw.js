@@ -4,7 +4,7 @@ const assetsHash = 'xxxxxx';
 
 const config = {
   caches: {
-    'youprefer-statics-v4': [
+    'youprefer-statics-v5': [
 
       '/assets/css/reset.css',
 
@@ -16,8 +16,8 @@ const config = {
       '/assets/img/question_circle.png',
       '/assets/img/question_mark_broken.png',
 
-      `/assets/main.bundle.${assetsHash}.js`,
-      `/assets/vendor.bundle.${assetsHash}.js`,
+      `/main.bundle.${assetsHash}.js`,
+      `/vendor.bundle.${assetsHash}.js`,
 
       '/index.html',
       '/',
@@ -54,11 +54,14 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  // Send the index page when needed
   if (url.origin === location.origin && url.pathname === '/') {
     event.respondWith(caches.match(config.indexPage));
     return;
   }
 
+  // For every request, try to pull
+  // it from the cache, fallback to network
   event.respondWith(
     caches.match(event.request)
     .then(response => response || fetch(event.request))
