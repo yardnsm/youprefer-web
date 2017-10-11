@@ -92,6 +92,10 @@ export const orCircleValue = 'או';
 // Question stats
 export const questionStatsVotes = 'הצבעות';
 
+// Copy text
+export const clickToCopy = 'לחץ להעתקה';
+export const copiedToClipboard = 'הועתק ללוח';
+
 // Not found page
 export const pageNotFoundTitle = 'הדף שביקשת איננו קיים!';
 export const pageNotFoundButton = 'לדף הבית';

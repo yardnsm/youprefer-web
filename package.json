@@ -24,6 +24,7 @@
     "polished": "^1.8.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^15.5.4",
     "react-hot-loader": "next",
     "react-redux": "^5.0.5",

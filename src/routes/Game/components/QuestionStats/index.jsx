@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import Tooltip from '../../../../components/Tooltip';
 
 import {
   rootUrl,
   questionStatsVotes,
+  clickToCopy,
+  copiedToClipboard,
 } from '../../../../config/strings';
 
 const QuestionStatsWrapper = styled.div`
@@ -42,19 +47,66 @@ const Stat = styled.div`
   }
 `;
 
-const QuestionStats = ({ questionId, totalVotes }) => (
-  <QuestionStatsWrapper>
-    <Stat>
-      <i className="material-icons">poll</i>
-      <span>{`${totalVotes} ${questionStatsVotes}`}</span>
-    </Stat>
+const Clickable = styled.div`
+  cursor: pointer;
+`;
 
-    <Stat>
-      <i className="material-icons">link</i>
-      <span>{`${rootUrl}/${questionId}`}</span>
-    </Stat>
-  </QuestionStatsWrapper>
-);
+class QuestionStats extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      copied: false,
+    };
+
+    this.getQuestionUrl = this.getQuestionUrl.bind(this);
+    this.handleCopyClick = this.handleCopyClick.bind(this);
+  }
+
+  getQuestionUrl() {
+    return `${rootUrl}/${this.props.questionId}`;
+  }
+
+  handleCopyClick() {
+    this.setState({
+      copied: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        copied: false,
+      });
+    }, 3000);
+  }
+
+  render() {
+    const { totalVotes } = this.props;
+    const { copied } = this.state;
+
+    return (
+      <QuestionStatsWrapper>
+        <Stat>
+          <i className="material-icons">poll</i>
+          <span>{`${totalVotes} ${questionStatsVotes}`}</span>
+        </Stat>
+
+        <CopyToClipboard
+          text={this.getQuestionUrl()}
+          onCopy={this.handleCopyClick}
+        >
+          <Clickable>
+            <Tooltip text={copied ? copiedToClipboard : clickToCopy}>
+              <Stat>
+                <i className="material-icons">link</i>
+                <span>{this.getQuestionUrl()}</span>
+              </Stat>
+            </Tooltip>
+          </Clickable>
+        </CopyToClipboard>
+      </QuestionStatsWrapper>
+    );
+  }
+}
 
 QuestionStats.propTypes = {
   questionId: PropTypes.number.isRequired,
