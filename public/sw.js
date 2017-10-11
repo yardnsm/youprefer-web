@@ -4,7 +4,7 @@ const assetsHash = 'xxxxxx';
 
 const config = {
   caches: {
-    'youprefer-statics-v5': [
+    'youprefer-statics-v6': [
 
       '/assets/css/reset.css',
 
