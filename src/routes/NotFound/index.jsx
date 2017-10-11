@@ -7,7 +7,7 @@ import {
 } from '../../config/strings';
 
 import Title from '../../components/Title';
-import FlatButton from '../../components/FlatButton';
+import Button from '../../components/Button';
 import Wrapper from './components/Wrapper';
 import BrokenQuestionMark from './components/BrokenQuestionMark';
 
@@ -20,7 +20,7 @@ const NotFoundPage = ({ history }) => (
 
     <br />
 
-    <FlatButton
+    <Button
       text={pageNotFoundButton}
       handleClick={() => {
         history.push('/');

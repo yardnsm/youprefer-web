@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const DialogContent = styled.div`
-  padding: 0 24px;
+  padding: 0 24px 10px;
   overflow-y: auto;
   color: rgba(0, 0, 0, 0.54);
   margin: 0;

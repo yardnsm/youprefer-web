@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
-import FlatButton from '../FlatButton';
+import Button from '../Button';
 
 const snackbarEnterAnim = keyframes`
   from {
@@ -66,7 +66,7 @@ const Snackbar = ({ message, action }) => (
     <span>{message}</span>
 
     {action.text && (
-      <FlatButton
+      <Button
         text={action.text}
         handleClick={action.callback}
         compact

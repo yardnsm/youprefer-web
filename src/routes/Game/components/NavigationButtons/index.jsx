@@ -7,7 +7,7 @@ import {
   navigationButtonsNext,
 } from '../../../../config/strings';
 
-import FlatButton from '../../../../components/FlatButton';
+import Button from '../../../../components/Button';
 
 const NavigationButtonsWrapper = styled.div`
   padding: 5px 10px;
@@ -23,14 +23,14 @@ const NavigationButtonsWrapper = styled.div`
 
 const NavigationButtons = ({ handlePrevClick, showPrev, handleNextClick, showNext }) => (
   <NavigationButtonsWrapper>
-    <FlatButton
+    <Button
       text={navigationButtonsPrev}
       handleClick={handlePrevClick}
       fullWidth
       hidden={!showPrev}
     />
 
-    <FlatButton
+    <Button
       text={navigationButtonsNext}
       handleClick={handleNextClick}
       fullWidth

@@ -41,8 +41,43 @@ export const shareDialogTitle = 'שתף שאלה';
 export const shareText = (firstOption, secondOption) =>
   `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 
-export const shareButtonsUrl = (questionId, firstOption, secondOption) =>
-  `/assets/html/share-buttons.html?questionId=${questionId}&text=${shareText(firstOption, secondOption)}&baseUrl=${rootUrl}`;
+export const shareDialogButtons = [{
+  name: 'Facebook',
+  bgColor: '#314E8F',
+  text: 'שתף בפייסבוק',
+  urlTemplate: 'https://facebook.com/sharer/sharer.php?u=$url',
+  iconUrl: '/assets/img/icon_facebook.svg',
+}, {
+  name: 'Twitter',
+  bgColor: '#4AA4EC',
+  text: 'שתף בטוויטר',
+  urlTemplate: 'https://twitter.com/intent/tweet/?text=$content&amp;url=$url',
+  iconUrl: '/assets/img/icon_twitter.svg',
+}, {
+  name: 'Google+',
+  bgColor: '#D84337',
+  text: 'שתף ב-Google+',
+  urlTemplate: 'https://plus.google.com/share?url=$url',
+  iconUrl: '/assets/img/icon_gplus.svg',
+}, {
+  name: 'Email',
+  bgColor: '#6C6C6C',
+  text: 'שלח באימייל',
+  urlTemplate: 'mailto:?subject=$content&amp;body=$url',
+  iconUrl: '/assets/img/icon_email.svg',
+}, {
+  name: 'WhatsApp',
+  bgColor: '#21CD5B',
+  text: 'שתף בווטסאפ',
+  urlTemplate: 'whatsapp://send?text=$content%20$url',
+  iconUrl: '/assets/img/icon_whatsapp.svg',
+}, {
+  name: 'Telegram',
+  bgColor: '#4A9FE8',
+  text: 'שתף בטלגרם',
+  urlTemplate: 'https://telegram.me/share/url?text=$content&amp;url=$url',
+  iconUrl: '/assets/img/icon_telegram.svg',
+}];
 
 // Navigation buttons
 export const navigationButtonsPrev = 'אחורה';

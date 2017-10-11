@@ -15,7 +15,7 @@ import DrawerHeader from '../components/DrawerHeader';
 import DialogTitle from '../components/DialogTitle';
 import DialogContent from '../components/DialogContent';
 import DialogActions from '../components/DialogActions';
-import FlatButton from '../components/FlatButton';
+import Button from '../components/Button';
 
 const mapStateToProps = ({ ui: { aboutDialogToggled } }) => ({
   aboutDialogToggled,
@@ -40,7 +40,7 @@ const AboutDialogContainer = ({ aboutDialogToggled, handleDialogClose }) => (
     </DialogContent>
 
     <DialogActions>
-      <FlatButton text={dialogClose} textColor="#000000" handleClick={handleDialogClose} />
+      <Button text={dialogClose} compact textColor="#000000" handleClick={handleDialogClose} />
     </DialogActions>
 
   </Dialog>
