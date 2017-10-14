@@ -16,7 +16,7 @@ const rippleAnim = keyframes`
 
 const RippleInk = styled.span`
   position: absolute;
-  background: rgba(128, 128, 128, 0.4);
+  background: ${props => props.rippleColor};
   width: ${props => props.dim}px;
   height: ${props => props.dim}px;
   top: ${props => props.top}px;
@@ -28,14 +28,15 @@ const RippleInk = styled.span`
   animation: ${rippleAnim} 550ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
-const Ripple = ({ dim, x, y }) => (
-  <RippleInk dim={dim} left={x} top={y} />
+const Ripple = ({ dim, x, y, rippleColor }) => (
+  <RippleInk dim={dim} left={x} top={y} rippleColor={rippleColor} />
 );
 
 Ripple.propTypes = {
   dim: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
+  rippleColor: PropTypes.string.isRequired,
 };
 
 export default Ripple;

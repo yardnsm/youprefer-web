@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { parseToHsl } from 'polished';
 
 import RippleInk from '../components/RippleInk';
+
+const colorPresets = {
+  dark: 'rgba(128, 128, 128, 0.4)',
+  light: 'rgba(255, 255, 255, 0.2)',
+};
 
 function withRipple(WrappedComponent) {
   const StyledComponent = styled(WrappedComponent)`
@@ -42,10 +48,26 @@ function withRipple(WrappedComponent) {
       const x = evt.pageX - rect.left - (dim / 2);
       const y = evt.pageY - rect.top - (dim / 2);
 
+      // Figure out automatically whether
+      // the target element's color is dark
+      // or light
+      let rippleColor = 'light';
+      const targetBgColor = window.getComputedStyle(target, null)
+        .getPropertyValue('background-color');
+
+      if (targetBgColor) {
+        const hsl = parseToHsl(targetBgColor);
+
+        rippleColor = ((hsl.lightness + hsl.saturation) / 2) <= 0.5 ? 'dark' : 'light';
+      }
+
+      const color = colorPresets[rippleColor];
+
       const ink = {
         dim,
         x,
         y,
+        color,
       };
 
       this.setState({
@@ -72,7 +94,7 @@ function withRipple(WrappedComponent) {
         <StyledComponent {...this.props} onClick={this.handleClick}>
           {children}
           {this.state.inks.map(ink => (
-            <RippleInk dim={ink.dim} x={ink.x} y={ink.y} />
+            <RippleInk dim={ink.dim} x={ink.x} y={ink.y} rippleColor={ink.color} />
           ))}
         </StyledComponent>
       );

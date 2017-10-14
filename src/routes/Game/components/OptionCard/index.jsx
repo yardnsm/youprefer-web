@@ -100,7 +100,7 @@ const OptionCardWrapper = withRipple(styled.div`
       'translate(-62%, -50%)' :
       'translate(62%, -50%)'};
   }
-`);
+`, 'dark');
 
 const OptionCardInner = styled.div`
   position: relative;

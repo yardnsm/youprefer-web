@@ -4,7 +4,7 @@ const assetsHash = 'xxxxxx';
 
 const config = {
   caches: {
-    'youprefer-statics-v7': [
+    'youprefer-statics-v8': [
 
       '/assets/css/reset.css',
 
@@ -15,6 +15,13 @@ const config = {
       '/assets/img/lighting_overlay.png',
       '/assets/img/question_circle.png',
       '/assets/img/question_mark_broken.png',
+
+      '/assets/img/icon_email.svg',
+      '/assets/img/icon_facebook.svg',
+      '/assets/img/icon_gplus.svg',
+      '/assets/img/icon_telegram.svg',
+      '/assets/img/icon_twitter.svg',
+      '/assets/img/icon_whatsapp.svg',
 
       `/main.bundle.${assetsHash}.js`,
       `/vendor.bundle.${assetsHash}.js`,
