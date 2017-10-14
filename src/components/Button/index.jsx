@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { parseToRgb, opacify, darken } from 'polished';
 
+import withRipple from '../../hoc/withRipple';
+
 const processColor = (amount, color) =>
   typeof parseToRgb(color).alpha !== 'undefined' ?
     opacify(amount, color) :
     darken(amount, color);
 
-const ButtonElem = styled.button`
+const ButtonElem = withRipple(styled.button`
   color: ${props => props.textColor};
   cursor: pointer;
   will-change: background, box-shadow;
@@ -63,7 +65,7 @@ const ButtonElem = styled.button`
       0px 3px 14px 2px rgba(0, 0, 0, 0.12)
     `};
   }
-`;
+`);
 
 const Button = ({
   text,

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const MenuItemWrapper = styled.a`
+import withRipple from '../../hoc/withRipple';
+
+const MenuItemWrapper = withRipple(styled.a`
   position: relative;
   padding: 0 16px;
   outline: none;
@@ -23,14 +25,14 @@ const MenuItemWrapper = styled.a`
     background-color: #d8d8d8;
   }
 
-  > i.material-icons {
+  i.material-icons {
     width: 24px;
     height: 24px;
     margin-left: 32px;
     margin-right: 0;
     color: rgba(0, 0, 0, 0.55);
   }
-`;
+`);
 
 const MenuItem = ({ iconClassName, text, handleClick }) => (
   <MenuItemWrapper onClick={handleClick}>

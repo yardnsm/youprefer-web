@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import withRipple from '../../../../hoc/withRipple';
+
 import {
   optionCardVotes,
 } from '../../../../config/strings';
 
-const OptionCardWrapper = styled.div`
+const OptionCardWrapper = withRipple(styled.div`
   padding: 15px 50px;
   margin: 20px;
   width: 50%;
@@ -98,7 +100,7 @@ const OptionCardWrapper = styled.div`
       'translate(-62%, -50%)' :
       'translate(62%, -50%)'};
   }
-`;
+`);
 
 const OptionCardInner = styled.div`
   position: relative;
