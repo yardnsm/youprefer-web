@@ -1,27 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
+import { hot } from 'react-hot-loader';
 
 import store from './store';
 import App from './app';
 
 const render = (Component) => {
   ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <Component />
-      </Provider>
-    </AppContainer>,
+    <Component />,
     document.getElementById('root'),
   );
 };
 
-render(App);
-
-// Support for HMR
-if (module.hot) {
-  module.hot.accept('./app', () => {
-    render(App);
-  });
-}
+render(
+  hot(module)(
+    () => (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ),
+  ),
+);

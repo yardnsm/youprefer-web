@@ -8,10 +8,10 @@ import commonConfig from './webpack.common';
 const httpsCert = fs.readFileSync(path.resolve(__dirname, '../ssl/server.pem'));
 
 export default merge(commonConfig, {
+  mode: 'development',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
   ],
 
   devtool: 'source-maps',

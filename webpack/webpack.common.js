@@ -4,7 +4,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
 
-export const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 /**
  * Shared config (for both production and development)
@@ -31,11 +31,10 @@ export default {
         options: {
           babelrc: false,
           presets: [
-            ['env', {
+            ['@babel/env', {
               modules: false,
             }],
-            'react',
-            'stage-3',
+            '@babel/react',
           ],
           plugins: ['react-hot-loader/babel'],
         },
@@ -47,11 +46,6 @@ export default {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
       __DEV__: !isProduction,
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: ({ resource }) => /node_modules/.test(resource),
     }),
 
     new HtmlWebpackPlugin({
@@ -69,5 +63,24 @@ export default {
 
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0,
+
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          priority: -10,
+        },
+
+        default: {
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
 };
