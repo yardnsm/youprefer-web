@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env=dev --open",
-    "build": "NODE_ENV=production webpack --env=prod -p --progress --colors",
+    "build": "NODE_ENV=production webpack --env=prod -p --progress",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx",
     "clean": "rm -rf ./dist"
   },
@@ -51,6 +51,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "script-ext-html-webpack-plugin": "^2.0.1",
+    "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",
