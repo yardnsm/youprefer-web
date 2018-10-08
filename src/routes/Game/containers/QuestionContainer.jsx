@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { mask } from '../../../utils/mask';
+import LocalPropTypes from '../../../prop-types';
 
 import OptionCard from '../components/OptionCard';
 import OrCircle from '../components/OrCircle';
@@ -74,9 +75,12 @@ const QuestionContainer = ({
 };
 
 QuestionContainer.propTypes = {
-  question: PropTypes.object.isRequired,
+  question: LocalPropTypes.question,
   handleFirstOptionSelect: PropTypes.func.isRequired,
   handleSecondOptionSelect: PropTypes.func.isRequired,
+};
+QuestionContainer.defaultProps = {
+  question: null,
 };
 
 export default QuestionContainer;

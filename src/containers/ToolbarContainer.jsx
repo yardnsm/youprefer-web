@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as uiActions } from '../actions/ui';
+import LocalPropTypes from '../prop-types';
 
 import Toolbar from '../components/Toolbar';
 import IconButton from '../components/IconButton';
@@ -30,9 +31,13 @@ const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog
 );
 
 ToolbarContainer.propTypes = {
-  currentQuestion: PropTypes.object.isRequired,
+  currentQuestion: LocalPropTypes.question,
   handleDrawerToggle: PropTypes.func.isRequired,
   showShareDialog: PropTypes.func.isRequired,
+};
+
+ToolbarContainer.defaultProps = {
+  currentQuestion: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolbarContainer);

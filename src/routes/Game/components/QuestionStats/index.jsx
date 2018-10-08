@@ -64,7 +64,9 @@ class QuestionStats extends React.Component {
   }
 
   getQuestionUrl() {
-    return `${rootUrl}/${this.props.questionId}`;
+    const { questionId } = this.props;
+
+    return `${rootUrl}/${questionId}`;
   }
 
   handleCopyClick() {

@@ -38,6 +38,7 @@ function withRipple(WrappedComponent) {
     }
 
     handleClick(evt) {
+      const { onClick } = this.props;
       const { inks } = this.state;
       const { currentTarget: target } = evt;
 
@@ -82,18 +83,19 @@ function withRipple(WrappedComponent) {
       }, 550);
 
       // Call the wrapped element onclick event
-      if (this.props.onClick) {
-        this.props.onClick(evt);
+      if (onClick) {
+        onClick(evt);
       }
     }
 
     render() {
       const { children } = this.props;
+      const { inks } = this.state;
 
       return (
         <StyledComponent {...this.props} onClick={this.handleClick}>
           {children}
-          {this.state.inks.map(ink => (
+          {inks.map(ink => (
             <RippleInk dim={ink.dim} x={ink.x} y={ink.y} rippleColor={ink.color} />
           ))}
         </StyledComponent>

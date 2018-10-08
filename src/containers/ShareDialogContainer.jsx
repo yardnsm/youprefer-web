@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { actions as uiActions } from '../actions/ui';
 import { mask } from '../utils/mask';
+import LocalPropTypes from '../prop-types';
 
 import {
   singleQuestionUrl,
@@ -91,8 +92,12 @@ class ShareDialogContainer extends React.Component {
 
 ShareDialogContainer.propTypes = {
   shareDialogToggled: PropTypes.bool.isRequired,
-  currentQuestion: PropTypes.object.isRequired,
+  currentQuestion: LocalPropTypes.question,
   handleDialogClose: PropTypes.func.isRequired,
+};
+
+ShareDialogContainer.defaultProps = {
+  currentQuestion: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShareDialogContainer);

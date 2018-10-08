@@ -5,6 +5,7 @@ import { actions as gameActions } from '../../actions/game';
 import { mask, unmask } from '../../utils/mask';
 import generateRandomInteger from '../../utils/random';
 import { isNumber } from '../../utils/validations';
+import LocalPropTypes from '../../prop-types';
 
 import {
   gameTitle,
@@ -148,7 +149,9 @@ class GamePage extends React.Component {
   }
 
   pushQuestionToHistory(id) {
-    this.props.history.push(`/${mask(id)}`);
+    const { history } = this.props;
+
+    history.push(`/${mask(id)}`);
   }
 
   handlePrevQuestion() {
@@ -169,13 +172,16 @@ class GamePage extends React.Component {
     }
   }
 
+  // eslint-disable-next-line react/destructuring-assignment
   fetchRandomQuestion(questionCount = this.props.questionCount) {
     this.fetchQuestion(generateRandomInteger(0, questionCount));
   }
 
   fetchQuestion(id) {
+    const { fetchQuestion } = this.props;
+
     this.pushQuestionToHistory(id);
-    this.props.fetchQuestion(id);
+    fetchQuestion(id);
   }
 
   // ------------------------------------------------
@@ -215,10 +221,12 @@ class GamePage extends React.Component {
 }
 
 GamePage.propTypes = {
-  questionCount: PropTypes.number.isRequired,
-  currentQuestion: PropTypes.object.isRequired,
-  prevQuestion: PropTypes.object.isRequired,
-  nextQuestion: PropTypes.object.isRequired,
+  questionCount: PropTypes.number,
+
+  currentQuestion: LocalPropTypes.question,
+  prevQuestion: LocalPropTypes.question,
+  nextQuestion: LocalPropTypes.question,
+
   hasPrev: PropTypes.bool.isRequired,
   hasNext: PropTypes.bool.isRequired,
 
@@ -230,8 +238,24 @@ GamePage.propTypes = {
   incrementSecondOption: PropTypes.func.isRequired,
   removeCurrentQuestion: PropTypes.func.isRequired,
 
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  // react-router shit
+  history: PropTypes.shape({
+    listen: PropTypes.func,
+    push: PropTypes.func,
+    goBack: PropTypes.func,
+    goForward: PropTypes.func,
+  }).isRequired,
+
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+};
+
+GamePage.defaultProps = {
+  questionCount: 0,
+  currentQuestion: null,
+  prevQuestion: null,
+  nextQuestion: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamePage);

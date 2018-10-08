@@ -12,7 +12,7 @@ const fetchSingleQuestion = id =>
     .once('value')
     .then(snapshot => snapshot.val());
 
-const incrementQuestionVotes = ({ id, payload }, optionField) =>
+const incrementQuestionVotes = ({ id }, optionField) =>
   firebase.database()
     .ref(`quest_packs/pack_1/quests/${id}/${optionField}/votes`)
     .transaction(votes => votes + 1);
