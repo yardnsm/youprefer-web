@@ -43,7 +43,8 @@ class ShareDialogContainer extends React.Component {
   }
 
   formatUrl(urlTemplate) {
-    const { id, payload: { firstOption, secondOption } } = this.props.currentQuestion;
+    const { currentQuestion } = this.props;
+    const { id, payload: { firstOption, secondOption } } = currentQuestion;
 
     return urlTemplate
       .replace(/\$url/, singleQuestionUrl(mask(id)))

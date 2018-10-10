@@ -1,5 +1,6 @@
 import { serviceWorkerUrl } from './config/strings';
 
+/* eslint-disable no-console */
 export const register = () => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {

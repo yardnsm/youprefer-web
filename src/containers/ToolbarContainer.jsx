@@ -23,8 +23,9 @@ const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog
     )}
     leftElement={(
       <div>
-        {currentQuestion &&
-          <IconButton iconClassName="share" handleClick={showShareDialog} />}
+        {currentQuestion && (
+          <IconButton iconClassName="share" handleClick={showShareDialog} />
+        )}
       </div>
     )}
   />

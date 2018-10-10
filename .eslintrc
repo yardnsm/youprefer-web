@@ -3,5 +3,9 @@
   "extends": "airbnb",
   "env": {
     "browser": true
+  },
+  "rules": {
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off"
   }
 }

@@ -49,9 +49,8 @@ function withRipple(WrappedComponent) {
       const x = evt.pageX - rect.left - (dim / 2);
       const y = evt.pageY - rect.top - (dim / 2);
 
-      // Figure out automatically whether
-      // the target element's color is dark
-      // or light
+      // Figure out automatically whether the target element's color is dark or
+      // light
       let rippleColor = 'light';
       const targetBgColor = window.getComputedStyle(target, null)
         .getPropertyValue('background-color');
@@ -75,8 +74,8 @@ function withRipple(WrappedComponent) {
         inks: inks.concat([ink]),
       });
 
-      // Re-set the timeout since we don't want
-      // to cause re-render when we'll change the state.
+      // Re-set the timeout since we don't want to cause re-render when we'll
+      // change the state.
       clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
         this.clearInks(ink);

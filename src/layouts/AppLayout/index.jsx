@@ -46,6 +46,7 @@ const AppLayout = ({ children }) => (
 
     <ToolbarContainer />
     <DrawerContainer />
+
     <Container>
       {children}
     </Container>

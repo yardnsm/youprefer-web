@@ -23,7 +23,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -49,13 +48,16 @@ class App extends React.Component {
   componentWillUnmount() {
     dettachConnectionListeners();
   }
+
   updateConnectionStatus(status) {
+    const { createSnackbar } = this.props;
+
     if (this.snackbarTimeout) {
       clearTimeout(this.snackbarTimeout);
     }
 
     this.snackbarTimeout = setTimeout(() => {
-      this.props.createSnackbar({
+      createSnackbar({
         message: status ? connectedToServer : disconnectedFromServer,
         duration: 5000,
       });

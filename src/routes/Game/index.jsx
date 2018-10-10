@@ -43,11 +43,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 /*
- * Just to be clear - we're relying in the history to swap
- * questions. When the user presses the 'back' or 'forward'
- * buttons to switch question, we're only changing the
- * history state. Thanks to `react-router`, we can listen
- * to history events and decide what to do next.
+ * Just to be clear - we're relying in the history to swap questions. When the
+ * user presses the 'back' or 'forward' buttons to switch question, we're only
+ * changing the history state. Thanks to `react-router`, we can listen to
+ * history events and decide what to do next.
  */
 
 class GamePage extends React.Component {
@@ -99,9 +98,11 @@ class GamePage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { match, history, questionCount, removeCurrentQuestion } = this.props;
+    const {
+      match, history, questionCount, removeCurrentQuestion,
+    } = this.props;
 
-    // Check if question shouldn't we available
+    // Check if question shouldn't be available
     if (nextProps.currentQuestion) {
       if (!nextProps.currentQuestion.payload.isAvailable) {
         removeCurrentQuestion();
@@ -198,7 +199,7 @@ class GamePage extends React.Component {
       <Wrapper>
         <Title>{gameTitle}</Title>
 
-        {currentQuestion ?
+        {currentQuestion ? (
           <div>
             <QuestionContainer
               question={currentQuestion}
@@ -211,8 +212,10 @@ class GamePage extends React.Component {
               handleNextClick={this.handleNextQuestion}
               showNext
             />
-          </div> :
-          <LoadingQuestions />}
+          </div>
+        ) : (
+          <LoadingQuestions />
+        )}
 
         <AdsenseAdContainer />
       </Wrapper>

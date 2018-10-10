@@ -9,7 +9,7 @@ const DrawerWrapper = styled.aside`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  pointer-events: ${props => props.toggled ? 'auto' : 'none'};
+  pointer-events: ${props => (props.toggled ? 'auto' : 'none')};
   box-sizing: border-box;
   contain: strict;
   z-index: 8;
@@ -52,7 +52,7 @@ const DrawerInner = styled.div`
               0px 16px 24px 2px rgba(0, 0, 0, 0.14),
               0px 6px 30px 5px rgba(0, 0, 0, 0.12);
 
-  transform: ${props => props.visible ? 'none' : 'translateX(100%)'};
+  transform: ${props => (props.visible ? 'none' : 'translateX(100%)')};
 `;
 
 const Drawer = ({ children, open, handleDrawerClose }) => (

@@ -35,7 +35,9 @@ const actions = {
 
   removeSnackbar: id => ({ type: types.REMOVE_SNACKBAR, payload: { id } }),
 
-  createSnackbar: ({ message, duration, actionText, actionCallback }) => (dispatch) => {
+  createSnackbar: ({
+    message, duration, actionText, actionCallback,
+  }) => (dispatch) => {
     const id = +new Date();
 
     dispatch(actions.addSnackbar(id, message, actionText, actionCallback));

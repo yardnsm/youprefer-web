@@ -27,7 +27,6 @@ const Ad = styled.ins`
 `;
 
 class AdsenseAd extends React.Component {
-
   componentDidMount() {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }

@@ -8,6 +8,7 @@ import {
   optionCardVotes,
 } from '../../../../config/strings';
 
+/* eslint-disable indent */
 const OptionCardWrapper = withRipple(styled.div`
   padding: 15px 50px;
   margin: 20px;
@@ -26,7 +27,10 @@ const OptionCardWrapper = withRipple(styled.div`
               0px 2px 2px 0px rgba(0, 0, 0, 0.14),
               0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
-  background-color: ${props => props.type === 'first' ? '#2196f3' : '#f44336'};
+  background-color: ${props => (
+    props.type === 'first' ? '#2196f3' : '#f44336'
+  )};
+
   margin-left: ${props => props.type === 'first' && '10px'};
   margin-right: ${props => props.type === 'second' && '10px'};
 
@@ -38,12 +42,15 @@ const OptionCardWrapper = withRipple(styled.div`
 
     /* Positioning the sliced shape based on type */
     &::after {
-      top: ${props => props.type === 'first' ? '100%' : 0} !important;
+      top: ${props => (
+        props.type === 'first' ? '100%' : 0
+      )} !important;
+
       left: ${props => props.type === 'first' && '50% !important'};
       right: ${props => props.type === 'second' && '50% !important'};
-      transform: ${props => props.type === 'first' ?
-        'translate(-50%, -38%)' :
-        'translate(50%, -62%)'} !important;
+      transform: ${props => (
+        props.type === 'first' ? 'translate(-50%, -38%)' : 'translate(50%, -62%)'
+      )} !important;
     }
   }
 
@@ -96,11 +103,12 @@ const OptionCardWrapper = withRipple(styled.div`
     left: ${props => props.type === 'first' && 0};
     right: ${props => props.type === 'second' && 0};
 
-    transform: ${props => props.type === 'first' ?
-      'translate(-62%, -50%)' :
-      'translate(62%, -50%)'};
+    transform: ${props => (
+      props.type === 'first' ? 'translate(-62%, -50%)' : 'translate(62%, -50%)'
+    )};
   }
 `, 'dark');
+/* eslint-enable indent */
 
 const OptionCardInner = styled.div`
   position: relative;
@@ -155,13 +163,15 @@ const OptionCard = ({
     onClick={!showBack && (() => { handleOptionSelect(type); })}
   >
     <OptionCardInner>
-      {!showBack ?
-        <span>{value}</span> :
+      {!showBack ? (
+        <span>{value}</span>
+      ) : (
         <div>
           <PercentageText>{`${percentage}%`}</PercentageText>
           <VotesText>{`${votes} ${optionCardVotes}`}</VotesText>
           <ValueText>{value}</ValueText>
-        </div>}
+        </div>
+      )}
     </OptionCardInner>
   </OptionCardWrapper>
 );

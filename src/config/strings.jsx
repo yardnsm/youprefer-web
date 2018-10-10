@@ -29,8 +29,12 @@ export const drawerAbout = 'אודות';
 // About dialog
 export const aboutDialogContents = () => (
   <p>
-    <span>עיצוב, אפיון, קונספט ופיתוח ע&quot;י</span>&nbsp;
-    <a href="http://yardnsm.net/" target="_blank" rel="noopener noreferrer">ירדן סוד-מוריה</a>.&nbsp;
+    <span>עיצוב, אפיון, קונספט ופיתוח ע&quot;י</span>
+    &nbsp;
+
+    <a href="http://yardnsm.net/" target="_blank" rel="noopener noreferrer">ירדן סוד-מוריה</a>
+    .&nbsp;
+
     <span>מטרת המשחק היא לבידור בלבד ואין במטרה לפגוע באף אחד.</span>
   </p>
 );

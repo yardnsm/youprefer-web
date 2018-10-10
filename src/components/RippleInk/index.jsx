@@ -28,7 +28,9 @@ const RippleInk = styled.span`
   animation: ${rippleAnim} 550ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
-const Ripple = ({ dim, x, y, rippleColor }) => (
+const Ripple = ({
+  dim, x, y, rippleColor,
+}) => (
   <RippleInk dim={dim} left={x} top={y} rippleColor={rippleColor} />
 );
 

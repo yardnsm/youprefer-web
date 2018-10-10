@@ -21,7 +21,9 @@ const NavigationButtonsWrapper = styled.div`
   }
 `;
 
-const NavigationButtons = ({ handlePrevClick, showPrev, handleNextClick, showNext }) => (
+const NavigationButtons = ({
+  handlePrevClick, showPrev, handleNextClick, showNext,
+}) => (
   <NavigationButtonsWrapper>
     <Button
       text={navigationButtonsPrev}

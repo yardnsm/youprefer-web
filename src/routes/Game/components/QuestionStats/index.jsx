@@ -22,9 +22,9 @@ const QuestionStatsWrapper = styled.div`
   font-size: 18px;
   color: #000000;
   background-color: #eeeeee;
-  box-shadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
               0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-              0px 1px 5px 0px rgba(0, 0, 0, 0.12)';
+              0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
   @media (max-width: 768px) {
     display: none;
@@ -59,8 +59,14 @@ class QuestionStats extends React.Component {
       copied: false,
     };
 
+    this.timeout = null;
+
     this.getQuestionUrl = this.getQuestionUrl.bind(this);
     this.handleCopyClick = this.handleCopyClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   getQuestionUrl() {
@@ -74,7 +80,9 @@ class QuestionStats extends React.Component {
       copied: true,
     });
 
-    setTimeout(() => {
+    clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
       this.setState({
         copied: false,
       });

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import {
   pageNotFoundTitle,
@@ -8,9 +9,20 @@ import {
 
 import Title from '../../components/Title';
 import Button from '../../components/Button';
-import Wrapper from './components/Wrapper';
-import BrokenQuestionMark from './components/BrokenQuestionMark';
 
+const Wrapper = styled.div`
+  text-align: center;
+`;
+
+const BrokenQuestionMark = styled.div`
+  width: 100%;
+  max-height: 512px;
+  height: 256px;
+  background-image: url("assets/img/question_mark_broken.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+`;
 
 const NotFoundPage = ({ history }) => (
   <Wrapper>

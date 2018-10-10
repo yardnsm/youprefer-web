@@ -5,11 +5,13 @@ import { parseToRgb, opacify, darken } from 'polished';
 
 import withRipple from '../../hoc/withRipple';
 
-const processColor = (amount, color) =>
-  typeof parseToRgb(color).alpha !== 'undefined' ?
-    opacify(amount, color) :
-    darken(amount, color);
+const processColor = (amount, color) => (
+  typeof parseToRgb(color).alpha !== 'undefined'
+    ? opacify(amount, color)
+    : darken(amount, color)
+);
 
+/* eslint-disable indent */
 const ButtonElem = withRipple(styled.button`
   color: ${props => props.textColor};
   cursor: pointer;
@@ -18,7 +20,7 @@ const ButtonElem = withRipple(styled.button`
   position: relative;
   height: auto;
   min-width: 88px;
-  padding: ${props => props.compact ? '0 8px' : '0 16px'};
+  padding: ${props => (props.compact ? '0 8px' : '0 16px')};
   line-height: 36px;
   margin: 8px;
   border: none;
@@ -37,35 +39,42 @@ const ButtonElem = withRipple(styled.button`
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
-  width: ${props => props.fullWidth ? '100%' : 'auto'};
-  visibility: ${props => props.hidden ? 'hidden' : 'visible'};
+  width: ${props => (props.fullWidth ? '100%' : 'auto')};
+  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
 
-  box-shadow: ${props => !props.raised ? 'none' : `
-    0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 5px 0px rgba(0, 0, 0, 0.12)
-  `};
+  box-shadow: ${props => (
+    !props.raised
+      ? 'none'
+      : `0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+         0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+         0px 1px 5px 0px rgba(0, 0, 0, 0.12)`
+  )};
 
   &:hover {
     background: ${props => processColor(0.10, props.bgColor)};
 
-    box-shadow: ${props => !props.raised ? 'none' : `
-      0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-      0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 10px 0px rgba(0, 0, 0, 0.12)
-    `};
+    box-shadow: ${props => (
+      !props.raised
+        ? 'none'
+        : `0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+           0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+           0px 1px 10px 0px rgba(0, 0, 0, 0.12)`
+    )};
   }
 
   &:active {
     background: ${props => processColor(0.15, props.bgColor)};
 
-    box-shadow: ${props => !props.raised ? 'none' : `
-      0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-      0px 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0px 3px 14px 2px rgba(0, 0, 0, 0.12)
-    `};
+    box-shadow: ${props => (
+      !props.raised
+      ? 'none'
+      : `0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+         0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+         0px 3px 14px 2px rgba(0, 0, 0, 0.12)`
+    )};
   }
 `);
+/* eslint-disable indent */
 
 const Button = ({
   text,

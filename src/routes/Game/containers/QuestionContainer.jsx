@@ -79,6 +79,7 @@ QuestionContainer.propTypes = {
   handleFirstOptionSelect: PropTypes.func.isRequired,
   handleSecondOptionSelect: PropTypes.func.isRequired,
 };
+
 QuestionContainer.defaultProps = {
   question: null,
 };

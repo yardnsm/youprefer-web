@@ -1,5 +1,4 @@
-/* eslint no-restricted-globals: "off" */
-
+/* eslint no-restricted-globals: "off", no-console: "off" */
 
 // Log utility
 const logMsg = msg => console.log('%c [SW] ', 'padding: 4px; color: white; background: #16a085', msg);
@@ -60,8 +59,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For every request, try to pull
-  // it from the cache, fallback to network
+  // For every request, try to pull it from the cache, fallback to network
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))

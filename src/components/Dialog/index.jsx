@@ -18,7 +18,7 @@ const DialogWrapper = styled.div`
   will-change: opacity;
   transition: opacity cubic-bezier(0, 0, 0.2, 1) 350ms;
 
-  pointer-events: ${props => props.toggled ? 'auto' : 'none'};
+  pointer-events: ${props => (props.toggled ? 'auto' : 'none')};
   opacity: ${props => Number(!!props.toggled)};
 `;
 
