@@ -21,9 +21,9 @@ const MenuItemWrapper = withRipple(styled.a`
     background-color: #e5e5e5;
   }
 
-  &:active {
+  /*&:active {
     background-color: #d8d8d8;
-  }
+  }*/
 
   i.material-icons {
     width: 24px;

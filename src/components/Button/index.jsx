@@ -20,7 +20,7 @@ const ButtonElem = withRipple(styled.button`
   position: relative;
   height: auto;
   min-width: 88px;
-  padding: ${props => (props.compact ? '0 8px' : '0 16px')};
+  padding: ${props => (props.compact ? '2px 10px' : '8px 16px')};
   line-height: 36px;
   margin: 8px;
   border: none;

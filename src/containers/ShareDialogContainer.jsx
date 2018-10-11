@@ -69,6 +69,7 @@ class ShareDialogContainer extends React.Component {
                     key={e.name}
                     bgColor={e.bgColor}
                     text={e.text}
+                    compact
                     icon={e.iconUrl ? (
                       <ImageIcon src={e.iconUrl} />
                     ) : null}
