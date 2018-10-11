@@ -17,5 +17,6 @@ export default merge(commonConfig, {
     contentBase: path.join(__dirname, '../public'),
     hot: true,
     historyApiFallback: true,
+    host: '0.0.0.0',
   },
 });
