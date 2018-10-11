@@ -25,29 +25,53 @@ function withRipple(WrappedComponent) {
         inks: [],
       };
 
-      this.clearInks = this.clearInks.bind(this);
-      this.handleClick = this.handleClick.bind(this);
+      this.handleMouseDown = this.handleMouseDown.bind(this);
+      this.handleMouseUp = this.handleMouseUp.bind(this);
+      this.handleMouseOut = this.handleMouseOut.bind(this);
+      this.handleTouchStart = this.handleTouchStart.bind(this);
+      this.handleTouchEnd = this.handleTouchEnd.bind(this);
 
       this.timeout = null;
+      this.touchLock = false;
     }
 
-    clearInks() {
+    removeAllInks() {
+      this.releaseAllInks();
+
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        this.setState({
+          inks: [],
+        });
+      }, 3000);
+    }
+
+    releaseAllInks() {
+      const { inks } = this.state;
+
       this.setState({
-        inks: [],
+        inks: inks.map(ink => ({
+          ...ink,
+          released: true,
+        })),
       });
     }
 
-    handleClick(evt) {
-      const { onClick } = this.props;
+    handleMouseDown(event) {
+      if (this.touchLock) {
+        this.touchLock = false;
+        return;
+      }
+
       const { inks } = this.state;
-      const { currentTarget: target } = evt;
+      const { currentTarget: target } = event;
 
       const rect = target.getBoundingClientRect();
 
       const dim = Math.max(rect.width, rect.height);
 
-      const x = evt.pageX - rect.left - (dim / 2);
-      const y = evt.pageY - rect.top - (dim / 2);
+      const x = event.pageX - rect.left - (dim / 2);
+      const y = event.pageY - rect.top - (dim / 2);
 
       // Figure out automatically whether the target element's color is dark or
       // light
@@ -68,23 +92,48 @@ function withRipple(WrappedComponent) {
         x,
         y,
         color,
+        released: false,
       };
 
       this.setState({
         inks: inks.concat([ink]),
       });
 
-      // Re-set the timeout since we don't want to cause re-render when we'll
-      // change the state.
+      // Setting a safty threshold so inks won't stay for a long time
       clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        this.clearInks(ink);
-      }, 550);
+        this.removeAllInks(ink);
+      }, 3000);
+    }
 
-      // Call the wrapped element onclick event
-      if (onClick) {
-        onClick(evt);
-      }
+    handleMouseUp() {
+      this.releaseAllInks();
+    }
+
+    handleMouseOut() {
+      this.releaseAllInks();
+    }
+
+    handleTouchStart(event) {
+      // Emulate a `mousedown` event. Kinda. This is good enough for this
+      // particular use case, so meh.
+      this.handleMouseDown({
+        ...event,
+        pageX: event.touches[0].pageX,
+        pageY: event.touches[0].pageY,
+      });
+
+      this.touchLock = true;
+    }
+
+    handleTouchEnd() {
+      this.releaseAllInks();
+
+      // Since we can set the `touchstart` event to `passing: false` (and call
+      // preventDefault), we're doing this nasrty hack. meh.
+      setTimeout(() => {
+        this.touchLock = false;
+      }, 300);
     }
 
     render() {
@@ -92,10 +141,26 @@ function withRipple(WrappedComponent) {
       const { inks } = this.state;
 
       return (
-        <StyledComponent {...this.props} onClick={this.handleClick}>
+        <StyledComponent
+          {...this.props}
+
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+          onMouseOut={this.handleMouseOut}
+          onBlur={this.handleMouseOut}
+
+          onTouchStart={this.handleTouchStart}
+          onTouchEnd={this.handleTouchEnd}
+        >
           {children}
           {inks.map(ink => (
-            <RippleInk dim={ink.dim} x={ink.x} y={ink.y} rippleColor={ink.color} />
+            <RippleInk
+              dim={ink.dim}
+              x={ink.x}
+              y={ink.y}
+              rippleColor={ink.color}
+              released={ink.released}
+            />
           ))}
         </StyledComponent>
       );

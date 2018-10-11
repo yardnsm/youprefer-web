@@ -81,9 +81,10 @@ const OptionCardWrapper = withRipple(styled.div`
     opacity: 0.6;
   }
 
-  &:active::before {
+  /* Since we're using the withRipple HOC, the active state is redundant */
+  /*&:active::before {
     opacity: 1;
-  }
+  }*/
 
   /* The sliced shape */
   &::after {
