@@ -18,6 +18,8 @@
     "start:https": "npm start -- --https",
     "build": "NODE_ENV=production webpack --env=prod -p --progress",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "clean": "rm -rf ./dist"
   },
   "dependencies": {
@@ -41,7 +43,9 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.0",
     "copy-webpack-plugin": "^4.5.2",
     "eslint": "^5.6.1",
@@ -51,6 +55,7 @@
     "eslint-plugin-react": "^7.11.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.6.0",
     "script-ext-html-webpack-plugin": "^2.0.1",
     "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.20.2",
