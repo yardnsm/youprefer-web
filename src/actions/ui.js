@@ -1,3 +1,5 @@
+import delay from '../utils/delay';
+
 const types = {
   SHOW_DRAWER: 'SHOW_DRAWER',
   HIDE_DRAWER: 'HIDE_DRAWER',
@@ -42,9 +44,10 @@ const actions = {
 
     dispatch(actions.addSnackbar(id, message, actionText, actionCallback));
 
-    setTimeout(() => {
-      dispatch(actions.removeSnackbar(id));
-    }, duration);
+    return delay(duration)
+      .then(() => {
+        dispatch(actions.removeSnackbar(id));
+      });
   },
 };
 

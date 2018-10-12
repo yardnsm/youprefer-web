@@ -45,11 +45,15 @@ const actions = {
   incrementFirstOption: question => (dispatch) => {
     dispatch(actions.selectFirstOption());
     incrementQuestionVotes(question, 'firstOption');
+
+    return Promise.resolve();
   },
 
   incrementSecondOption: question => (dispatch) => {
     dispatch(actions.selectSecondOption());
     incrementQuestionVotes(question, 'secondOption');
+
+    return Promise.resolve();
   },
 
   nextQuestion: () => ({ type: types.NEXT_QUESTION }),
