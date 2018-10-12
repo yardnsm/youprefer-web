@@ -1,5 +1,5 @@
-import reducer from './game';
-import { types } from '../actions/game';
+import reducer from '../game';
+import { types } from '../../actions/game';
 
 test('initial state', () => {
   expect(

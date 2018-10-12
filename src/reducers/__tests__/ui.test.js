@@ -1,5 +1,5 @@
-import reducer from './ui';
-import { types } from '../actions/ui';
+import reducer from '../ui';
+import { types } from '../../actions/ui';
 
 test('initial state', () => {
   expect(

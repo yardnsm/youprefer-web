@@ -1,4 +1,4 @@
-import reducer from './index';
+import reducer from '../index';
 
 test('initial state', () => {
   expect(
