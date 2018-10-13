@@ -58,6 +58,7 @@ class GamePage extends React.Component {
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
     this.pushQuestionToHistory = this.pushQuestionToHistory.bind(this);
+    this.replaceQuestionInHistory = this.replaceQuestionInHistory.bind(this);
     this.fetchRandomQuestion = this.fetchRandomQuestion.bind(this);
     this.fetchQuestion = this.fetchQuestion.bind(this);
   }
@@ -73,7 +74,6 @@ class GamePage extends React.Component {
       }
 
       const {
-        match,
         hasPrev,
         hasNext,
         prevQuestion,
@@ -82,7 +82,14 @@ class GamePage extends React.Component {
         goToNextQuestion,
       } = this.props;
 
-      let { questionId } = match.params;
+      // Getting the `questionId` from `this.props.match.params` is
+      // problematic. On chrome is works just fine, but in Firefox and Safari
+      // it sometimes gives the previous params (before the history event).
+      // However, `location.pathname` works fine in all browsers, so we're
+      // going to use that.
+
+      const questionIdRegex = /^\/(\d+)/;
+      let questionId = questionIdRegex.exec(location.pathname)[1];
 
       questionId = unmask(questionId);
 
@@ -122,7 +129,8 @@ class GamePage extends React.Component {
           history.push('not-found');
         }
       } else {
-        this.fetchRandomQuestion(nextProps.questionCount);
+        // The first question in the stack
+        this.fetchRandomQuestion(nextProps.questionCount || questionCount, true);
       }
     }
   }
@@ -155,6 +163,12 @@ class GamePage extends React.Component {
     history.push(`/${mask(id)}`);
   }
 
+  replaceQuestionInHistory(id) {
+    const { history } = this.props;
+
+    history.replace(`/${mask(id)}`);
+  }
+
   handlePrevQuestion() {
     const { prevQuestion, history } = this.props;
 
@@ -174,14 +188,22 @@ class GamePage extends React.Component {
   }
 
   // eslint-disable-next-line react/destructuring-assignment
-  fetchRandomQuestion(questionCount = this.props.questionCount) {
-    this.fetchQuestion(generateRandomInteger(0, questionCount));
+  fetchRandomQuestion(questionCount = this.props.questionCount, replaceHistory = false) {
+    this.fetchQuestion(
+      generateRandomInteger(0, questionCount),
+      replaceHistory,
+    );
   }
 
-  fetchQuestion(id) {
+  fetchQuestion(id, replaceHistory = false) {
     const { fetchQuestion } = this.props;
 
-    this.pushQuestionToHistory(id);
+    if (replaceHistory) {
+      this.replaceQuestionInHistory(id);
+    } else {
+      this.pushQuestionToHistory(id);
+    }
+
     fetchQuestion(id);
   }
 
