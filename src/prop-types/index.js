@@ -8,7 +8,10 @@ const questionOption = PropTypes.shape({
 
 const question = PropTypes.shape({
   id: PropTypes.number,
-  selected: PropTypes.bool,
+  selected: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['first', 'second']),
+  ]),
   payload: PropTypes.shape({
     isAvailable: PropTypes.bool,
     isSkippable: PropTypes.bool,

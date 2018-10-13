@@ -161,7 +161,7 @@ const OptionCard = ({
   <OptionCardWrapper
     type={type}
     selected={selected}
-    onClick={!showBack && (() => { handleOptionSelect(type); })}
+    onClick={!showBack ? (() => { handleOptionSelect(type); }) : undefined}
   >
     <OptionCardInner>
       {!showBack ? (

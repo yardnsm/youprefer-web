@@ -35,6 +35,10 @@ function withRipple(WrappedComponent) {
       this.touchLock = false;
     }
 
+    componentWillUnmount() {
+      clearTimeout(this.timeout);
+    }
+
     removeAllInks() {
       this.releaseAllInks();
 
@@ -93,6 +97,7 @@ function withRipple(WrappedComponent) {
         y,
         color,
         released: false,
+        id: +new Date(),
       };
 
       this.setState({
@@ -155,6 +160,7 @@ function withRipple(WrappedComponent) {
           {children}
           {inks.map(ink => (
             <RippleInk
+              key={ink.id}
               dim={ink.dim}
               x={ink.x}
               y={ink.y}
