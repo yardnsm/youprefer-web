@@ -2,7 +2,7 @@
 <html dir="rtl" lang="he">
   <head>
     <meta charset="UTF-8">
-    
+
     <%= require('html-loader!./meta.ejs') %>
     <%= require('html-loader!./styles.ejs') %>
   </head>
@@ -13,13 +13,27 @@
 
     <!-- App Container -->
     <div id="root">
-      
+
     </div>
 
     <noscript>
       You need to enable JavaScript!
     </noscript>
 
-    <%= require('html-loader!./scripts.ejs') %>
+    <!-- Google Analytics -->
+    <script>
+      window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+      ga('create','<%= appConfig.analytics.trackingId %>','auto');ga('send','pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+    <!-- Google AdSense 💸 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "<%= appConfig.adsense.client %>",
+        enable_page_level_ads: true,
+      });
+    </script>
   </body>
 </html>

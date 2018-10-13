@@ -1,6 +1,8 @@
 import React from 'react';
-import adsenseConfig from '../config/adsense';
+import config from '../config/app-config';
 import AdsenseAd from '../components/AdsenseAd';
+
+const adsenseConfig = config.adsense;
 
 const AdsenseAdContainer = () => (
   <AdsenseAd

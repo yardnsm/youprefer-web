@@ -4,6 +4,9 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
 
+// Configs
+import appConfig from '../src/config/app-config';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
@@ -53,6 +56,10 @@ export default {
       minify: {
         minifyCSS: true,
         minifyJS: true,
+      },
+      templateParameters: {
+        // Make the appConfig available in the template
+        appConfig,
       },
     }),
 

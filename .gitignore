@@ -4,3 +4,6 @@ npm-debug.log
 yarn-error.log
 coverage
 public/assets/*.js
+
+# Configz
+src/config/app-config.js
