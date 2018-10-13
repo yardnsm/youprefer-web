@@ -10,7 +10,7 @@
  * to not track this file in your VCS, as it may contain sensitive
  * information.
  *
- * You can find more "configuration" in the `./strigns.jsx` key. I'm too lazy
+ * You can find more "configuration" in the `./strings.jsx` key. I'm too lazy
  * to move some the stuff from there to here.
  *
  * - ԅ(≖‿≖ԅ)

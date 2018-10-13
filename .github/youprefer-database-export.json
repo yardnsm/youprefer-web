@@ -1,0 +1,78 @@
+{
+  "quest_packs" : {
+    "pack_1" : {
+      "count" : 5,
+      "quests" : [{
+        "firstOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה ראשונה",
+          "votes" : 50
+        },
+        "isAvailable" : true,
+        "isSkippable" : true,
+        "secondOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה שנייה",
+          "votes" : 50
+        },
+        "totalSkips" : 0
+      }, {
+        "firstOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה ראשונה",
+          "votes" : 50
+        },
+        "isAvailable" : true,
+        "isSkippable" : true,
+        "secondOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה שנייה",
+          "votes" : 50
+        },
+        "totalSkips" : 0
+      }, {
+        "firstOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה ראשונה",
+          "votes" : 50
+        },
+        "isAvailable" : true,
+        "isSkippable" : true,
+        "secondOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה שנייה",
+          "votes" : 50
+        },
+        "totalSkips" : 0
+      }, {
+        "firstOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה ראשונה",
+          "votes" : 50
+        },
+        "isAvailable" : true,
+        "isSkippable" : true,
+        "secondOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה שנייה",
+          "votes" : 50
+        },
+        "totalSkips" : 0
+      }, {
+        "firstOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה ראשונה",
+          "votes" : 50
+        },
+        "isAvailable" : true,
+        "isSkippable" : true,
+        "secondOption" : {
+          "initialVotesValue" : 50,
+          "value" : "אופציה שנייה",
+          "votes" : 50
+        },
+        "totalSkips" : 0
+      }]
+    }
+  }
+}

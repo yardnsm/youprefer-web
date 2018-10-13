@@ -5,5 +5,5 @@ yarn-error.log
 coverage
 public/assets/*.js
 
-# Configz
+ssl/
 src/config/app-config.js
