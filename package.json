@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env=dev --open",
+    "start:prod": "NODE_ENV=production webpack-dev-server --env=prod --open --https",
     "start:https": "npm start -- --https",
     "build": "NODE_ENV=production webpack --env=prod -p --progress",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx",

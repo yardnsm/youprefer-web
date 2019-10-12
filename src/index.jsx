@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader';
 
-import { register as registerServiceWorker } from './registerServiceWorker';
 import store from './store';
 import App from './app';
 
@@ -23,5 +22,3 @@ render(
     ),
   ),
 );
-
-registerServiceWorker();
