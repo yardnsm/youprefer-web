@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as uiActions } from './actions/ui';
 import { attachConnectionListener, dettachConnectionListeners } from './utils/connection';
+import { register as registerServiceWorker } from './registerServiceWorker';
 
 import {
   connectedToServer,
   disconnectedFromServer,
+  readyForOfflineSnackbar,
 } from './config/strings';
 
 import AppLayout from './layouts/AppLayout';
@@ -27,6 +29,7 @@ class App extends React.Component {
     super(props);
 
     this.updateConnectionStatus = this.updateConnectionStatus.bind(this);
+    this.onServiceWorkerInstall = this.onServiceWorkerInstall.bind(this);
   }
 
   componentDidMount() {
@@ -43,10 +46,24 @@ class App extends React.Component {
         }, 1500);
       }, 1000);
     }
+
+    // Register service worker
+    registerServiceWorker({
+      onInstall: this.onServiceWorkerInstall,
+    });
   }
 
   componentWillUnmount() {
     dettachConnectionListeners();
+  }
+
+  onServiceWorkerInstall() {
+    const { createSnackbar } = this.props;
+
+    createSnackbar({
+      message: readyForOfflineSnackbar,
+      duration: 5000,
+    });
   }
 
   updateConnectionStatus(status) {
@@ -59,7 +76,7 @@ class App extends React.Component {
     this.snackbarTimeout = setTimeout(() => {
       createSnackbar({
         message: status ? connectedToServer : disconnectedFromServer,
-        duration: 5000,
+        duration: 2000,
       });
     }, 2000);
   }

@@ -19,6 +19,7 @@ export const singleQuestionUrl = questionId =>
 export const gameTitle = 'מה אתה מעדיף?';
 export const connectedToServer = 'מחובר לשרת';
 export const disconnectedFromServer = 'מנותק מהשרת';
+export const readyForOfflineSnackbar = 'מוכן לשימוש במצב לא מקוון';
 export const dialogClose = 'סגור';
 
 // Drawer stuff
