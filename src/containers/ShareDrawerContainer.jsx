@@ -23,11 +23,10 @@ const ButtonsWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
+  padding: 10px 0;
+
   & > * {
     width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items : center;
   }
 `;
 

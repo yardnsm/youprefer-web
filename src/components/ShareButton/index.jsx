@@ -6,7 +6,7 @@ import withRipple from '../../hoc/withRipple';
 const Wrapper = withRipple(styled.a`
   text-decoration: none;
   cursor: pointer;
-  margin: 10px 8px;
+  margin: 0 auto;
   padding: 0.5px 0;
   color: ${props => props.color};
   display: flex;
