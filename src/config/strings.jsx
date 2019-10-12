@@ -48,38 +48,32 @@ export const shareText = (firstOption, secondOption) =>
 
 export const shareDialogButtons = [{
   name: 'Facebook',
-  bgColor: '#314E8F',
-  text: 'שתף בפייסבוק',
+  color: '#237AEF',
   urlTemplate: 'https://facebook.com/sharer/sharer.php?u=$url',
   iconUrl: '/assets/img/icon_facebook.svg',
 }, {
   name: 'Twitter',
-  bgColor: '#4AA4EC',
-  text: 'שתף בטוויטר',
+  color: '#4AA4EC',
   urlTemplate: 'https://twitter.com/intent/tweet/?text=$content&amp;url=$url',
   iconUrl: '/assets/img/icon_twitter.svg',
 }, {
   name: 'Google+',
-  bgColor: '#D84337',
-  text: 'שתף ב-Google+',
+  color: '#D84337',
   urlTemplate: 'https://plus.google.com/share?url=$url',
   iconUrl: '/assets/img/icon_gplus.svg',
 }, {
   name: 'Email',
-  bgColor: '#6C6C6C',
-  text: 'שלח באימייל',
+  color: '#6C6C6C',
   urlTemplate: 'mailto:?subject=$content&amp;body=$url',
   iconUrl: '/assets/img/icon_email.svg',
 }, {
   name: 'WhatsApp',
-  bgColor: '#21CD5B',
-  text: 'שתף בווטסאפ',
+  color: '#21CD5B',
   urlTemplate: 'whatsapp://send?text=$content%20$url',
   iconUrl: '/assets/img/icon_whatsapp.svg',
 }, {
   name: 'Telegram',
-  bgColor: '#4A9FE8',
-  text: 'שתף בטלגרם',
+  color: '#4A9FE8',
   urlTemplate: 'https://telegram.me/share/url?text=$content&amp;url=$url',
   iconUrl: '/assets/img/icon_telegram.svg',
 }];

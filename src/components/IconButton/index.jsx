@@ -8,7 +8,7 @@ const IconButtonWrapper = withRipple(styled.a`
   cursor: pointer;
   margin: -10px 8px;
   padding: 0.5px 0;
-  color: white;
+  color: ${props => props.color};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,8 +33,8 @@ const IconButtonWrapper = withRipple(styled.a`
   }
 `);
 
-const IconButton = ({ iconClassName, handleClick }) => (
-  <IconButtonWrapper onClick={handleClick}>
+const IconButton = ({ iconClassName, handleClick, color }) => (
+  <IconButtonWrapper onClick={handleClick} color={color}>
     <i className="material-icons">{iconClassName}</i>
   </IconButtonWrapper>
 );
@@ -42,10 +42,12 @@ const IconButton = ({ iconClassName, handleClick }) => (
 IconButton.propTypes = {
   iconClassName: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
+  color: PropTypes.string,
 };
 
 IconButton.defaultProps = {
   handleClick: () => {},
+  color: 'white',
 };
 
 export default IconButton;

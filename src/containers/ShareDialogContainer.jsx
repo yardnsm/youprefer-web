@@ -14,17 +14,34 @@ import {
   shareDialogButtons,
 } from '../config/strings';
 
-import Dialog from '../components/Dialog';
-import DialogTitle from '../components/DialogTitle';
-import DialogContent from '../components/DialogContent';
-import DialogActions from '../components/DialogActions';
-import Button from '../components/Button';
-import ImageIcon from '../components/ImageIcon';
+import Drawer from '../components/Drawer';
+import IconButton from '../components/IconButton';
+import ShareButton from '../components/ShareButton';
 
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  & > * {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+  }
+`;
+
+const ShareDialogHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  padding-left: 6px;
+`;
+
+const Title = styled.h3`
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 12px;
 `;
 
 const mapStateToProps = ({ ui: { shareDialogToggled }, game: { questions } }) => ({
@@ -55,39 +72,30 @@ class ShareDialogContainer extends React.Component {
     const { shareDialogToggled, currentQuestion, handleDialogClose } = this.props;
 
     return (
-      <Dialog open={shareDialogToggled} handleDialogClose={handleDialogClose}>
+      <Drawer open={shareDialogToggled} handleDrawerClose={handleDialogClose} position="bottom">
 
-        <DialogTitle>{shareDialogTitle}</DialogTitle>
+        <ShareDialogHeader>
+          <Title>{shareDialogTitle}</Title>
+          <IconButton iconClassName="close" handleClick={handleDialogClose} color="rgba(0, 0, 0, 0.45)" />
+        </ShareDialogHeader>
 
-        <DialogContent>
-          <div>
-            {currentQuestion && (
-              <ButtonsWrapper>
-                {shareDialogButtons.map(e => (
-                  <Button
-                    raised
-                    key={e.name}
-                    bgColor={e.bgColor}
-                    text={e.text}
-                    compact
-                    icon={e.iconUrl ? (
-                      <ImageIcon src={e.iconUrl} />
-                    ) : null}
-                    handleClick={() => {
-                      window.open(this.formatUrl(e.urlTemplate), '_blank');
-                    }}
-                  />
-                ))}
-              </ButtonsWrapper>
-            )}
-          </div>
-        </DialogContent>
-
-        <DialogActions>
-          <Button text={dialogClose} compact textColor="#000000" handleClick={handleDialogClose} />
-        </DialogActions>
-
-      </Dialog>
+        {currentQuestion && (
+          <ButtonsWrapper>
+            {shareDialogButtons.map(button => (
+              <div key={button.name}>
+                <ShareButton
+                  color={button.color}
+                  text={button.name}
+                  iconUrl={button.iconUrl}
+                  handleClick={() => {
+                    window.open(this.formatUrl(button.urlTemplate), '_blank');
+                  }}
+                />
+              </div>
+            ))}
+          </ButtonsWrapper>
+        )}
+      </Drawer>
     );
   }
 }
