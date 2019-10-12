@@ -5,7 +5,7 @@ import styled, { injectGlobal } from 'styled-components';
 import ToolbarContainer from '../../containers/ToolbarContainer';
 import DrawerContainer from '../../containers/DrawerContainer';
 import AboutDialogContainer from '../../containers/AboutDialogContainer';
-import ShareDialogContainer from '../../containers/ShareDialogContainer';
+import ShareMenuContainer from '../../containers/ShareMenuContainer';
 import SnackbarContainer from '../../containers/SnackbarContainer';
 
 // eslint-disable-next-line no-unused-expressions
@@ -72,7 +72,7 @@ const AppLayout = ({ children }) => (
     <SnackbarContainer />
 
     <AboutDialogContainer />
-    <ShareDialogContainer />
+    <ShareMenuContainer />
 
   </Wrapper>
 );

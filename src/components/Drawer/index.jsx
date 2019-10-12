@@ -2,9 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const generateTransformForDrawer = (props) => {
+  if (props.visible) {
+    if (props.position === 'bottom') {
+      return 'translateX(-50%)';
+    }
+
+    return 'none';
+  }
+
+  if (props.position === 'bottom') {
+    return 'translateX(-50%) translateY(100%)';
+  }
+
+  return 'translateX(100%)';
+};
+
 const DrawerWrapper = styled.aside`
   position: fixed;
-  top: 64px;
+  top: ${props => (props.forceFullscreen ? '0' : '64px')};
   left: 0;
   width: 100%;
   height: 100%;
@@ -35,31 +51,48 @@ const DrawerOverlay = styled.div`
 
 const DrawerInner = styled.div`
   background: #ffffff;
-  right: 0;
-  height: 100%;
   will-change: transform;
   display: flex;
   position: absolute;
   flex-direction: column;
-  width: calc(100% - 56px);
-  max-width: 280px;
   box-sizing: border-box;
   overflow: hidden;
   touch-action: none;
   transition: transform cubic-bezier(0, 0, .2, 1) 350ms;
 
+  ${props => (props.position === 'right' && `
+    right: 0;
+    height: 100%;
+    max-width: 280px;
+    width: calc(100% - 56px);
+  `)}
+
+  ${props => (props.position === 'bottom' && `
+    bottom: 0;
+    width: 100%;
+    max-width: 568px;
+
+    /* Keep it at center */
+    left: 50%;
+  `)}
+
   box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
               0px 16px 24px 2px rgba(0, 0, 0, 0.14),
               0px 6px 30px 5px rgba(0, 0, 0, 0.12);
 
-  transform: ${props => (props.visible ? 'none' : 'translateX(100%)')};
+  transform: ${generateTransformForDrawer};
 `;
 
-const Drawer = ({ children, open, handleDrawerClose }) => (
-  <DrawerWrapper toggled={open}>
+const Drawer = ({
+  children,
+  open,
+  handleDrawerClose,
+  position,
+}) => (
+  <DrawerWrapper toggled={open} forceFullscreen={position === 'bottom'}>
     <DrawerOverlay toggled={open} onClick={handleDrawerClose} />
 
-    <DrawerInner visible={open}>
+    <DrawerInner visible={open} position={position}>
       { children }
     </DrawerInner>
   </DrawerWrapper>
@@ -69,10 +102,12 @@ Drawer.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
   handleDrawerClose: PropTypes.func.isRequired,
+  position: PropTypes.oneOf(['right', 'bottom']),
 };
 
 Drawer.defaultProps = {
   open: false,
+  position: 'right',
 };
 
 export default Drawer;
