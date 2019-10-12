@@ -27,6 +27,13 @@ const ToolbarRow = styled.div`
   padding: 20px 28px;
   padding-left: 16px;
   box-sizing: border-box;
+
+  /* Small devices, need to set properly for row aligning */
+  @media (max-width: 768px) {
+    min-height: 56px;
+    max-height: 56px;
+    padding: 16px 24px;
+  }
 `;
 
 const ToolbarRowInner = styled.div`
