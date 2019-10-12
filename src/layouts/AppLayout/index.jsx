@@ -30,6 +30,12 @@ injectGlobal`
    -khtml-user-select: none;
    -webkit-user-select: none;
   }
+
+  body {
+
+    /* Disables pull-to-refresh and overscroll glow effect */
+    overscroll-behavior-y: none;
+  }
 `;
 
 const Wrapper = styled.main`
