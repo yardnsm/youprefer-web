@@ -1,40 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import withRipple from '../../hoc/withRipple';
 
-const IconButtonWrapper = styled.a`
+const IconButtonWrapper = withRipple(styled.a`
   text-decoration: none;
   cursor: pointer;
-  margin: 0 8px;
+  margin: -10px 8px;
+  padding: 0.5px 0;
   color: white;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &::before {
-    position: absolute;
-    top: -30%;
-    left: -33%;
-    width: 40px;
-    height: 40px;
-    content: "";
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  will-change: background;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+  }
+
+  &:active {
     background-color: rgba(255, 255, 255, 0.15);
-    opacity: 0;
-    will-change: opacity;
-    transition: opacity cubic-bezier(0, 0, .2, 1) 100ms;
   }
 
-  &:hover::before {
-    opacity: 0.4;
+  & .material-icons {
+    z-index: 1;
   }
-
-  &:active::before {
-    opacity: 1;
-  }
-`;
+`);
 
 const IconButton = ({ iconClassName, handleClick }) => (
-  <IconButtonWrapper onClick={handleClick} className="material-icons">
-    {iconClassName}
+  <IconButtonWrapper onClick={handleClick}>
+    <i className="material-icons">{iconClassName}</i>
   </IconButtonWrapper>
 );
 
