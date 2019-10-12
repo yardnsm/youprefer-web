@@ -53,7 +53,7 @@ const mapDispatchToProps = dispatch => ({
   handleDialogClose: () => { dispatch(uiActions.hideShareDialog()); },
 });
 
-class ShareDialogContainer extends React.Component {
+class ShareDrawerContainer extends React.Component {
   constructor(props) {
     super(props);
     this.formatUrl = this.formatUrl.bind(this);
@@ -100,14 +100,14 @@ class ShareDialogContainer extends React.Component {
   }
 }
 
-ShareDialogContainer.propTypes = {
+ShareDrawerContainer.propTypes = {
   shareDialogToggled: PropTypes.bool.isRequired,
   currentQuestion: LocalPropTypes.question,
   handleDialogClose: PropTypes.func.isRequired,
 };
 
-ShareDialogContainer.defaultProps = {
+ShareDrawerContainer.defaultProps = {
   currentQuestion: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareDialogContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ShareDrawerContainer);
