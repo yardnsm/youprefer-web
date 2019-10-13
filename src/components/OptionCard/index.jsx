@@ -36,7 +36,7 @@ const Wrapper = withRipple(styled.div`
 
   background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), transparent);
   background-size: 100% 100%;
-  background-color: ${props => (props.type === 'first' ? '#2196f3' : '#f44336')};
+  background-color: ${props => props.theme.options[props.type]};
 
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
               0px 2px 2px 0px rgba(0, 0, 0, 0.14),

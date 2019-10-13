@@ -12,7 +12,7 @@ const Wrapper = styled.aside`
   height: 100%;
 
   overflow: hidden;
-  z-index: 8;
+  z-index: ${props => props.zIndex};
 
   box-sizing: border-box;
   pointer-events: ${props => (props.toggled ? 'auto' : 'none')};
@@ -69,11 +69,12 @@ const Drawer = ({
   open,
   onDrawerClose,
   position,
+  zIndex,
 }) => {
   const InnerComponent = position === 'bottom' ? BottomInner : RightInner;
 
   return (
-    <Wrapper toggled={open} forceFullscreen={position === 'bottom'}>
+    <Wrapper toggled={open} forceFullscreen={position === 'bottom'} zIndex={zIndex}>
       <Overlay visible={open} onClick={onDrawerClose} />
 
       <InnerComponent visible={open} position={position}>
@@ -88,11 +89,13 @@ Drawer.propTypes = {
   open: PropTypes.bool,
   onDrawerClose: PropTypes.func.isRequired,
   position: PropTypes.oneOf(['right', 'bottom']),
+  zIndex: PropTypes.number,
 };
 
 Drawer.defaultProps = {
   open: false,
   position: 'right',
+  zIndex: 8,
 };
 
 export default Drawer;

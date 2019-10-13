@@ -4,10 +4,9 @@ import styled from 'styled-components';
 
 import Icon from '../Icon';
 import Button from '../Button';
-
 import withRipple from '../../hoc/withRipple';
 
-const IconButtonWrapper = styled(Button)`
+const IconButtonWrapper = withRipple(styled(Button)`
   margin: -10px 8px;
   padding: 0.5px 0;
 
@@ -19,11 +18,12 @@ const IconButtonWrapper = styled(Button)`
   height: 40px;
   min-width: 40px;
   border-radius: 50%;
+  cursor: pointer;
 
   & ${Icon} {
     z-index: 1;
   }
-`;
+`);
 
 const IconButton = ({ iconClassName, onClick, color }) => (
   <IconButtonWrapper as="a" onClick={onClick}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import ToolbarContainer from '../../containers/ToolbarContainer';
 import DrawerContainer from '../../containers/DrawerContainer';
@@ -8,10 +8,9 @@ import AboutDialogContainer from '../../containers/AboutDialogContainer';
 import ShareMenuContainer from '../../containers/ShareMenuContainer';
 import SnackbarContainer from '../../containers/SnackbarContainer';
 
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   :root {
-    background-color: #424242;
+    background-color: ${props => props.theme.background};
     font-family: "Heebo", sans-serif;
     direction: rtl;
     box-sizing: border-box;
@@ -46,7 +45,7 @@ const Wrapper = styled.main`
   width: 100%;
   height: auto;
 
-  color: #F6F6F6;
+  color: ${props => props.theme.text.primary};
 `;
 
 const Container = styled.div`
@@ -63,21 +62,24 @@ const Container = styled.div`
 `;
 
 const AppLayout = ({ children }) => (
-  <Wrapper>
+  <>
+    <GlobalStyle />
+    <Wrapper>
 
-    <ToolbarContainer />
-    <DrawerContainer />
+      <ToolbarContainer />
+      <DrawerContainer />
 
-    {/* Routes goes here */}
-    <Container>
-      {children}
-    </Container>
+      {/* Routes goes here */}
+      <Container>
+        {children}
+      </Container>
 
-    <SnackbarContainer />
-    <AboutDialogContainer />
-    <ShareMenuContainer />
+      <SnackbarContainer />
+      <AboutDialogContainer />
+      <ShareMenuContainer />
 
-  </Wrapper>
+    </Wrapper>
+  </>
 );
 
 AppLayout.propTypes = {

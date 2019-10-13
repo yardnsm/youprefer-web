@@ -66,7 +66,12 @@ class ShareMenuContainer extends React.Component {
     const { shareDialogToggled, currentQuestion, onShareMenuClose } = this.props;
 
     return (
-      <Drawer open={shareDialogToggled} onDrawerClose={onShareMenuClose} position="bottom">
+      <Drawer
+        open={shareDialogToggled}
+        onDrawerClose={onShareMenuClose}
+        position="bottom"
+        zIndex={99}
+      >
 
         <ShareDialogHeader>
           <Title>{shareDialogTitle}</Title>

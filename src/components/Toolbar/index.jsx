@@ -13,8 +13,8 @@ const Wrapper = styled.header`
 
   width: 100%;
 
-  background-color: #212121;
-  color: #ffffff;
+  background-color: ${props => props.theme.primary};
+  color: ${props => props.theme.text.white};
 
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
               0px 4px 5px 0px rgba(0, 0, 0, 0.14),
@@ -35,7 +35,7 @@ const Row = styled.div`
   min-height: 64px;
   max-height: 64px;
 
-  padding: 22px 28px;
+  padding: 21px 28px;
   padding-left: 16px;
 
   box-sizing: border-box;

@@ -18,8 +18,7 @@ const MenuItemWrapper = withRipple(styled.a`
   align-items: center;
   justify-content: flex-start;
 
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #ffffff;
+  color: ${props => props.theme.text.secondary};
 
   transition: background cubic-bezier(0, 0, .2, 1) 250ms;
 

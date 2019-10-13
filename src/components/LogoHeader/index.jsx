@@ -34,12 +34,12 @@ const Background = styled.div`
 
   &::before {
     left: 0;
-    background-color: #2196f3;
+    background-color: ${props => props.theme.options.first};
   }
 
   &::after {
     right: 0;
-    background-color: #f44336;
+    background-color: ${props => props.theme.options.second};
   }
 `;
 
@@ -58,36 +58,20 @@ const QuestionCircle = styled.div`
   background-size: cover;
 `;
 
-const Ribbon = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: inline-block;
-  padding: 10px 50px;
-
-  background-color: #990000;
-  color: #ffffff;
-
-  transform: rotate(-45deg) translate(-25%, -50%);
-`;
-
-const DrawerHeader = ({ height }) => (
+const LogoHeader = ({ height }) => (
   <Wrapper height={height}>
 
     <Background />
     <QuestionCircle />
-
-    <Ribbon>BETA</Ribbon>
   </Wrapper>
 );
 
-DrawerHeader.propTypes = {
+LogoHeader.propTypes = {
   height: PropTypes.string,
 };
 
-DrawerHeader.defaultProps = {
+LogoHeader.defaultProps = {
   height: '160px',
 };
 
-export default DrawerHeader;
+export default LogoHeader;
