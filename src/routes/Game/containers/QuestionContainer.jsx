@@ -22,6 +22,7 @@ const calculateVotesPercentage = (votes, totalVotes, floorFunc) =>
   floorFunc(100 * (votes / totalVotes));
 
 const QuestionContainer = ({
+  loading,
   question,
   handleFirstOptionSelect,
   handleSecondOptionSelect,
@@ -45,6 +46,7 @@ const QuestionContainer = ({
 
         <OptionCard
           type="first"
+          enabled={!loading}
           showBack={!!selected}
           selected={selected === 'first'}
           value={firstOption.value}
@@ -53,10 +55,11 @@ const QuestionContainer = ({
           handleOptionSelect={handleFirstOptionSelect}
         />
 
-        <OrCircle />
+        <OrCircle loading={loading} />
 
         <OptionCard
           type="second"
+          enabled={!loading}
           showBack={!!selected}
           selected={selected === 'second'}
           value={secondOption.value}
@@ -75,13 +78,20 @@ const QuestionContainer = ({
 };
 
 QuestionContainer.propTypes = {
+  loading: PropTypes.bool,
   question: LocalPropTypes.question,
   handleFirstOptionSelect: PropTypes.func.isRequired,
   handleSecondOptionSelect: PropTypes.func.isRequired,
 };
 
 QuestionContainer.defaultProps = {
-  question: null,
+  loading: false,
+  question: {
+    payload: {
+      firstOption: {},
+      secondOption: {},
+    },
+  },
 };
 
 export default QuestionContainer;

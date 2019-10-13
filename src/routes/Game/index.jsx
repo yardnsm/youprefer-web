@@ -221,23 +221,23 @@ class GamePage extends React.Component {
       <Wrapper>
         <Title>{gameTitle}</Title>
 
-        {currentQuestion ? (
-          <div>
-            <QuestionContainer
-              question={currentQuestion}
-              handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
-              handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
-            />
+        <div>
+          <QuestionContainer
+            loading={!currentQuestion}
+            question={currentQuestion || undefined}
+            handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
+            handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
+          />
+
+          {currentQuestion && (
             <NavigationButtons
               handlePrevClick={this.handlePrevQuestion}
               showPrev={hasPrev}
               handleNextClick={this.handleNextQuestion}
               showNext
             />
+          )}
           </div>
-        ) : (
-          <LoadingQuestions />
-        )}
 
         <AdsenseAdContainer />
       </Wrapper>

@@ -17,7 +17,7 @@ const OptionCardWrapper = withRipple(styled.div`
   box-sizing: border-box;
   border-radius: 2px;
   overflow: hidden;
-  transform: none;
+  transform: scale(1);
   cursor: pointer;
   font-size: 18px;
   position: relative;
@@ -33,6 +33,12 @@ const OptionCardWrapper = withRipple(styled.div`
 
   margin-left: ${props => props.type === 'first' && '10px'};
   margin-right: ${props => props.type === 'second' && '10px'};
+
+  transition: transform cubic-bezier(0, 0, .2, 1) 700ms;
+
+  ${props => !props.enabled && `
+    transform: scale(0.9);
+  `}
 
   /* Small devices, need to set properly for row aligning */
   @media (max-width: 768px) {
@@ -67,6 +73,10 @@ const OptionCardWrapper = withRipple(styled.div`
     z-index: 1;
     will-change: opacity;
     transition: opacity cubic-bezier(0, 0, .2, 1) 700ms;
+
+    ${props => !props.enabled && `
+      opacity: 1 !important;
+    `}
 
     ${props => props.selected && `
       opacity: 1 !important;
@@ -151,6 +161,7 @@ const ValueText = styled.div`
 
 const OptionCard = ({
   type,
+  enabled,
   showBack,
   selected,
   value,
@@ -161,7 +172,8 @@ const OptionCard = ({
   <OptionCardWrapper
     type={type}
     selected={selected}
-    onClick={!showBack ? (() => { handleOptionSelect(type); }) : undefined}
+    enabled={enabled}
+    onClick={(!showBack && enabled) ? (() => { handleOptionSelect(type); }) : undefined}
   >
     <OptionCardInner>
       {!showBack ? (
@@ -178,13 +190,24 @@ const OptionCard = ({
 );
 
 OptionCard.propTypes = {
-  type: PropTypes.string.isRequired,
-  showBack: PropTypes.bool.isRequired,
-  selected: PropTypes.bool.isRequired,
-  value: PropTypes.string.isRequired,
-  votes: PropTypes.number.isRequired,
-  percentage: PropTypes.number.isRequired,
-  handleOptionSelect: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(['first', 'second']).isRequired,
+  enabled: PropTypes.bool,
+  showBack: PropTypes.bool,
+  selected: PropTypes.bool,
+  value: PropTypes.string,
+  votes: PropTypes.number,
+  percentage: PropTypes.number,
+  handleOptionSelect: PropTypes.func,
+};
+
+OptionCard.defaultProps = {
+  enabled: true,
+  showBack: false,
+  selected: false,
+  value: '',
+  votes: 0,
+  percentage: 0,
+  handleOptionSelect: () => {},
 };
 
 export default OptionCard;

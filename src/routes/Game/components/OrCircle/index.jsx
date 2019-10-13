@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
@@ -9,7 +10,8 @@ const OrCircleWrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform-origin: left top;
+  transform: scale(1) translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,12 +24,26 @@ const OrCircleWrapper = styled.div`
   height: 60px;
   border: 1px solid #616161;
   box-shadow: 0px 0px 18px 3px rgba(0, 0, 0, 0.1);
+
+  transition: transform cubic-bezier(0, 0, .2, 1) 700ms;
+
+  ${props => props.loading && `
+    transform: scale(1.1) translate(-50%, -50%);
+  `}
 `;
 
-const OrCircle = () => (
-  <OrCircleWrapper>
+const OrCircle = (props) => (
+  <OrCircleWrapper {...props}>
     <span>{orCircleValue}</span>
   </OrCircleWrapper>
 );
+
+OrCircle.propTypes = {
+  loading: PropTypes.bool,
+};
+
+OrCircle.defaultProps = {
+  loading: false,
+};
 
 export default OrCircle;
