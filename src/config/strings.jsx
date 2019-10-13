@@ -1,28 +1,30 @@
 import React from 'react';
 import Icon from '../components/Icon';
+import config from '../config/app-config';
 
-// App settings
-export const appName = 'YouPrefer';
-export const version = 'v0.1.7beta';
-export const rootUrl = 'https://youprefer.co.il';
-export const blankUrl = '/assets/html/ayyy.html';
-export const serviceWorkerUrl = '/sw.js';
+// Config exports
+export const rootUrl = config.rootUrl;
+export const version = config.version;
+export const androidAppUrl = config.rootUrl;
 
-export const sendQuestionsEmail = 'support@youprefer.co.il';
-export const sendQuestionsUrl = `mailto:${sendQuestionsEmail}`;
-
-export const androidAppUrl = 'https://play.google.com/store/apps/details?id=com.yardnsm.youprefer';
+export const sendQuestionsUrl = `mailto:${config.supportEmail}`;
 
 export const singleQuestionUrl = questionId =>
   `${rootUrl}/${questionId}`;
 
 // Plain strings
 export const gameTitle = 'מה אתה מעדיף?';
-export const connectedToServer = 'מחובר לשרת';
-export const disconnectedFromServer = 'מנותק מהשרת';
+
+// General snackbars
 export const readyForOfflineSnackbar = 'מוכן לשימוש במצב לא מקוון';
 export const questionNotFoundSnackbar = 'השאלה שביקשת לא נמצאה, מחפש שאלה חדשה';
+
+// Dialog stuff
 export const dialogClose = 'סגור';
+
+// Connection status
+export const connectedToServer = 'מחובר לשרת';
+export const disconnectedFromServer = 'מנותק מהשרת';
 
 // Drawer stuff
 export const drawerSendQuestions = 'הצע שאלות';
@@ -44,7 +46,6 @@ export const aboutDialogContents = () => (
 
 // Share dialog
 export const shareDialogTitle = 'שתף שאלה';
-
 export const shareText = (firstOption, secondOption) =>
   `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 
@@ -88,15 +89,9 @@ export const optionCardVotes = 'הצבעות';
 export const orCircleValue = 'או';
 
 // Question stats
+export const questionStatsLoadingVotes = 'טוען הצבעות';
 export const questionStatsVotes = 'הצבעות';
 
-// Copy text
+// Copy to clipboard text
 export const clickToCopy = 'לחץ להעתקה';
 export const copiedToClipboard = 'הועתק ללוח';
-
-// Not found page
-export const pageNotFoundTitle = 'הדף שביקשת איננו קיים!';
-export const pageNotFoundButton = 'לדף הבית';
-
-// Loading questions
-export const loadingQuestionsText = 'טוען שאלה...';

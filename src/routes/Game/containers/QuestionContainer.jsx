@@ -27,7 +27,7 @@ const QuestionContainer = ({
   onFirstOptionSelect,
   onSecondOptionSelect,
 }) => {
-  const { payload, selected  } = question || {};
+  const { payload, selected } = question || {};
   const { firstOption, secondOption } = payload || {};
 
   const firstOptionVotes = firstOption ? firstOption.votes : 0;
@@ -71,7 +71,7 @@ const QuestionContainer = ({
 
       <QuestionStats
         questionId={maskedQuestionId}
-        totalVotes={totalVotes || '-'}
+        totalVotes={totalVotes}
       />
     </div>
   );

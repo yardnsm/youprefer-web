@@ -9,6 +9,7 @@ import Tooltip from '../Tooltip';
 import {
   rootUrl,
   questionStatsVotes,
+  questionStatsLoadingVotes,
   clickToCopy,
   copiedToClipboard,
 } from '../../config/strings';
@@ -100,7 +101,13 @@ class QuestionStats extends React.Component {
       <Wrapper>
         <Stat>
           <Icon>poll</Icon>
-          <span>{`${totalVotes} ${questionStatsVotes}`}</span>
+          <span>
+            {(
+              (typeof totalVotes === 'number' && totalVotes) ?
+                `${totalVotes} ${questionStatsVotes}` :
+                questionStatsLoadingVotes
+            )}
+          </span>
         </Stat>
 
         <CopyToClipboard
@@ -134,7 +141,7 @@ QuestionStats.propTypes = {
 
 QuestionStats.defaultProps = {
   questionId: 0,
-  totalVotes: '-',
+  totalVotes: null,
 };
 
 export default QuestionStats;
