@@ -7,9 +7,9 @@ import Icon from '../Icon';
 import Tooltip from '../Tooltip';
 
 import {
-  rootUrl,
   questionStatsVotes,
   questionStatsLoadingVotes,
+  singleQuestionUrl,
   clickToCopy,
   copiedToClipboard,
 } from '../../config/strings';
@@ -75,8 +75,7 @@ class QuestionStats extends React.Component {
 
   getQuestionUrl() {
     const { questionId } = this.props;
-
-    return `${rootUrl}/${questionId}`;
+    return singleQuestionUrl(questionId);
   }
 
   handleCopyClick() {

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
-import { serviceWorkerUrl } from './config/strings';
+import config from './config/app-config';
 
 export const register = ({ onInstall }) => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register(serviceWorkerUrl)
+      navigator.serviceWorker.register(config.serviceWorkerUrl)
         .then((registration) => {
           console.log('Service worker registered with scope', registration.scope);
 

@@ -56,12 +56,17 @@ const mapDispatchToProps = dispatch => ({
  */
 
 class GamePage extends React.Component {
+  static getQuestionIdFromUrl() {
+    const questionIdRegex = /^\/(\d+)/;
+
+    return questionIdRegex.exec(window.location.pathname)[1];
+  }
+
   constructor(props) {
     super(props);
 
     // (ノಠ益ಠ)ノ
     this.getQuestionIdFromUrl = this.getQuestionIdFromUrl.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleQuestionNotFound = this.handleQuestionNotFound.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
@@ -104,9 +109,6 @@ class GamePage extends React.Component {
         goToNextQuestion();
       }
     });
-
-    // Nah.
-    // document.addEventListener('keydown', this.handleKeyDown, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -142,29 +144,6 @@ class GamePage extends React.Component {
 
   componentWillUnmount() {
     this.unlistenForHistory();
-    // document.removeEventListener('keydown', this.handleKeyDown, false);
-  }
-
-
-  getQuestionIdFromUrl() {
-    const questionIdRegex = /^\/(\d+)/;
-
-    return questionIdRegex.exec(location.pathname)[1];
-  }
-
-  handleKeyDown(evt) {
-    switch (evt.keyCode) {
-      case 39: // left
-        this.handlePrevQuestion();
-        break;
-
-      case 37: // right
-        this.handleNextQuestion();
-        break;
-
-      default:
-        break;
-    }
   }
 
   handleQuestionNotFound() {

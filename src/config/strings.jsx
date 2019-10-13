@@ -1,11 +1,13 @@
 import React from 'react';
 import Icon from '../components/Icon';
-import config from '../config/app-config';
+import config from './app-config';
 
 // Config exports
-export const rootUrl = config.rootUrl;
-export const version = config.version;
-export const androidAppUrl = config.rootUrl;
+export const {
+  rootUrl,
+  version,
+  androidAppUrl,
+} = config;
 
 export const sendQuestionsUrl = `mailto:${config.supportEmail}`;
 
