@@ -30,7 +30,8 @@ const TooltipElem = styled.div`
     transform: scale(0.95) translateX(-110%);
 
     will-change: opacity, transform;
-    transition: opacity, transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: opacity cubic-bezier(0.4, 0, 0.2, 1) 150ms,
+      transform cubic-bezier(0.4, 0, 0.2, 1) 150ms;
   }
 
   &:hover::after {

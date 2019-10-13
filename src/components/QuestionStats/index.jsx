@@ -127,8 +127,19 @@ class QuestionStats extends React.Component {
 }
 
 QuestionStats.propTypes = {
-  questionId: PropTypes.number.isRequired,
-  totalVotes: PropTypes.number.isRequired,
+  questionId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  totalVotes: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+};
+
+QuestionStats.defaultProps = {
+  questionId: 0,
+  totalVotes: '-',
 };
 
 export default QuestionStats;

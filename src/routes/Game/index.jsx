@@ -60,6 +60,7 @@ class GamePage extends React.Component {
     super(props);
 
     // (ノಠ益ಠ)ノ
+    this.getQuestionIdFromUrl = this.getQuestionIdFromUrl.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleQuestionNotFound = this.handleQuestionNotFound.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
@@ -95,10 +96,7 @@ class GamePage extends React.Component {
       // However, `location.pathname` works fine in all browsers, so we're
       // going to use that.
 
-      const questionIdRegex = /^\/(\d+)/;
-      let questionId = questionIdRegex.exec(location.pathname)[1];
-
-      questionId = unmask(questionId);
+      const questionId = unmask(this.getQuestionIdFromUrl());
 
       if (hasPrev && prevQuestion.id === questionId) {
         goToPrevQuestion();
@@ -147,7 +145,12 @@ class GamePage extends React.Component {
     // document.removeEventListener('keydown', this.handleKeyDown, false);
   }
 
-  // ------------------------------------------------
+
+  getQuestionIdFromUrl() {
+    const questionIdRegex = /^\/(\d+)/;
+
+    return questionIdRegex.exec(location.pathname)[1];
+  }
 
   handleKeyDown(evt) {
     switch (evt.keyCode) {
@@ -242,6 +245,7 @@ class GamePage extends React.Component {
         <div>
           <QuestionContainer
             loading={!currentQuestion}
+            maskedQuestionId={this.getQuestionIdFromUrl()}
             question={currentQuestion || undefined}
             onFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
             onSecondOptionSelect={() => incrementSecondOption(currentQuestion)}

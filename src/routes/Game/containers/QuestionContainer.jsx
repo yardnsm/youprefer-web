@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { mask } from '../../../utils/mask';
 import LocalPropTypes from '../../../prop-types';
 
 import OptionCard from '../../../components/OptionCard';
@@ -24,10 +23,11 @@ const calculateVotesPercentage = (votes, totalVotes, floorFunc) =>
 const QuestionContainer = ({
   loading,
   question,
+  maskedQuestionId,
   onFirstOptionSelect,
   onSecondOptionSelect,
 }) => {
-  const { payload, selected, id } = question || {};
+  const { payload, selected  } = question || {};
   const { firstOption, secondOption } = payload || {};
 
   const firstOptionVotes = firstOption ? firstOption.votes : 0;
@@ -70,8 +70,8 @@ const QuestionContainer = ({
       </OptionsContainer>
 
       <QuestionStats
-        questionId={mask(id)}
-        totalVotes={totalVotes}
+        questionId={maskedQuestionId}
+        totalVotes={totalVotes || '-'}
       />
     </div>
   );
@@ -80,12 +80,14 @@ const QuestionContainer = ({
 QuestionContainer.propTypes = {
   loading: PropTypes.bool,
   question: LocalPropTypes.question,
+  maskedQuestionId: PropTypes.number,
   onFirstOptionSelect: PropTypes.func.isRequired,
   onSecondOptionSelect: PropTypes.func.isRequired,
 };
 
 QuestionContainer.defaultProps = {
   loading: false,
+  maskedQuestionId: 0,
   question: {
     payload: {
       firstOption: {},
