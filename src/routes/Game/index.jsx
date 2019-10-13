@@ -66,7 +66,6 @@ class GamePage extends React.Component {
     super(props);
 
     // (ノಠ益ಠ)ノ
-    this.getQuestionIdFromUrl = this.getQuestionIdFromUrl.bind(this);
     this.handleQuestionNotFound = this.handleQuestionNotFound.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
@@ -101,7 +100,7 @@ class GamePage extends React.Component {
       // However, `location.pathname` works fine in all browsers, so we're
       // going to use that.
 
-      const questionId = unmask(this.getQuestionIdFromUrl());
+      const questionId = unmask(GamePage.getQuestionIdFromUrl());
 
       if (hasPrev && prevQuestion.id === questionId) {
         goToPrevQuestion();
