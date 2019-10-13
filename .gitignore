@@ -9,3 +9,4 @@ public/ads.txt
 
 ssl/
 src/config/app-config.js
+.firebaserc
