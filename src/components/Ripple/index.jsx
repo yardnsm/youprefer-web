@@ -17,17 +17,23 @@ const rippleAnim = keyframes`
   }
 `;
 
-const RippleInk = styled.span`
+const Ink = styled.span`
   position: absolute;
-  background: ${props => props.rippleColor};
-  width: ${props => props.dim}px;
-  height: ${props => props.dim}px;
+  z-index: -1;
+
   top: ${props => props.top}px;
   left: ${props => props.left}px;
-  z-index: -1;
+
+  background: ${props => props.rippleColor};
+
+  width: ${props => props.dim}px;
+  height: ${props => props.dim}px;
+
   border-radius: 50%;
-  transform: scale(2);
+
   opacity: 1;
+  transform: scale(2);
+
   animation: ${rippleAnim} 600ms cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
@@ -35,7 +41,7 @@ const Releaser = styled.span`
   transition: opacity 1100ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /*
-   * The initial opacity of the ripple is 1. When the ripple will be
+   * The final opacity of the ripple is 1. When the ripple will be
    * "released", the opacity will be set to 0 and the transition will kick in
    */
   opacity: ${props => Number(!props.released)};
@@ -45,7 +51,7 @@ const Ripple = ({
   dim, x, y, rippleColor, released,
 }) => (
   <Releaser released={released}>
-    <RippleInk
+    <Ink
       dim={dim}
       left={x}
       top={y}

@@ -1,26 +1,32 @@
 import React from 'react';
+import Icon from '../components/Icon';
+import config from './app-config';
 
-// App settings
-export const appName = 'YouPrefer';
-export const version = 'v0.1.7beta';
-export const rootUrl = 'https://youprefer.co.il';
-export const blankUrl = '/assets/html/ayyy.html';
-export const serviceWorkerUrl = '/sw.js';
+// Config exports
+export const {
+  rootUrl,
+  version,
+  androidAppUrl,
+} = config;
 
-export const sendQuestionsEmail = 'support@youprefer.co.il';
-export const sendQuestionsUrl = `mailto:${sendQuestionsEmail}`;
-
-export const androidAppUrl = 'https://play.google.com/store/apps/details?id=com.yardnsm.youprefer';
+export const sendQuestionsUrl = `mailto:${config.supportEmail}`;
 
 export const singleQuestionUrl = questionId =>
   `${rootUrl}/${questionId}`;
 
 // Plain strings
 export const gameTitle = 'מה אתה מעדיף?';
+
+// General snackbars
+export const readyForOfflineSnackbar = 'מוכן לשימוש במצב לא מקוון';
+export const questionNotFoundSnackbar = 'השאלה שביקשת לא נמצאה, מחפש שאלה חדשה';
+
+// Dialog stuff
+export const dialogClose = 'סגור';
+
+// Connection status
 export const connectedToServer = 'מחובר לשרת';
 export const disconnectedFromServer = 'מנותק מהשרת';
-export const readyForOfflineSnackbar = 'מוכן לשימוש במצב לא מקוון';
-export const dialogClose = 'סגור';
 
 // Drawer stuff
 export const drawerSendQuestions = 'הצע שאלות';
@@ -42,40 +48,36 @@ export const aboutDialogContents = () => (
 
 // Share dialog
 export const shareDialogTitle = 'שתף שאלה';
-
 export const shareText = (firstOption, secondOption) =>
   `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 
 export const shareDialogButtons = [{
   name: 'Facebook',
-  color: '#237AEF',
+  color: '#227AEE',
   urlTemplate: 'https://facebook.com/sharer/sharer.php?u=$url',
-  iconUrl: '/assets/img/icon_facebook.svg',
+  icon: '/assets/img/icon_facebook.svg',
 }, {
   name: 'Twitter',
-  color: '#4AA4EC',
+  color: '#2AA3F0',
   urlTemplate: 'https://twitter.com/intent/tweet/?text=$content&amp;url=$url',
-  iconUrl: '/assets/img/icon_twitter.svg',
-}, {
-  name: 'Google+',
-  color: '#D84337',
-  urlTemplate: 'https://plus.google.com/share?url=$url',
-  iconUrl: '/assets/img/icon_gplus.svg',
+  icon: '/assets/img/icon_twitter.svg',
 }, {
   name: 'Email',
-  color: '#6C6C6C',
+  color: '#f4f4f4',
   urlTemplate: 'mailto:?subject=$content&amp;body=$url',
-  iconUrl: '/assets/img/icon_email.svg',
+  icon: (
+    <Icon>email</Icon>
+  ),
 }, {
   name: 'WhatsApp',
-  color: '#21CD5B',
+  color: '#25D366',
   urlTemplate: 'whatsapp://send?text=$content%20$url',
-  iconUrl: '/assets/img/icon_whatsapp.svg',
+  icon: '/assets/img/icon_whatsapp.svg',
 }, {
   name: 'Telegram',
   color: '#4A9FE8',
   urlTemplate: 'https://telegram.me/share/url?text=$content&amp;url=$url',
-  iconUrl: '/assets/img/icon_telegram.svg',
+  icon: '/assets/img/icon_telegram.svg',
 }];
 
 // Navigation buttons
@@ -89,15 +91,9 @@ export const optionCardVotes = 'הצבעות';
 export const orCircleValue = 'או';
 
 // Question stats
+export const questionStatsLoadingVotes = 'טוען הצבעות';
 export const questionStatsVotes = 'הצבעות';
 
-// Copy text
+// Copy to clipboard text
 export const clickToCopy = 'לחץ להעתקה';
 export const copiedToClipboard = 'הועתק ללוח';
-
-// Not found page
-export const pageNotFoundTitle = 'הדף שביקשת איננו קיים!';
-export const pageNotFoundButton = 'לדף הבית';
-
-// Loading questions
-export const loadingQuestionsText = 'טוען שאלה...';

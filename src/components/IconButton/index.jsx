@@ -1,52 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import Icon from '../Icon';
+import Button from '../Button';
 import withRipple from '../../hoc/withRipple';
 
-const IconButtonWrapper = withRipple(styled.a`
-  text-decoration: none;
-  cursor: pointer;
+const IconButtonWrapper = withRipple(styled(Button)`
   margin: -10px 8px;
   padding: 0.5px 0;
-  color: ${props => props.color};
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 40px;
   height: 40px;
+  min-width: 40px;
   border-radius: 50%;
-  background-color: transparent;
-  will-change: background;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  cursor: pointer;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.10);
-  }
-
-  &:active {
-    background-color: rgba(255, 255, 255, 0.15);
-  }
-
-  & .material-icons {
+  & ${Icon} {
     z-index: 1;
   }
 `);
 
-const IconButton = ({ iconClassName, handleClick, color }) => (
-  <IconButtonWrapper onClick={handleClick} color={color}>
-    <i className="material-icons">{iconClassName}</i>
+const IconButton = ({ iconClassName, onClick, color }) => (
+  <IconButtonWrapper as="a" onClick={onClick}>
+    <Icon color={color}>{iconClassName}</Icon>
   </IconButtonWrapper>
 );
 
 IconButton.propTypes = {
   iconClassName: PropTypes.string.isRequired,
-  handleClick: PropTypes.func,
+  onClick: PropTypes.func,
   color: PropTypes.string,
 };
 
 IconButton.defaultProps = {
-  handleClick: () => {},
+  onClick: () => {},
   color: 'white',
 };
 

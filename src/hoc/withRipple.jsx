@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { parseToHsl } from 'polished';
 
-import RippleInk from '../components/RippleInk';
+import Ripple from '../components/Ripple';
 
 const colorPresets = {
   dark: 'rgba(128, 128, 128, 0.4)',
@@ -159,7 +159,7 @@ function withRipple(WrappedComponent) {
         >
           {children}
           {inks.map(ink => (
-            <RippleInk
+            <Ripple
               key={ink.id}
               dim={ink.dim}
               x={ink.x}

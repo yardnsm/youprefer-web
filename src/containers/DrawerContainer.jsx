@@ -12,9 +12,10 @@ import {
 } from '../config/strings';
 
 import Drawer from '../components/Drawer';
-import DrawerHeader from '../components/DrawerHeader';
+import LogoHeader from '../components/LogoHeader';
 import Menu from '../components/Menu';
 import MenuItem from '../components/MenuItem';
+import Icon from '../components/Icon';
 import Divider from '../components/Divider';
 
 const mapStateToProps = ({ ui: { drawerToggled } }) => ({
@@ -22,48 +23,51 @@ const mapStateToProps = ({ ui: { drawerToggled } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDrawerClose: () => { dispatch(uiActions.hideDrawer()); },
+  onDrawerClose: () => { dispatch(uiActions.hideDrawer()); },
   showAboutDialog: () => { dispatch(uiActions.showAboutDialog()); },
 });
 
-const DrawerContainer = ({ drawerToggled, handleDrawerClose, showAboutDialog }) => (
-  <Drawer open={drawerToggled} handleDrawerClose={handleDrawerClose}>
-    <DrawerHeader />
+const DrawerContainer = ({ drawerToggled, onDrawerClose, showAboutDialog }) => (
+  <Drawer open={drawerToggled} onDrawerClose={onDrawerClose}>
+    <LogoHeader />
 
     <Menu>
       <MenuItem
-        iconClassName="send"
-        text={drawerSendQuestions}
-        handleClick={() => {
+        onClick={() => {
           window.open(sendQuestionsUrl);
         }}
-      />
+      >
+        <Icon>send</Icon>
+        {drawerSendQuestions}
+      </MenuItem>
 
       <MenuItem
-        iconClassName="get_app"
-        text={drawerGetTheApp}
-        handleClick={() => {
+        onClick={() => {
           window.open(androidAppUrl);
         }}
-      />
+      >
+        <Icon>get_app</Icon>
+        {drawerGetTheApp}
+      </MenuItem>
 
       <Divider />
 
       <MenuItem
-        iconClassName="info"
-        text={drawerAbout}
-        handleClick={() => {
-          handleDrawerClose();
+        onClick={() => {
+          onDrawerClose();
           showAboutDialog();
         }}
-      />
+      >
+        <Icon>info</Icon>
+        {drawerAbout}
+      </MenuItem>
     </Menu>
   </Drawer>
 );
 
 DrawerContainer.propTypes = {
   drawerToggled: PropTypes.bool.isRequired,
-  handleDrawerClose: PropTypes.func.isRequired,
+  onDrawerClose: PropTypes.func.isRequired,
   showAboutDialog: PropTypes.func.isRequired,
 };
 

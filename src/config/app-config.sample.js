@@ -19,6 +19,14 @@
 
 export default {
 
+  // Base config
+  appName: 'YouPrefer',
+  version: 'v1.0.0',
+  rootUrl: 'https://youprefer.co.il',
+  serviceWorkerUrl: '/sw.js',
+  supportEmail: 'support@youprefer.co.il',
+  androidAppUrl: 'https://play.google.com/store/apps/details?id=com.yardnsm.youprefer',
+
   // Config for Firebase
   firebase: {
     apiKey: '',

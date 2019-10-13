@@ -1,20 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Overlay from '../Overlay';
 
-const DialogWrapper = styled.div`
+const Wrapper = styled.div`
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
-  box-sizing: border-box;
-  contain: strict;
   z-index: 99;
+
+  contain: strict;
   will-change: opacity;
   transition: opacity cubic-bezier(0, 0, 0.2, 1) 350ms;
 
@@ -22,26 +26,22 @@ const DialogWrapper = styled.div`
   opacity: ${props => Number(!!props.toggled)};
 `;
 
-const DialogOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-`;
-
-const DialogInner = styled.div`
-  max-width: 600px;
-  flex: 0 1 auto;
-  display: flex;
+const Inner = styled.div`
   position: relative;
+
+  display: flex;
+  flex: 0 1 auto;
   overflow: hidden;
-  max-height: 90vh;
   flex-direction: column;
+
   border-radius: 2px;
+
+  max-width: 600px;
+  max-height: 90vh;
+
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.87);
+
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
               0px 24px 38px 3px rgba(0, 0, 0, 0.14),
               0px 9px 46px 8px rgba(0, 0, 0, 0.12);
@@ -51,19 +51,20 @@ const DialogInner = styled.div`
   }
 `;
 
-const Dialog = ({ children, open, handleDialogClose }) => (
-  <DialogWrapper toggled={open}>
-    <DialogOverlay onClick={handleDialogClose} />
-    <DialogInner>
+const Dialog = ({ children, open, onDialogClose }) => (
+  <Wrapper toggled={open}>
+    <Overlay onClick={onDialogClose} />
+
+    <Inner>
       { children }
-    </DialogInner>
-  </DialogWrapper>
+    </Inner>
+  </Wrapper>
 );
 
 Dialog.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
-  handleDialogClose: PropTypes.func.isRequired,
+  onDialogClose: PropTypes.func.isRequired,
 };
 
 Dialog.defaultProps = {

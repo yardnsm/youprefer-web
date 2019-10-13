@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { actions as uiActions } from '../../actions/ui';
 import { actions as gameActions } from '../../actions/game';
+
 import { mask, unmask } from '../../utils/mask';
 import generateRandomInteger from '../../utils/random';
 import { isNumber } from '../../utils/validations';
+
 import LocalPropTypes from '../../prop-types';
+import reactRouterPropTypes from '../../prop-types/react-router';
 
 import {
   gameTitle,
+  questionNotFoundSnackbar,
 } from '../../config/strings';
 
 import Title from '../../components/Title';
 import AdsenseAdContainer from '../../containers/AdsenseAdContainer';
-import Wrapper from './components/Wrapper';
-import LoadingQuestions from './components/LoadingQuestions';
-import NavigationButtons from './components/NavigationButtons';
+import NavigationButtons from '../../components/NavigationButtons';
+
 import QuestionContainer from './containers/QuestionContainer';
 
 const mapStateToProps = ({ game: { questions } }) => ({
@@ -40,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
   incrementSecondOption: (question) => { dispatch(gameActions.incrementSecondOption(question)); },
 
   removeCurrentQuestion: () => { dispatch(gameActions.removeCurrentQuestion()); },
+  createSnackbar: (options) => { dispatch(uiActions.createSnackbar(options)); },
 });
 
 /*
@@ -50,11 +56,18 @@ const mapDispatchToProps = dispatch => ({
  */
 
 class GamePage extends React.Component {
+  static getQuestionIdFromUrl() {
+    const questionIdRegex = /^\/(\d+)/;
+
+    return questionIdRegex.exec(window.location.pathname)[1];
+  }
+
   constructor(props) {
     super(props);
 
     // (ノಠ益ಠ)ノ
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.getQuestionIdFromUrl = this.getQuestionIdFromUrl.bind(this);
+    this.handleQuestionNotFound = this.handleQuestionNotFound.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
     this.pushQuestionToHistory = this.pushQuestionToHistory.bind(this);
@@ -88,10 +101,7 @@ class GamePage extends React.Component {
       // However, `location.pathname` works fine in all browsers, so we're
       // going to use that.
 
-      const questionIdRegex = /^\/(\d+)/;
-      let questionId = questionIdRegex.exec(location.pathname)[1];
-
-      questionId = unmask(questionId);
+      const questionId = unmask(this.getQuestionIdFromUrl());
 
       if (hasPrev && prevQuestion.id === questionId) {
         goToPrevQuestion();
@@ -99,14 +109,11 @@ class GamePage extends React.Component {
         goToNextQuestion();
       }
     });
-
-    // Nah.
-    // document.addEventListener('keydown', this.handleKeyDown, false);
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      match, history, questionCount, removeCurrentQuestion,
+      match, questionCount, removeCurrentQuestion,
     } = this.props;
 
     // Check if question shouldn't be available
@@ -126,7 +133,7 @@ class GamePage extends React.Component {
         if (isNumber(questionId) && unmask(questionId) <= nextProps.questionCount) {
           this.fetchQuestion(unmask(questionId));
         } else {
-          history.push('not-found');
+          this.handleQuestionNotFound();
         }
       } else {
         // The first question in the stack
@@ -137,24 +144,19 @@ class GamePage extends React.Component {
 
   componentWillUnmount() {
     this.unlistenForHistory();
-    // document.removeEventListener('keydown', this.handleKeyDown, false);
   }
 
-  // ------------------------------------------------
+  handleQuestionNotFound() {
+    const { createSnackbar } = this.props;
 
-  handleKeyDown(evt) {
-    switch (evt.keyCode) {
-      case 39: // left
-        this.handlePrevQuestion();
-        break;
+    // Notify the user
+    createSnackbar({
+      message: questionNotFoundSnackbar,
+      duration: 5000,
+    });
 
-      case 37: // right
-        this.handleNextQuestion();
-        break;
-
-      default:
-        break;
-    }
+    // Fetch a new question
+    this.fetchRandomQuestion(undefined, true);
   }
 
   pushQuestionToHistory(id) {
@@ -207,40 +209,40 @@ class GamePage extends React.Component {
     fetchQuestion(id);
   }
 
-  // ------------------------------------------------
-
   render() {
     const {
       currentQuestion,
       hasPrev,
       incrementFirstOption,
       incrementSecondOption,
+      match,
     } = this.props;
 
     return (
-      <Wrapper>
+      <div>
         <Title>{gameTitle}</Title>
 
-        {currentQuestion ? (
-          <div>
-            <QuestionContainer
-              question={currentQuestion}
-              handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
-              handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
-            />
+        <div>
+          <QuestionContainer
+            loading={!currentQuestion}
+            maskedQuestionId={match.params.questionId}
+            question={currentQuestion || undefined}
+            onFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
+            onSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
+          />
+
+          {currentQuestion && (
             <NavigationButtons
-              handlePrevClick={this.handlePrevQuestion}
+              onPrevClick={this.handlePrevQuestion}
               showPrev={hasPrev}
-              handleNextClick={this.handleNextQuestion}
+              onNextClick={this.handleNextQuestion}
               showNext
             />
-          </div>
-        ) : (
-          <LoadingQuestions />
-        )}
+          )}
+        </div>
 
         <AdsenseAdContainer />
-      </Wrapper>
+      </div>
     );
   }
 }
@@ -262,18 +264,9 @@ GamePage.propTypes = {
   incrementFirstOption: PropTypes.func.isRequired,
   incrementSecondOption: PropTypes.func.isRequired,
   removeCurrentQuestion: PropTypes.func.isRequired,
+  createSnackbar: PropTypes.func.isRequired,
 
-  // react-router shit
-  history: PropTypes.shape({
-    listen: PropTypes.func,
-    push: PropTypes.func,
-    goBack: PropTypes.func,
-    goForward: PropTypes.func,
-  }).isRequired,
-
-  match: PropTypes.shape({
-    params: PropTypes.objectOf(PropTypes.string),
-  }).isRequired,
+  ...reactRouterPropTypes,
 };
 
 GamePage.defaultProps = {

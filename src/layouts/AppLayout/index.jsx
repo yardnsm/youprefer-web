@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import ToolbarContainer from '../../containers/ToolbarContainer';
 import DrawerContainer from '../../containers/DrawerContainer';
@@ -8,10 +8,9 @@ import AboutDialogContainer from '../../containers/AboutDialogContainer';
 import ShareMenuContainer from '../../containers/ShareMenuContainer';
 import SnackbarContainer from '../../containers/SnackbarContainer';
 
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   :root {
-    background-color: #424242;
+    background-color: ${props => props.theme.background};
     font-family: "Heebo", sans-serif;
     direction: rtl;
     box-sizing: border-box;
@@ -25,10 +24,10 @@ injectGlobal`
 
     /* Disable user selection */
     user-select: none;
-   -o-user-select:none;
-   -moz-user-select: none;
-   -khtml-user-select: none;
-   -webkit-user-select: none;
+    -o-user-select:none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
   }
 
   body {
@@ -39,42 +38,48 @@ injectGlobal`
 `;
 
 const Wrapper = styled.main`
-  color: #F6F6F6;
   position: absolute;
   top: 0;
   left: 0;
+
   width: 100%;
   height: auto;
+
+  color: ${props => props.theme.text.primary};
 `;
 
 const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
+  padding: 100px 5px 0 5px;
+
   width: 840px;
-  padding-top: 80px;
 
   @media (max-width: 940px) {
     width: auto;
-    padding-top: 64px;
+    padding-top: 84px;
   }
 `;
 
 const AppLayout = ({ children }) => (
-  <Wrapper>
+  <>
+    <GlobalStyle />
+    <Wrapper>
 
-    <ToolbarContainer />
-    <DrawerContainer />
+      <ToolbarContainer />
+      <DrawerContainer />
 
-    <Container>
-      {children}
-    </Container>
+      {/* Routes goes here */}
+      <Container>
+        {children}
+      </Container>
 
-    <SnackbarContainer />
+      <SnackbarContainer />
+      <AboutDialogContainer />
+      <ShareMenuContainer />
 
-    <AboutDialogContainer />
-    <ShareMenuContainer />
-
-  </Wrapper>
+    </Wrapper>
+  </>
 );
 
 AppLayout.propTypes = {

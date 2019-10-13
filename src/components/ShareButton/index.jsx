@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import withRipple from '../../hoc/withRipple';
 
 const Wrapper = withRipple(styled.a`
-  text-decoration: none;
-  cursor: pointer;
   margin: 0 auto;
   padding: 0.5px 0;
-  color: ${props => props.color};
+
+  text-decoration: none;
+  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,26 +20,24 @@ const Wrapper = withRipple(styled.a`
   border-radius: 50%;
 `);
 
-const Icon = styled.div`
+const IconWrapper = styled.div`
   width: 3em;
   height: 3em;
-
-  background: black;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
-
-  background-color: ${props => props.color};
-  background-image: linear-gradient(to bottom left, transparent, rgba(0, 0, 0, 0.2));
+  z-index: -1;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  & img {
-    width: 1.5em;
-    height 1.5em;
-  }
+  border-radius: 50%;
+  margin-bottom: 10px;
+
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
+
+  background-color: ${props => props.color};
+  background-image: url("${props => props.imageUrl}");
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Text = styled.h3`
@@ -46,24 +45,35 @@ const Text = styled.h3`
   font-size: 14px;
 `;
 
-const ShareButton = ({ color, text, iconUrl, handleClick }) => (
-  <Wrapper onClick={handleClick}>
-    <Icon color={color} iconUrl={iconUrl}>
-      <img src={iconUrl} />
-    </Icon>
-    <Text>{text}</Text>
+const ShareButton = ({
+  color, text, icon, onClick,
+}) => (
+  <Wrapper onClick={onClick}>
+    <>
+      {typeof icon === 'string' ? (
+        <IconWrapper color={color} imageUrl={icon} />
+      ) : (
+        <IconWrapper color={color}>
+          {icon}
+        </IconWrapper>
+      )}
+      <Text>{text}</Text>
+    </>
   </Wrapper>
 );
 
 ShareButton.propTypes = {
   color: PropTypes.string,
   text: PropTypes.string.isRequired,
-  iconUrl: PropTypes.string.isRequired,
-  handleClick: PropTypes.func,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]).isRequired,
+  onClick: PropTypes.func,
 };
 
 ShareButton.defaultProps = {
-  handleClick: () => {},
+  onClick: () => {},
   color: '#222222',
 };
 
