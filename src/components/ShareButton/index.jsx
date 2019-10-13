@@ -20,9 +20,14 @@ const Wrapper = withRipple(styled.a`
   border-radius: 50%;
 `);
 
-const Icon = styled.div`
+const IconWrapper = styled.div`
   width: 3em;
   height: 3em;
+  z-index: -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 50%;
   margin-bottom: 10px;
@@ -30,16 +35,9 @@ const Icon = styled.div`
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
 
   background-color: ${props => props.color};
-  background-image: linear-gradient(to bottom left, transparent, rgba(0, 0, 0, 0.2));
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & img {
-    width: 1.5em;
-    height 1.5em;
-  }
+  background-image: url("${props => props.imageUrl}");
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Text = styled.h3`
@@ -48,22 +46,29 @@ const Text = styled.h3`
 `;
 
 const ShareButton = ({
-  color, text, iconUrl, onClick,
+  color, text, icon, onClick,
 }) => (
   <Wrapper onClick={onClick}>
-
-    <Icon color={color} iconUrl={iconUrl}>
-      <img src={iconUrl} alt={text} />
-    </Icon>
-
-    <Text>{text}</Text>
+    <>
+      {typeof icon === 'string' ? (
+        <IconWrapper color={color} imageUrl={icon} />
+      ) : (
+        <IconWrapper color={color}>
+          {icon}
+        </IconWrapper>
+      )}
+      <Text>{text}</Text>
+    </>
   </Wrapper>
 );
 
 ShareButton.propTypes = {
   color: PropTypes.string,
   text: PropTypes.string.isRequired,
-  iconUrl: PropTypes.string.isRequired,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]).isRequired,
   onClick: PropTypes.func,
 };
 

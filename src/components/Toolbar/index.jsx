@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Wrapper = styled.header`
   box-sizing: border-box;
   position: fixed;
-  z-index: 5;
+  z-index: 9;
 
   display: flex;
   flex-direction: column;

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import Tooltip from '../../components/Tooltip';
+import Icon from '../Icon';
+import Tooltip from '../Tooltip';
 
 import {
   rootUrl,
@@ -44,14 +45,8 @@ const Stat = styled.div`
   outline: none;
   color: rgba(0, 0, 0, 0.87);
 
-  & i.material-icons {
-    width: 24px;
-    height: 24px;
-
+  & ${Icon} {
     margin-left: 7px;
-    margin-right: 0;
-
-    color: rgba(0, 0, 0, 0.55);
   }
 `;
 
@@ -104,7 +99,7 @@ class QuestionStats extends React.Component {
     return (
       <Wrapper>
         <Stat>
-          <i className="material-icons">poll</i>
+          <Icon>poll</Icon>
           <span>{`${totalVotes} ${questionStatsVotes}`}</span>
         </Stat>
 
@@ -115,7 +110,7 @@ class QuestionStats extends React.Component {
           <Clickable>
             <Tooltip text={copied ? copiedToClipboard : clickToCopy}>
               <Stat>
-                <i className="material-icons">link</i>
+                <Icon>link</Icon>
                 <span>{this.getQuestionUrl()}</span>
               </Stat>
             </Tooltip>

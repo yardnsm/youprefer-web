@@ -21,12 +21,6 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  padding: 10px 0;
-
-  & > * {
-    width: 25%;
-  }
 `;
 
 const ShareDialogHeader = styled.div`
@@ -34,7 +28,7 @@ const ShareDialogHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  padding: 14px 20px;
+  padding: 14px 20px 0;
   padding-left: 6px;
 `;
 
@@ -86,7 +80,7 @@ class ShareMenuContainer extends React.Component {
                 <ShareButton
                   color={button.color}
                   text={button.name}
-                  iconUrl={button.iconUrl}
+                  icon={button.icon}
                   onClick={() => {
                     window.open(this.formatUrl(button.urlTemplate), '_blank');
                   }}

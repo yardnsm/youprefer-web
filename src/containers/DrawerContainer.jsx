@@ -15,6 +15,7 @@ import Drawer from '../components/Drawer';
 import LogoHeader from '../components/LogoHeader';
 import Menu from '../components/Menu';
 import MenuItem from '../components/MenuItem';
+import Icon from '../components/Icon';
 import Divider from '../components/Divider';
 
 const mapStateToProps = ({ ui: { drawerToggled } }) => ({
@@ -32,32 +33,32 @@ const DrawerContainer = ({ drawerToggled, onDrawerClose, showAboutDialog }) => (
 
     <Menu>
       <MenuItem
-        iconClassName="send"
         onClick={() => {
           window.open(sendQuestionsUrl);
         }}
       >
+        <Icon>send</Icon>
         {drawerSendQuestions}
       </MenuItem>
 
       <MenuItem
-        iconClassName="get_app"
         onClick={() => {
           window.open(androidAppUrl);
         }}
       >
+        <Icon>get_app</Icon>
         {drawerGetTheApp}
       </MenuItem>
 
       <Divider />
 
       <MenuItem
-        iconClassName="info"
         onClick={() => {
           onDrawerClose();
           showAboutDialog();
         }}
       >
+        <Icon>info</Icon>
         {drawerAbout}
       </MenuItem>
     </Menu>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import Icon from '../Icon';
 import withRipple from '../../hoc/withRipple';
 
 const MenuItemWrapper = withRipple(styled.a`
@@ -26,26 +27,18 @@ const MenuItemWrapper = withRipple(styled.a`
     background-color: #e5e5e5;
   }
 
-  & i.material-icons {
-    width: 24px;
-    height: 24px;
-
+  & ${Icon} {
     margin-left: 32px;
-    margin-right: 0;
-
-    color: rgba(0, 0, 0, 0.55);
   }
 `);
 
-const MenuItem = ({ iconClassName, children, onClick }) => (
+const MenuItem = ({ children, onClick }) => (
   <MenuItemWrapper onClick={onClick}>
-    <i className="material-icons">{iconClassName}</i>
     {children}
   </MenuItemWrapper>
 );
 
 MenuItem.propTypes = {
-  iconClassName: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
 };

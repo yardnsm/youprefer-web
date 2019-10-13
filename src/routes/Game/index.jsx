@@ -236,6 +236,7 @@ class GamePage extends React.Component {
       hasPrev,
       incrementFirstOption,
       incrementSecondOption,
+      match,
     } = this.props;
 
     return (
@@ -245,7 +246,7 @@ class GamePage extends React.Component {
         <div>
           <QuestionContainer
             loading={!currentQuestion}
-            maskedQuestionId={this.getQuestionIdFromUrl()}
+            maskedQuestionId={match.params.questionId}
             question={currentQuestion || undefined}
             onFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
             onSecondOptionSelect={() => incrementSecondOption(currentQuestion)}

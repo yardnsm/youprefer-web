@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import Icon from '../Icon';
 import withRipple from '../../hoc/withRipple';
 
 const IconButtonWrapper = withRipple(styled.a`
@@ -28,14 +30,14 @@ const IconButtonWrapper = withRipple(styled.a`
     background-color: rgba(255, 255, 255, 0.15);
   }
 
-  & .material-icons {
+  & ${Icon} {
     z-index: 1;
   }
 `);
 
 const IconButton = ({ iconClassName, onClick, color }) => (
   <IconButtonWrapper onClick={onClick} color={color}>
-    <i className="material-icons">{iconClassName}</i>
+    <Icon color={color}>{iconClassName}</Icon>
   </IconButtonWrapper>
 );
 

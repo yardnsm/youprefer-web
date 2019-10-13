@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '../components/Icon';
 
 // App settings
 export const appName = 'YouPrefer';
@@ -49,34 +50,31 @@ export const shareText = (firstOption, secondOption) =>
 
 export const shareDialogButtons = [{
   name: 'Facebook',
-  color: '#237AEF',
+  color: '#227AEE',
   urlTemplate: 'https://facebook.com/sharer/sharer.php?u=$url',
-  iconUrl: '/assets/img/icon_facebook.svg',
+  icon: '/assets/img/icon_facebook.svg',
 }, {
   name: 'Twitter',
-  color: '#4AA4EC',
+  color: '#2AA3F0',
   urlTemplate: 'https://twitter.com/intent/tweet/?text=$content&amp;url=$url',
-  iconUrl: '/assets/img/icon_twitter.svg',
-}, {
-  name: 'Google+',
-  color: '#D84337',
-  urlTemplate: 'https://plus.google.com/share?url=$url',
-  iconUrl: '/assets/img/icon_gplus.svg',
+  icon: '/assets/img/icon_twitter.svg',
 }, {
   name: 'Email',
-  color: '#6C6C6C',
+  color: '#f4f4f4',
   urlTemplate: 'mailto:?subject=$content&amp;body=$url',
-  iconUrl: '/assets/img/icon_email.svg',
+  icon: (
+    <Icon>email</Icon>
+  ),
 }, {
   name: 'WhatsApp',
-  color: '#21CD5B',
+  color: '#25D366',
   urlTemplate: 'whatsapp://send?text=$content%20$url',
-  iconUrl: '/assets/img/icon_whatsapp.svg',
+  icon: '/assets/img/icon_whatsapp.svg',
 }, {
   name: 'Telegram',
   color: '#4A9FE8',
   urlTemplate: 'https://telegram.me/share/url?text=$content&amp;url=$url',
-  iconUrl: '/assets/img/icon_telegram.svg',
+  icon: '/assets/img/icon_telegram.svg',
 }];
 
 // Navigation buttons
