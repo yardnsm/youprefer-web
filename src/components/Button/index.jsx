@@ -22,6 +22,7 @@ const Button = styled.button`
 
   text-align: center;
   text-transform: uppercase;
+  text-decoration: none;
   font-family: inherit;
   font-size: 14px;
   font-weight: 300;

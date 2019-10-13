@@ -35,7 +35,7 @@ const Row = styled.div`
   min-height: 64px;
   max-height: 64px;
 
-  padding: 20px 28px;
+  padding: 22px 28px;
   padding-left: 16px;
 
   box-sizing: border-box;
@@ -45,7 +45,7 @@ const Row = styled.div`
     min-height: 56px;
     max-height: 56px;
 
-    padding: 16px 24px;
+    padding: 18px 24px;
   }
 `;
 
