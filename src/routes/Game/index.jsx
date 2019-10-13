@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { actions as uiActions } from '../../actions/ui';
 import { actions as gameActions } from '../../actions/game';
+
 import { mask, unmask } from '../../utils/mask';
 import generateRandomInteger from '../../utils/random';
 import { isNumber } from '../../utils/validations';
+
 import LocalPropTypes from '../../prop-types';
 import reactRouterPropTypes from '../../prop-types/react-router';
 
 import {
   gameTitle,
+  questionNotFoundSnackbar,
 } from '../../config/strings';
 
 import Title from '../../components/Title';
 import AdsenseAdContainer from '../../containers/AdsenseAdContainer';
-import Wrapper from './components/Wrapper';
-import NavigationButtons from './components/NavigationButtons';
+import NavigationButtons from '../../components/NavigationButtons';
+
 import QuestionContainer from './containers/QuestionContainer';
 
 const mapStateToProps = ({ game: { questions } }) => ({
@@ -40,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
   incrementSecondOption: (question) => { dispatch(gameActions.incrementSecondOption(question)); },
 
   removeCurrentQuestion: () => { dispatch(gameActions.removeCurrentQuestion()); },
+  createSnackbar: (options) => { dispatch(uiActions.createSnackbar(options)); },
 });
 
 /*
@@ -55,6 +61,7 @@ class GamePage extends React.Component {
 
     // (ノಠ益ಠ)ノ
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleQuestionNotFound = this.handleQuestionNotFound.bind(this);
     this.handlePrevQuestion = this.handlePrevQuestion.bind(this);
     this.handleNextQuestion = this.handleNextQuestion.bind(this);
     this.pushQuestionToHistory = this.pushQuestionToHistory.bind(this);
@@ -106,7 +113,7 @@ class GamePage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      match, history, questionCount, removeCurrentQuestion,
+      match, questionCount, removeCurrentQuestion,
     } = this.props;
 
     // Check if question shouldn't be available
@@ -126,7 +133,7 @@ class GamePage extends React.Component {
         if (isNumber(questionId) && unmask(questionId) <= nextProps.questionCount) {
           this.fetchQuestion(unmask(questionId));
         } else {
-          history.push('not-found');
+          this.handleQuestionNotFound();
         }
       } else {
         // The first question in the stack
@@ -155,6 +162,19 @@ class GamePage extends React.Component {
       default:
         break;
     }
+  }
+
+  handleQuestionNotFound() {
+    const { createSnackbar } = this.props;
+
+    // Notify the user
+    createSnackbar({
+      message: questionNotFoundSnackbar,
+      duration: 5000,
+    });
+
+    // Fetch a new question
+    this.fetchRandomQuestion(undefined, true);
   }
 
   pushQuestionToHistory(id) {
@@ -207,8 +227,6 @@ class GamePage extends React.Component {
     fetchQuestion(id);
   }
 
-  // ------------------------------------------------
-
   render() {
     const {
       currentQuestion,
@@ -218,29 +236,29 @@ class GamePage extends React.Component {
     } = this.props;
 
     return (
-      <Wrapper>
+      <div>
         <Title>{gameTitle}</Title>
 
         <div>
           <QuestionContainer
             loading={!currentQuestion}
             question={currentQuestion || undefined}
-            handleFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
-            handleSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
+            onFirstOptionSelect={() => incrementFirstOption(currentQuestion)}
+            onSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
           />
 
           {currentQuestion && (
             <NavigationButtons
-              handlePrevClick={this.handlePrevQuestion}
+              onPrevClick={this.handlePrevQuestion}
               showPrev={hasPrev}
-              handleNextClick={this.handleNextQuestion}
+              onNextClick={this.handleNextQuestion}
               showNext
             />
           )}
         </div>
 
         <AdsenseAdContainer />
-      </Wrapper>
+      </div>
     );
   }
 }
@@ -262,6 +280,7 @@ GamePage.propTypes = {
   incrementFirstOption: PropTypes.func.isRequired,
   incrementSecondOption: PropTypes.func.isRequired,
   removeCurrentQuestion: PropTypes.func.isRequired,
+  createSnackbar: PropTypes.func.isRequired,
 
   ...reactRouterPropTypes,
 };

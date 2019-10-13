@@ -3,46 +3,54 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import Tooltip from '../../../../components/Tooltip';
+import Tooltip from '../../components/Tooltip';
 
 import {
   rootUrl,
   questionStatsVotes,
   clickToCopy,
   copiedToClipboard,
-} from '../../../../config/strings';
+} from '../../config/strings';
 
-const QuestionStatsWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 25px 40px;
   margin: 20px;
+
   height: auto;
+
   box-sizing: border-box;
   border-radius: 2px;
   overflow: hidden;
   font-size: 18px;
+
   color: #000000;
   background-color: #eeeeee;
+
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
               0px 2px 2px 0px rgba(0, 0, 0, 0.14),
               0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
+  /* Hide on mobile */
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
 const Stat = styled.div`
-  outline: none;
-  color: rgba(0, 0, 0, 0.87);
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
+  outline: none;
+  color: rgba(0, 0, 0, 0.87);
+
   & i.material-icons {
     width: 24px;
     height: 24px;
+
     margin-left: 7px;
     margin-right: 0;
+
     color: rgba(0, 0, 0, 0.55);
   }
 `;
@@ -59,14 +67,14 @@ class QuestionStats extends React.Component {
       copied: false,
     };
 
-    this.timeout = null;
+    this.tooltipTimeout = null;
 
     this.getQuestionUrl = this.getQuestionUrl.bind(this);
     this.handleCopyClick = this.handleCopyClick.bind(this);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeout);
+    clearTimeout(this.tooltipTimeout);
   }
 
   getQuestionUrl() {
@@ -80,9 +88,9 @@ class QuestionStats extends React.Component {
       copied: true,
     });
 
-    clearTimeout(this.timeout);
+    clearTimeout(this.tooltipTimeout);
 
-    this.timeout = setTimeout(() => {
+    this.tooltipTimeout = setTimeout(() => {
       this.setState({
         copied: false,
       });
@@ -94,7 +102,7 @@ class QuestionStats extends React.Component {
     const { copied } = this.state;
 
     return (
-      <QuestionStatsWrapper>
+      <Wrapper>
         <Stat>
           <i className="material-icons">poll</i>
           <span>{`${totalVotes} ${questionStatsVotes}`}</span>
@@ -113,7 +121,7 @@ class QuestionStats extends React.Component {
             </Tooltip>
           </Clickable>
         </CopyToClipboard>
-      </QuestionStatsWrapper>
+      </Wrapper>
     );
   }
 }

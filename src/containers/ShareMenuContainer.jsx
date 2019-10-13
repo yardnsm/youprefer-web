@@ -76,7 +76,7 @@ class ShareMenuContainer extends React.Component {
 
         <ShareDialogHeader>
           <Title>{shareDialogTitle}</Title>
-          <IconButton iconClassName="close" handleClick={onShareMenuClose} color="rgba(0, 0, 0, 0.45)" />
+          <IconButton iconClassName="close" onClick={onShareMenuClose} color="rgba(0, 0, 0, 0.45)" />
         </ShareDialogHeader>
 
         {currentQuestion && (

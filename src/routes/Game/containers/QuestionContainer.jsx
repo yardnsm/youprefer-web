@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { mask } from '../../../utils/mask';
 import LocalPropTypes from '../../../prop-types';
 
-import OptionCard from '../components/OptionCard';
-import OrCircle from '../components/OrCircle';
-import QuestionStats from '../components/QuestionStats';
+import OptionCard from '../../../components/OptionCard';
+import OrCircle from '../../../components/OrCircle';
+import QuestionStats from '../../../components/QuestionStats';
 
 const OptionsContainer = styled.div`
   display: flex;
@@ -24,14 +24,14 @@ const calculateVotesPercentage = (votes, totalVotes, floorFunc) =>
 const QuestionContainer = ({
   loading,
   question,
-  handleFirstOptionSelect,
-  handleSecondOptionSelect,
+  onFirstOptionSelect,
+  onSecondOptionSelect,
 }) => {
-  const { payload, selected, id } = question;
-  const { firstOption, secondOption } = payload;
+  const { payload, selected, id } = question || {};
+  const { firstOption, secondOption } = payload || {};
 
-  const firstOptionVotes = firstOption.votes;
-  const secondOptionVotes = secondOption.votes;
+  const firstOptionVotes = firstOption ? firstOption.votes : 0;
+  const secondOptionVotes = secondOption ? secondOption.votes : 0;
   const totalVotes = firstOptionVotes + secondOptionVotes;
 
   const firstOptionPercentage =
@@ -52,7 +52,7 @@ const QuestionContainer = ({
           value={firstOption.value}
           votes={firstOption.votes}
           percentage={firstOptionPercentage}
-          handleOptionSelect={handleFirstOptionSelect}
+          onClick={onFirstOptionSelect}
         />
 
         <OrCircle loading={loading} />
@@ -65,7 +65,7 @@ const QuestionContainer = ({
           value={secondOption.value}
           votes={secondOption.votes}
           percentage={secondOptionPercentage}
-          handleOptionSelect={handleSecondOptionSelect}
+          onClick={onSecondOptionSelect}
         />
       </OptionsContainer>
 
@@ -80,8 +80,8 @@ const QuestionContainer = ({
 QuestionContainer.propTypes = {
   loading: PropTypes.bool,
   question: LocalPropTypes.question,
-  handleFirstOptionSelect: PropTypes.func.isRequired,
-  handleSecondOptionSelect: PropTypes.func.isRequired,
+  onFirstOptionSelect: PropTypes.func.isRequired,
+  onSecondOptionSelect: PropTypes.func.isRequired,
 };
 
 QuestionContainer.defaultProps = {

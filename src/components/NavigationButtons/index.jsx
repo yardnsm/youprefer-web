@@ -5,16 +5,18 @@ import styled from 'styled-components';
 import {
   navigationButtonsPrev,
   navigationButtonsNext,
-} from '../../../../config/strings';
+} from '../../config/strings';
 
-import Button from '../../../../components/Button';
+import Button from '../Button';
 
-const NavigationButtonsWrapper = styled.div`
+const Wrapper = styled.div`
+  display: flex;
+
   padding: 5px 10px;
   margin: 20px 0;
+
   height: auto;
   box-sizing: border-box;
-  display: flex;
 
   @media (max-width: 768px) {
     margin: 10px 0;
@@ -22,29 +24,31 @@ const NavigationButtonsWrapper = styled.div`
 `;
 
 const NavigationButtons = ({
-  handlePrevClick, showPrev, handleNextClick, showNext,
+  onPrevClick, showPrev, onNextClick, showNext,
 }) => (
-  <NavigationButtonsWrapper>
+  <Wrapper>
     <Button
-      text={navigationButtonsPrev}
-      handleClick={handlePrevClick}
+      onClick={onPrevClick}
       fullWidth
       hidden={!showPrev}
-    />
+    >
+      {navigationButtonsPrev}
+    </Button>
 
     <Button
-      text={navigationButtonsNext}
-      handleClick={handleNextClick}
+      onClick={onNextClick}
       fullWidth
       hidden={!showNext}
-    />
-  </NavigationButtonsWrapper>
+    >
+      {navigationButtonsNext}
+    </Button>
+  </Wrapper>
 );
 
 NavigationButtons.propTypes = {
-  handlePrevClick: PropTypes.func.isRequired,
+  onPrevClick: PropTypes.func.isRequired,
   showPrev: PropTypes.bool.isRequired,
-  handleNextClick: PropTypes.func.isRequired,
+  onNextClick: PropTypes.func.isRequired,
   showNext: PropTypes.bool.isRequired,
 };
 

@@ -52,13 +52,13 @@ const Wrapper = styled.main`
 const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
-  padding-top: 80px;
+  padding: 100px 5px 0 5px;
 
   width: 840px;
 
   @media (max-width: 940px) {
     width: auto;
-    padding-top: 64px;
+    padding-top: 84px;
   }
 `;
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import withRipple from '../../hoc/withRipple';
 
-const MenuItemWrapper = styled.a`
+const MenuItemWrapper = withRipple(styled.a`
   position: relative;
 
   padding: 0 16px;
@@ -35,7 +35,7 @@ const MenuItemWrapper = styled.a`
 
     color: rgba(0, 0, 0, 0.55);
   }
-`;
+`);
 
 const MenuItem = ({ iconClassName, children, onClick }) => (
   <MenuItemWrapper onClick={onClick}>
@@ -54,4 +54,4 @@ MenuItem.defaultProps = {
   onClick: () => {},
 };
 
-export default withRipple(MenuItem);
+export default MenuItem;
