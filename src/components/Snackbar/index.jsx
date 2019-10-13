@@ -4,75 +4,81 @@ import styled, { keyframes } from 'styled-components';
 
 import Button from '../Button';
 
-const snackbarEnterAnim = keyframes`
+const snackbarEnterAnimation = keyframes`
   from {
+    opacity: 0;
     transform: translate(-50%, 100%);
-    opacity: 0;
   }
 
   to {
+    opacity: 1;
     transform: translate(-50%, 0);
-    opacity: 1;
   }
 `;
 
-const snackbarEnterAnimMobile = keyframes`
+const snackbarEnterAnimationMobile = keyframes`
   from {
-    transform: translateY(100%);
     opacity: 0;
+    transform: translateY(100%);
   }
 
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
 `;
 
-const SnackbarWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
   position: fixed;
   bottom: 0;
   left: 50%;
-  align-items: center;
-  justify-content: flex-start;
+
   padding: 0 24px;
-  background-color: #323232;
+
   min-width: 568px;
   transform: translateX(-50%);
 
-  animation: ${snackbarEnterAnim} 200ms cubic-bezier(0, 0, .2, 1);
+  background-color: #323232;
 
+  animation: ${snackbarEnterAnimation} 200ms cubic-bezier(0, 0, .2, 1);
+
+  /* Full width on mobile */
   @media (max-width: 768px) {
     left: 0;
     right: 0;
+
     min-width: auto;
     transform: none;
 
-    animation: ${snackbarEnterAnimMobile} 200ms cubic-bezier(0, 0, .2, 1);
+    animation: ${snackbarEnterAnimationMobile} 200ms cubic-bezier(0, 0, .2, 1);
   }
 
   & span {
-    font-size: 0.875rem;
-    margin-left: auto;
-    margin-right: 0;
-    height: 48px;
     display: flex;
     align-items: center;
+
+    margin-left: auto;
+    margin-right: 0;
+
+    font-size: 0.875rem;
+    height: 48px;
   }
 `;
 
 const Snackbar = ({ message, action }) => (
-  <SnackbarWrapper>
+  <Wrapper>
     <span>{message}</span>
 
     {action.text && (
-      <Button
-        text={action.text}
-        handleClick={action.callback}
-        compact
-      />
+      <Button onClick={action.callback} compact>
+        {action.text}
+      </Button>
     )}
-  </SnackbarWrapper>
+  </Wrapper>
 );
 
 Snackbar.propTypes = {
@@ -80,7 +86,11 @@ Snackbar.propTypes = {
   action: PropTypes.shape({
     text: PropTypes.string,
     callback: PropTypes.func,
-  }).isRequired,
+  }),
+};
+
+Snackbar.defaultProps = {
+  action: {},
 };
 
 export default Snackbar;

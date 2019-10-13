@@ -33,20 +33,20 @@ const IconButtonWrapper = withRipple(styled.a`
   }
 `);
 
-const IconButton = ({ iconClassName, handleClick, color }) => (
-  <IconButtonWrapper onClick={handleClick} color={color}>
+const IconButton = ({ iconClassName, onClick, color }) => (
+  <IconButtonWrapper onClick={onClick} color={color}>
     <i className="material-icons">{iconClassName}</i>
   </IconButtonWrapper>
 );
 
 IconButton.propTypes = {
   iconClassName: PropTypes.string.isRequired,
-  handleClick: PropTypes.func,
+  onClick: PropTypes.func,
   color: PropTypes.string,
 };
 
 IconButton.defaultProps = {
-  handleClick: () => {},
+  onClick: () => {},
   color: 'white',
 };
 

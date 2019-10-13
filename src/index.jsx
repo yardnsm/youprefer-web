@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import { hot } from 'react-hot-loader';
 
+import theme from './theme';
 import store from './store';
 import App from './app';
 
@@ -16,9 +18,11 @@ const render = (Component) => {
 render(
   hot(module)(
     () => (
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ReduxProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </ReduxProvider>
     ),
   ),
 );

@@ -6,6 +6,7 @@ import { mask, unmask } from '../../utils/mask';
 import generateRandomInteger from '../../utils/random';
 import { isNumber } from '../../utils/validations';
 import LocalPropTypes from '../../prop-types';
+import reactRouterPropTypes from '../../prop-types/react-router';
 
 import {
   gameTitle,
@@ -14,7 +15,6 @@ import {
 import Title from '../../components/Title';
 import AdsenseAdContainer from '../../containers/AdsenseAdContainer';
 import Wrapper from './components/Wrapper';
-import LoadingQuestions from './components/LoadingQuestions';
 import NavigationButtons from './components/NavigationButtons';
 import QuestionContainer from './containers/QuestionContainer';
 
@@ -237,7 +237,7 @@ class GamePage extends React.Component {
               showNext
             />
           )}
-          </div>
+        </div>
 
         <AdsenseAdContainer />
       </Wrapper>
@@ -263,17 +263,7 @@ GamePage.propTypes = {
   incrementSecondOption: PropTypes.func.isRequired,
   removeCurrentQuestion: PropTypes.func.isRequired,
 
-  // react-router shit
-  history: PropTypes.shape({
-    listen: PropTypes.func,
-    push: PropTypes.func,
-    goBack: PropTypes.func,
-    goForward: PropTypes.func,
-  }).isRequired,
-
-  match: PropTypes.shape({
-    params: PropTypes.objectOf(PropTypes.string),
-  }).isRequired,
+  ...reactRouterPropTypes,
 };
 
 GamePage.defaultProps = {

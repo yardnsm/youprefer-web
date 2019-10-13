@@ -12,19 +12,19 @@ const mapStateToProps = ({ game: { questions: { current } } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDrawerToggle: () => { dispatch(uiActions.toggleDrawer()); },
+  toggleDrawer: () => { dispatch(uiActions.toggleDrawer()); },
   showShareDialog: () => { dispatch(uiActions.showShareDialog()); },
 });
 
-const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog }) => (
+const ToolbarContainer = ({ currentQuestion, toggleDrawer, showShareDialog }) => (
   <Toolbar
     rightElement={(
-      <IconButton iconClassName="menu" handleClick={handleDrawerToggle} />
+      <IconButton iconClassName="menu" onClick={toggleDrawer} />
     )}
     leftElement={(
       <div>
         {currentQuestion && (
-          <IconButton iconClassName="share" handleClick={showShareDialog} />
+          <IconButton iconClassName="share" onClick={showShareDialog} />
         )}
       </div>
     )}
@@ -33,7 +33,7 @@ const ToolbarContainer = ({ currentQuestion, handleDrawerToggle, showShareDialog
 
 ToolbarContainer.propTypes = {
   currentQuestion: LocalPropTypes.question,
-  handleDrawerToggle: PropTypes.func.isRequired,
+  toggleDrawer: PropTypes.func.isRequired,
   showShareDialog: PropTypes.func.isRequired,
 };
 

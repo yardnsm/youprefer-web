@@ -11,7 +11,7 @@ import {
 } from '../config/strings';
 
 import Dialog from '../components/Dialog';
-import DrawerHeader from '../components/DrawerHeader';
+import LogoHeader from '../components/LogoHeader';
 import DialogTitle from '../components/DialogTitle';
 import DialogContent from '../components/DialogContent';
 import DialogActions from '../components/DialogActions';
@@ -22,13 +22,13 @@ const mapStateToProps = ({ ui: { aboutDialogToggled } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDialogClose: () => { dispatch(uiActions.hideAboutDialog()); },
+  onDialogClose: () => { dispatch(uiActions.hideAboutDialog()); },
 });
 
-const AboutDialogContainer = ({ aboutDialogToggled, handleDialogClose }) => (
-  <Dialog open={aboutDialogToggled} handleDialogClose={handleDialogClose}>
+const AboutDialogContainer = ({ aboutDialogToggled, onDialogClose }) => (
+  <Dialog open={aboutDialogToggled} onDialogClose={onDialogClose}>
 
-    <DrawerHeader height="100px" />
+    <LogoHeader height="100px" />
 
     <DialogTitle>{gameTitle}</DialogTitle>
 
@@ -40,15 +40,16 @@ const AboutDialogContainer = ({ aboutDialogToggled, handleDialogClose }) => (
     </DialogContent>
 
     <DialogActions>
-      <Button text={dialogClose} compact textColor="#000000" handleClick={handleDialogClose} />
+      <Button compact textColor="#000000" onClick={onDialogClose}>
+        {dialogClose}
+      </Button>
     </DialogActions>
-
   </Dialog>
 );
 
 AboutDialogContainer.propTypes = {
   aboutDialogToggled: PropTypes.bool.isRequired,
-  handleDialogClose: PropTypes.func.isRequired,
+  onDialogClose: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AboutDialogContainer);

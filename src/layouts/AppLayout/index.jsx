@@ -25,10 +25,10 @@ injectGlobal`
 
     /* Disable user selection */
     user-select: none;
-   -o-user-select:none;
-   -moz-user-select: none;
-   -khtml-user-select: none;
-   -webkit-user-select: none;
+    -o-user-select:none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
   }
 
   body {
@@ -39,19 +39,22 @@ injectGlobal`
 `;
 
 const Wrapper = styled.main`
-  color: #F6F6F6;
   position: absolute;
   top: 0;
   left: 0;
+
   width: 100%;
   height: auto;
+
+  color: #F6F6F6;
 `;
 
 const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
-  width: 840px;
   padding-top: 80px;
+
+  width: 840px;
 
   @media (max-width: 940px) {
     width: auto;
@@ -65,12 +68,12 @@ const AppLayout = ({ children }) => (
     <ToolbarContainer />
     <DrawerContainer />
 
+    {/* Routes goes here */}
     <Container>
       {children}
     </Container>
 
     <SnackbarContainer />
-
     <AboutDialogContainer />
     <ShareMenuContainer />
 

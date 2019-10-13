@@ -8,7 +8,6 @@ import LocalPropTypes from '../prop-types';
 
 import {
   singleQuestionUrl,
-  dialogClose,
   shareDialogTitle,
   shareText,
   shareDialogButtons,
@@ -34,6 +33,7 @@ const ShareDialogHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 14px 20px;
   padding-left: 6px;
 `;
@@ -49,12 +49,13 @@ const mapStateToProps = ({ ui: { shareDialogToggled }, game: { questions } }) =>
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleDialogClose: () => { dispatch(uiActions.hideShareDialog()); },
+  onShareMenuClose: () => { dispatch(uiActions.hideShareDialog()); },
 });
 
-class ShareDrawerContainer extends React.Component {
+class ShareMenuContainer extends React.Component {
   constructor(props) {
     super(props);
+
     this.formatUrl = this.formatUrl.bind(this);
   }
 
@@ -68,14 +69,14 @@ class ShareDrawerContainer extends React.Component {
   }
 
   render() {
-    const { shareDialogToggled, currentQuestion, handleDialogClose } = this.props;
+    const { shareDialogToggled, currentQuestion, onShareMenuClose } = this.props;
 
     return (
-      <Drawer open={shareDialogToggled} handleDrawerClose={handleDialogClose} position="bottom">
+      <Drawer open={shareDialogToggled} onDrawerClose={onShareMenuClose} position="bottom">
 
         <ShareDialogHeader>
           <Title>{shareDialogTitle}</Title>
-          <IconButton iconClassName="close" handleClick={handleDialogClose} color="rgba(0, 0, 0, 0.45)" />
+          <IconButton iconClassName="close" handleClick={onShareMenuClose} color="rgba(0, 0, 0, 0.45)" />
         </ShareDialogHeader>
 
         {currentQuestion && (
@@ -86,7 +87,7 @@ class ShareDrawerContainer extends React.Component {
                   color={button.color}
                   text={button.name}
                   iconUrl={button.iconUrl}
-                  handleClick={() => {
+                  onClick={() => {
                     window.open(this.formatUrl(button.urlTemplate), '_blank');
                   }}
                 />
@@ -99,14 +100,14 @@ class ShareDrawerContainer extends React.Component {
   }
 }
 
-ShareDrawerContainer.propTypes = {
+ShareMenuContainer.propTypes = {
   shareDialogToggled: PropTypes.bool.isRequired,
   currentQuestion: LocalPropTypes.question,
-  handleDialogClose: PropTypes.func.isRequired,
+  onShareMenuClose: PropTypes.func.isRequired,
 };
 
-ShareDrawerContainer.defaultProps = {
+ShareMenuContainer.defaultProps = {
   currentQuestion: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareDrawerContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ShareMenuContainer);
