@@ -23,12 +23,18 @@ const mapStateToProps = ({ ui: { drawerToggled } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  onDrawerOpen: () => { dispatch(uiActions.showDrawer()); },
   onDrawerClose: () => { dispatch(uiActions.hideDrawer()); },
   showAboutDialog: () => { dispatch(uiActions.showAboutDialog()); },
 });
 
-const DrawerContainer = ({ drawerToggled, onDrawerClose, showAboutDialog }) => (
-  <Drawer open={drawerToggled} onDrawerClose={onDrawerClose}>
+const DrawerContainer = ({
+  drawerToggled,
+  onDrawerOpen,
+  onDrawerClose,
+  showAboutDialog,
+}) => (
+  <Drawer open={drawerToggled} onDrawerClose={onDrawerClose} onDrawerOpen={onDrawerOpen}>
     <LogoHeader />
 
     <Menu>
@@ -67,6 +73,7 @@ const DrawerContainer = ({ drawerToggled, onDrawerClose, showAboutDialog }) => (
 
 DrawerContainer.propTypes = {
   drawerToggled: PropTypes.bool.isRequired,
+  onDrawerOpen: PropTypes.func.isRequired,
   onDrawerClose: PropTypes.func.isRequired,
   showAboutDialog: PropTypes.func.isRequired,
 };
