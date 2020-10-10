@@ -32,7 +32,7 @@ const Ink = styled.span`
   border-radius: 50%;
 
   opacity: 1;
-  transform: scale(2);
+  transform: scale(2.5);
 
   animation: ${rippleAnim} 600ms cubic-bezier(0.4, 0, 0.2, 1);
 `;

@@ -27,7 +27,7 @@ function withRipple(WrappedComponent) {
 
       this.handleMouseDown = this.handleMouseDown.bind(this);
       this.handleMouseUp = this.handleMouseUp.bind(this);
-      this.handleMouseOut = this.handleMouseOut.bind(this);
+      this.handleMouseLeave = this.handleMouseLeave.bind(this);
       this.handleTouchStart = this.handleTouchStart.bind(this);
       this.handleTouchEnd = this.handleTouchEnd.bind(this);
 
@@ -62,6 +62,12 @@ function withRipple(WrappedComponent) {
     }
 
     handleMouseDown(event) {
+      const { disabled } = this.props;
+
+      if (disabled) {
+        return;
+      }
+
       if (this.touchLock) {
         this.touchLock = false;
         return;
@@ -115,11 +121,17 @@ function withRipple(WrappedComponent) {
       this.releaseAllInks();
     }
 
-    handleMouseOut() {
+    handleMouseLeave() {
       this.releaseAllInks();
     }
 
     handleTouchStart(event) {
+      const { disabled } = this.props;
+
+      if (disabled) {
+        return;
+      }
+
       // Emulate a `mousedown` event. Kinda. This is good enough for this
       // particular use case, so meh.
       this.handleMouseDown({
@@ -151,8 +163,8 @@ function withRipple(WrappedComponent) {
 
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
-          onMouseOut={this.handleMouseOut}
-          onBlur={this.handleMouseOut}
+          onMouseLeave={this.handleMouseLeave}
+          onBlur={this.handleMouseLeave}
 
           onTouchStart={this.handleTouchStart}
           onTouchEnd={this.handleTouchEnd}

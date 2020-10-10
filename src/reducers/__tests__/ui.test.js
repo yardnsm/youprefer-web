@@ -119,9 +119,35 @@ test('handle ADD_SNACKBAR', () => {
   ).toEqual({
     snackbars: [{
       id: 0,
+      loaded: true,
       message: 'yo dis is a snackbar',
       action: fn,
     }],
+  });
+});
+
+test('handle UNLOAD_SNACKBAR', () => {
+  const action = {
+    type: types.UNLOAD_SNACKBAR,
+    payload: {
+      id: 1,
+    },
+  };
+
+  expect(
+    reducer({
+      snackbars: [
+        { id: 0, loaded: true },
+        { id: 1, loaded: true },
+        { id: 2, loaded: true },
+      ],
+    }, action),
+  ).toEqual({
+    snackbars: [
+      { id: 0, loaded: true },
+      { id: 1, loaded: false },
+      { id: 2, loaded: true },
+    ],
   });
 });
 

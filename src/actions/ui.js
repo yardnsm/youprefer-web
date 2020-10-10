@@ -12,6 +12,7 @@ const types = {
   HIDE_SHARE_DIALOG: 'HIDE_SHARE_DIALOG',
 
   ADD_SNACKBAR: 'ADD_SNACKBAR',
+  UNLOAD_SNACKBAR: 'UNLOAD_SNACKBAR',
   REMOVE_SNACKBAR: 'REMOVE_SNACKBAR',
 };
 
@@ -35,6 +36,7 @@ const actions = {
     },
   }),
 
+  unloadSnackbar: id => ({ type: types.UNLOAD_SNACKBAR, payload: { id } }),
   removeSnackbar: id => ({ type: types.REMOVE_SNACKBAR, payload: { id } }),
 
   createSnackbar: ({
@@ -46,7 +48,12 @@ const actions = {
 
     return delay(duration)
       .then(() => {
-        dispatch(actions.removeSnackbar(id));
+        dispatch(actions.unloadSnackbar(id));
+
+        return delay(1000)
+          .then(() => {
+            dispatch(actions.removeSnackbar(id));
+          });
       });
   },
 };

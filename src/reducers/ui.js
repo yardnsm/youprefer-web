@@ -39,7 +39,17 @@ export default (state = initialState, action) => {
           id: payload.id,
           message: payload.message,
           action: payload.action,
+          loaded: true,
         }, ...state.snackbars],
+      };
+
+    case types.UNLOAD_SNACKBAR:
+      return {
+        ...state,
+        snackbars: state.snackbars.map(e => ({
+          ...e,
+          loaded: e.id === payload.id ? false : e.loaded,
+        })),
       };
 
     case types.REMOVE_SNACKBAR:

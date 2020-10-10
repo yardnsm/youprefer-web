@@ -80,8 +80,11 @@ const Wrapper = withRipple(styled.div`
     `}
   }
 
-  &:hover::before {
-    opacity: 0.6;
+  /* Big devices, apply hover state */
+  @media (min-width: 768px) {
+    &:hover::before {
+      opacity: 0.6;
+    }
   }
 
   /* The sliced shape */

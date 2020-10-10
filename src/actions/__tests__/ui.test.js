@@ -119,6 +119,11 @@ test('createSnackbar', () => {
           },
         },
       }, {
+        type: types.UNLOAD_SNACKBAR,
+        payload: {
+          id: expect.any(Number),
+        },
+      }, {
         type: types.REMOVE_SNACKBAR,
         payload: {
           id: expect.any(Number),

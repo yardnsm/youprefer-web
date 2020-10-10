@@ -22,8 +22,11 @@ const MenuItemWrapper = withRipple(styled.a`
 
   transition: background cubic-bezier(0, 0, .2, 1) 250ms;
 
-  &:hover {
-    background-color: #e5e5e5;
+  /* Big devices, apply hover state */
+  @media (min-width: 768px) {
+    &:hover {
+      background-color: #e5e5e5;
+    }
   }
 
   & ${Icon} {

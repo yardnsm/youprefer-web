@@ -40,11 +40,14 @@ const Wrapper = styled.div`
   padding: 0 24px;
 
   min-width: 568px;
-  transform: translateX(-50%);
+
+  opacity: ${props => (props.loaded ? 1 : 0)};
+  transform: ${props => (props.loaded ? 'translate(-50%, 0)' : 'translate(-50%, 100%)')};
 
   background-color: #323232;
 
-  animation: ${snackbarEnterAnimation} 200ms cubic-bezier(0, 0, .2, 1);
+  animation: ${snackbarEnterAnimation} 200ms cubic-bezier(0, 0, .2, 1)
+    ${props => !props.loaded && 'reverse'};
 
   /* Full width on mobile */
   @media (max-width: 768px) {
@@ -52,9 +55,10 @@ const Wrapper = styled.div`
     right: 0;
 
     min-width: auto;
-    transform: none;
+    transform: ${props => (props.loaded ? 'none' : 'translateY(100%)')};
 
-    animation: ${snackbarEnterAnimationMobile} 200ms cubic-bezier(0, 0, .2, 1);
+    animation: ${snackbarEnterAnimationMobile} 200ms cubic-bezier(0, 0, .2, 1)
+      ${props => !props.loaded && 'reverse'};
   }
 
   & span {
@@ -69,8 +73,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const Snackbar = ({ message, action }) => (
-  <Wrapper>
+const Snackbar = ({ message, action, loaded }) => (
+  <Wrapper loaded={loaded}>
     <span>{message}</span>
 
     {action.text && (
@@ -87,10 +91,12 @@ Snackbar.propTypes = {
     text: PropTypes.string,
     callback: PropTypes.func,
   }),
+  loaded: PropTypes.bool,
 };
 
 Snackbar.defaultProps = {
   action: {},
+  loaded: true,
 };
 
 export default Snackbar;
