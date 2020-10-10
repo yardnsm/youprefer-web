@@ -11,6 +11,7 @@ import {
   shareDialogTitle,
   shareText,
   shareDialogButtons,
+  shareTitle,
 } from '../config/strings';
 
 import Drawer from '../components/Drawer';
@@ -50,7 +51,26 @@ class ShareMenuContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      useNativeShareApi: !!navigator.share,
+    };
+
     this.formatUrl = this.formatUrl.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { useNativeShareApi } = this.state;
+    const { shareDialogToggled, onShareMenuClose } = this.props;
+
+    if (useNativeShareApi && !shareDialogToggled && nextProps.shareDialogToggled) {
+      navigator.share({
+        title: shareTitle,
+        text: this.formatUrl('$content'),
+        url: this.formatUrl('$url'),
+      });
+
+      onShareMenuClose();
+    }
   }
 
   formatUrl(urlTemplate) {
@@ -63,7 +83,13 @@ class ShareMenuContainer extends React.Component {
   }
 
   render() {
+    const { useNativeShareApi } = this.state;
     const { shareDialogToggled, currentQuestion, onShareMenuClose } = this.props;
+
+    // Do not render if the native Web Share API can be used
+    if (useNativeShareApi) {
+      return null;
+    }
 
     return (
       <Drawer

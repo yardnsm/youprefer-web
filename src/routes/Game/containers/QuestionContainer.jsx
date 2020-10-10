@@ -80,7 +80,10 @@ const QuestionContainer = ({
 QuestionContainer.propTypes = {
   loading: PropTypes.bool,
   question: LocalPropTypes.question,
-  maskedQuestionId: PropTypes.number,
+  maskedQuestionId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onFirstOptionSelect: PropTypes.func.isRequired,
   onSecondOptionSelect: PropTypes.func.isRequired,
 };

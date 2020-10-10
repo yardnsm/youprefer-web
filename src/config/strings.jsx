@@ -48,6 +48,7 @@ export const aboutDialogContents = () => (
 
 // Share dialog
 export const shareDialogTitle = 'שתף שאלה';
+export const shareTitle = 'מה אתה מעדיף?';
 export const shareText = (firstOption, secondOption) =>
   `מה אתה היית מעדיף? ${firstOption} או ${secondOption}? היכנס עכשיו לאתר והתחל לשחק!`;
 

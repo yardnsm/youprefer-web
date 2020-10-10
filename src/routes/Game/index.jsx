@@ -49,10 +49,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 /*
- * Just to be clear - we're relying in the history to swap questions. When the
- * user presses the 'back' or 'forward' buttons to switch question, we're only
- * changing the history state. Thanks to `react-router`, we can listen to
- * history events and decide what to do next.
+ * Just to be clear - we're relying in the history to swap questions. When the user presses the
+ * 'back' or 'forward' buttons to switch question, we're only changing the history state. Thanks to
+ * `react-router`, we can listen to history events and decide what to do next.
  */
 
 class GamePage extends React.Component {
