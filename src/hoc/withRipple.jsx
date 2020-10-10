@@ -27,7 +27,7 @@ function withRipple(WrappedComponent) {
 
       this.handleMouseDown = this.handleMouseDown.bind(this);
       this.handleMouseUp = this.handleMouseUp.bind(this);
-      this.handleMouseOut = this.handleMouseOut.bind(this);
+      this.handleMouseLeave = this.handleMouseLeave.bind(this);
       this.handleTouchStart = this.handleTouchStart.bind(this);
       this.handleTouchEnd = this.handleTouchEnd.bind(this);
 
@@ -115,7 +115,7 @@ function withRipple(WrappedComponent) {
       this.releaseAllInks();
     }
 
-    handleMouseOut() {
+    handleMouseLeave(e) {
       this.releaseAllInks();
     }
 
@@ -151,8 +151,8 @@ function withRipple(WrappedComponent) {
 
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
-          onMouseOut={this.handleMouseOut}
-          onBlur={this.handleMouseOut}
+          onMouseLeave={this.handleMouseLeave}
+          onBlur={this.handleMouseLeave}
 
           onTouchStart={this.handleTouchStart}
           onTouchEnd={this.handleTouchEnd}
