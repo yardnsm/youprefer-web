@@ -62,6 +62,12 @@ function withRipple(WrappedComponent) {
     }
 
     handleMouseDown(event) {
+      const { disabled } = this.props;
+
+      if (disabled) {
+        return;
+      }
+
       if (this.touchLock) {
         this.touchLock = false;
         return;
@@ -115,11 +121,17 @@ function withRipple(WrappedComponent) {
       this.releaseAllInks();
     }
 
-    handleMouseLeave(e) {
+    handleMouseLeave() {
       this.releaseAllInks();
     }
 
     handleTouchStart(event) {
+      const { disabled } = this.props;
+
+      if (disabled) {
+        return;
+      }
+
       // Emulate a `mousedown` event. Kinda. This is good enough for this
       // particular use case, so meh.
       this.handleMouseDown({
