@@ -27,7 +27,7 @@ self.addEventListener('install', (event) => {
       Object.keys(config.caches).map(cacheName => caches.open(cacheName).then((cache) => {
         cache.addAll(config.caches[cacheName]);
       }).then(() => {
-        logMsg(`Added ${config.caches[cacheName].lentgh} items to cache ${cacheName}`);
+        logMsg(`Added ${config.caches[cacheName].length} items to cache ${cacheName}`);
       }).catch(err => logErr(err))),
     ),
   );
@@ -54,15 +54,23 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Send the index page when needed
-  if (url.origin === location.origin && url.pathname === '/') {
-    event.respondWith(caches.match(config.indexPage));
-    return;
+  if (url.origin === location.origin) {
+    if (url.pathname.match(/^\/(\d+)$/)) {
+      event.respondWith(caches.match(config.indexPage));
+      return;
+    }
   }
 
   // For every request, try to pull it from the cache, fallback to network
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
-      .catch(() => caches.match(config.indexPage)),
+      .then((response) => {
+        if (response) {
+          return response;
+        }
+
+        // Fallback to network
+        return fetch(event.request);
+      }),
   );
 });
