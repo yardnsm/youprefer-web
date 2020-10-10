@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "firebase": "^5.11.1",
+    "idb": "^5.0.7",
     "polished": "^2.3.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -37,6 +38,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.7",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {

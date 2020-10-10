@@ -13,7 +13,7 @@ const rippleAnim = keyframes`
   }
 
   100% {
-    transform: scale(2);
+    transform: scale(2.5);
   }
 `;
 

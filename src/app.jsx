@@ -9,7 +9,10 @@ import {
   connectedToServer,
   disconnectedFromServer,
   readyForOfflineSnackbar,
+  questionsSynced,
 } from './config/strings';
+
+import Database from './utils/database';
 
 import AppLayout from './layouts/AppLayout';
 import Routes from './routes';
@@ -66,11 +69,41 @@ class App extends React.Component {
     });
   }
 
+  async syncDatabase() {
+    const { createSnackbar } = this.props;
+    const newlyQuestions = await Database.syncQuestions();
+
+    if (newlyQuestions > 0) {
+      createSnackbar({
+        message: newlyQuestions + questionsSynced,
+        duration: 2000,
+      });
+    }
+  }
+
+  async syncTransactions() {
+    const { createSnackbar } = this.props;
+    const pushedTransactions = await Database.syncTransactions();
+
+    if (process.env.NODE_ENV !== 'production') {
+      createSnackbar({
+        message: `${pushedTransactions} were synced.`,
+        duration: 5000,
+      });
+    }
+  }
+
   updateConnectionStatus(status) {
     const { createSnackbar } = this.props;
 
     if (this.snackbarTimeout) {
       clearTimeout(this.snackbarTimeout);
+    }
+
+    // If connected, sync remote databse and offline transactions
+    if (status) {
+      this.syncDatabase();
+      this.syncTransactions();
     }
 
     this.snackbarTimeout = setTimeout(() => {

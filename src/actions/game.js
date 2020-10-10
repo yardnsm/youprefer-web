@@ -1,8 +1,4 @@
-import {
-  fetchQuestionCount,
-  fetchSingleQuestion,
-  incrementQuestionVotes,
-} from '../utils/database';
+import Database from '../utils/database';
 
 const types = {
   REQUEST_QUESTION_COUNT: 'REQUEST_QUESTION_COUNT',
@@ -26,7 +22,7 @@ const actions = {
 
   fetchQuestionCount: () => (dispatch) => {
     dispatch(actions.requestQuestionCount());
-    return fetchQuestionCount()
+    return Database.getQuestionsCount()
       .then((count) => { dispatch(actions.receiveQuestionCount(count)); });
   },
 
@@ -35,7 +31,7 @@ const actions = {
 
   fetchQuestion: id => (dispatch) => {
     dispatch(actions.requestQuestion());
-    return fetchSingleQuestion(id)
+    return Database.getQuestion(id)
       .then((question) => { dispatch(actions.receiveQuestion(id, question)); });
   },
 
@@ -44,14 +40,14 @@ const actions = {
 
   incrementFirstOption: question => (dispatch) => {
     dispatch(actions.selectFirstOption());
-    incrementQuestionVotes(question, 'firstOption');
+    Database.incrementVotes(question, 'firstOption');
 
     return Promise.resolve();
   },
 
   incrementSecondOption: question => (dispatch) => {
     dispatch(actions.selectSecondOption());
-    incrementQuestionVotes(question, 'secondOption');
+    Database.incrementVotes(question, 'secondOption');
 
     return Promise.resolve();
   },
