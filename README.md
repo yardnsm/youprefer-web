@@ -6,6 +6,7 @@
 </div>
 
 [![Build Status](https://github.com/yardnsm/youprefer-web/workflows/main/badge.svg)](https://github.com/yardnsm/youprefer-web/actions)
+[![Deploy Status](https://github.com/yardnsm/youprefer-web/workflows/deploy/badge.svg)](https://github.com/yardnsm/youprefer-web/actions)
 
 ## Introduction
 

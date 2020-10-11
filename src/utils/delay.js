@@ -7,5 +7,4 @@ const runWithTimeout = (promise, ms) => Promise.race([
   delay(ms),
 ]);
 
-export default delay;
 export { delay, runWithTimeout };

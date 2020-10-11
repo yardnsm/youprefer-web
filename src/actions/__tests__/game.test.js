@@ -116,8 +116,9 @@ test('selectSecondOption', () => {
 
 test('incrementFirstOption', () => {
   const store = mockStore();
+  const mockQuestion = { id: 1 };
 
-  return store.dispatch(actions.incrementFirstOption()).then(() => {
+  return store.dispatch(actions.incrementFirstOption(mockQuestion)).then(() => {
     expect(store.getActions()).toEqual(
       [{ type: types.SELECT_FIRST_OPTION }],
     );
@@ -126,8 +127,9 @@ test('incrementFirstOption', () => {
 
 test('incrementSecondOption', () => {
   const store = mockStore();
+  const mockQuestion = { id: 1 };
 
-  return store.dispatch(actions.incrementSecondOption()).then(() => {
+  return store.dispatch(actions.incrementSecondOption(mockQuestion)).then(() => {
     expect(store.getActions()).toEqual(
       [{ type: types.SELECT_SECOND_OPTION }],
     );
