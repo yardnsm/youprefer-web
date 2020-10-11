@@ -34,6 +34,8 @@ class App extends React.Component {
 
     this.updateConnectionStatus = this.updateConnectionStatus.bind(this);
     this.onServiceWorkerInstall = this.onServiceWorkerInstall.bind(this);
+
+    this.connectionStatusTimeout = null;
   }
 
   componentDidMount() {
@@ -59,6 +61,10 @@ class App extends React.Component {
 
   componentWillUnmount() {
     dettachConnectionListeners();
+
+    if (this.connectionStatusTimeout) {
+      clearTimeout(this.connectionStatusTimeout);
+    }
   }
 
   onServiceWorkerInstall() {
@@ -97,24 +103,25 @@ class App extends React.Component {
   updateConnectionStatus(status) {
     const { createSnackbar } = this.props;
 
-    if (this.snackbarTimeout) {
-      clearTimeout(this.snackbarTimeout);
+    if (this.connectionStatusTimeout) {
+      clearTimeout(this.connectionStatusTimeout);
     }
 
-    // Set db transactions mechanism
-    Database.setOffline(!status);
-
-    // If connected, sync remote databse and offline transactions
-    if (status) {
-      this.syncDatabase();
-      this.syncTransactions();
-    }
-
-    this.snackbarTimeout = setTimeout(() => {
+    // Status may be stale, so we're waiting a bit
+    this.connectionStatusTimeout = setTimeout(() => {
       createSnackbar({
         message: status ? connectedToServer : disconnectedFromServer,
         duration: 2000,
       });
+
+      // Set db transactions mechanism
+      Database.setOffline(!status);
+
+      // If connected, sync remote databse and offline transactions
+      if (status) {
+        this.syncDatabase();
+        this.syncTransactions();
+      }
     }, 2000);
   }
 

@@ -7,16 +7,24 @@ import {
   indexedDBTransactionsStore,
 } from '../config/strings';
 
-const RealtimeDatabase = {
-  fetchQuestionCount: () => firebase.database()
-    .ref('quest_packs/pack_1/count')
-    .once('value')
-    .then(snapshot => snapshot.val()),
+import { runWithTimeout } from './delay';
 
-  fetchSingleQuestion: id => firebase.database()
-    .ref(`quest_packs/pack_1/quests/${id}`)
-    .once('value')
-    .then(snapshot => snapshot.val()),
+const wrap = p => runWithTimeout(p, 5000);
+
+const RealtimeDatabase = {
+  fetchQuestionCount: () => wrap(
+    firebase.database()
+      .ref('quest_packs/pack_1/count')
+      .once('value')
+      .then(snapshot => snapshot.val()),
+  ),
+
+  fetchSingleQuestion: id => wrap(
+    firebase.database()
+      .ref(`quest_packs/pack_1/quests/${id}`)
+      .once('value')
+      .then(snapshot => snapshot.val()),
+  ),
 
   fetchMultipleQuestionsFrom: startAt => firebase.database()
     .ref('quest_packs/pack_1/quests')
@@ -57,24 +65,6 @@ class Database {
     return this.db;
   }
 
-  async getQuestionsCount(forceLocal = false) {
-    const localCount = await (await this.getDatabase()).count(indexedDBQuestionsStore);
-
-    if (forceLocal) {
-      return localCount;
-    }
-
-    if (!this.shouldUseOfflineStrategy || localCount === 0) {
-      return RealtimeDatabase.fetchQuestionCount();
-    }
-
-    return localCount;
-  }
-
-  async clearTransactions() {
-    return (await this.getDatabase()).clear(indexedDBTransactionsStore);
-  }
-
   async syncQuestions() {
     const localCount = await this.getQuestionsCount(true);
     const remoteCount = await RealtimeDatabase.fetchQuestionCount();
@@ -96,11 +86,12 @@ class Database {
       return 0;
     }
 
-    const transactions = await this.getAllTransactions();
+    const transactions = await this.getTransactions();
 
     const fullfilled = await Promise.all(
-      Object.keys(transactions).map(([questionId, optionField]) =>
-        this.incrementVotes(questionId, optionField)),
+      Object.entries(transactions).map(
+        ([questionId, optionField]) => this.incrementVotes(questionId, optionField),
+      ),
     );
 
     await this.clearTransactions();
@@ -108,25 +99,49 @@ class Database {
     return fullfilled.length;
   }
 
-  async questionExists(questionId) {
+  async getQuestionsCount(forceLocal = false) {
+    const localCount = await (await this.getDatabase()).count(indexedDBQuestionsStore);
+
+    if (forceLocal) {
+      return localCount;
+    }
+
+    if (localCount === 0) {
+      const remoteCount = RealtimeDatabase.fetchQuestionCount();
+
+      if (!remoteCount) {
+        // Just retry
+        return this.getQuestionsCount();
+      }
+    }
+
+    return localCount;
+  }
+
+  async isQuestionSet(questionId) {
     return this.getDatabase()
       .then(db => db.get(indexedDBQuestionsStore, questionId.toString()))
       .then(question => !!question);
   }
 
-  async getQuestion(id) {
-    if (!this.shouldUseOfflineStrategy) {
+  async getQuestion(id, forceLocal = false) {
+    if (!this.shouldUseOfflineStrategy && !forceLocal) {
       const freshQuestion = await RealtimeDatabase.fetchSingleQuestion(id);
 
+      // No question? Fallback to the local db!
+      if (!freshQuestion) {
+        return this.getQuestion(id, true);
+      }
+
       // Update the question if needed
-      if (await this.questionExists(id)) {
+      if (await this.isQuestionSet(id)) {
         await this.setQuestion(id, freshQuestion);
       }
 
       return freshQuestion;
     }
 
-    const question = await (await this.getDatabase()).get(
+    let question = await (await this.getDatabase()).get(
       indexedDBQuestionsStore,
       id.toString(),
     );
@@ -136,7 +151,14 @@ class Database {
     }
 
     // Fallback to firebase
-    return RealtimeDatabase.fetchSingleQuestion(id);
+    question = await RealtimeDatabase.fetchSingleQuestion(id);
+
+    // Just retry
+    if (!question) {
+      return this.getQuestion(id);
+    }
+
+    return question;
   }
 
   async setQuestion(questionId, question) {
@@ -147,8 +169,12 @@ class Database {
     );
   }
 
-  async getAllTransactions() {
+  async getTransactions() {
     return (await this.getDatabase()).getAll(indexedDBTransactionsStore);
+  }
+
+  async clearTransactions() {
+    return (await this.getDatabase()).clear(indexedDBTransactionsStore);
   }
 
   async setTransaction(questionId, optionField) {
