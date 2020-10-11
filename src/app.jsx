@@ -9,7 +9,11 @@ import {
   connectedToServer,
   disconnectedFromServer,
   readyForOfflineSnackbar,
+  questionsSynced,
+  transactionsSynced,
 } from './config/strings';
+
+import Database from './utils/database';
 
 import AppLayout from './layouts/AppLayout';
 import Routes from './routes';
@@ -30,6 +34,8 @@ class App extends React.Component {
 
     this.updateConnectionStatus = this.updateConnectionStatus.bind(this);
     this.onServiceWorkerInstall = this.onServiceWorkerInstall.bind(this);
+
+    this.connectionStatusTimeout = null;
   }
 
   componentDidMount() {
@@ -55,6 +61,10 @@ class App extends React.Component {
 
   componentWillUnmount() {
     dettachConnectionListeners();
+
+    if (this.connectionStatusTimeout) {
+      clearTimeout(this.connectionStatusTimeout);
+    }
   }
 
   onServiceWorkerInstall() {
@@ -66,18 +76,52 @@ class App extends React.Component {
     });
   }
 
+  async syncDatabase() {
+    const { createSnackbar } = this.props;
+    const newlyQuestions = await Database.syncQuestions();
+
+    if (newlyQuestions > 0) {
+      createSnackbar({
+        message: newlyQuestions + questionsSynced,
+        duration: 2000,
+      });
+    }
+  }
+
+  async syncTransactions() {
+    const { createSnackbar } = this.props;
+    const pushedTransactions = await Database.syncTransactions();
+
+    if (process.env.NODE_ENV !== 'production') {
+      createSnackbar({
+        message: pushedTransactions + transactionsSynced,
+        duration: 5000,
+      });
+    }
+  }
+
   updateConnectionStatus(status) {
     const { createSnackbar } = this.props;
 
-    if (this.snackbarTimeout) {
-      clearTimeout(this.snackbarTimeout);
+    if (this.connectionStatusTimeout) {
+      clearTimeout(this.connectionStatusTimeout);
     }
 
-    this.snackbarTimeout = setTimeout(() => {
+    // Status may be stale, so we're waiting a bit
+    this.connectionStatusTimeout = setTimeout(() => {
       createSnackbar({
         message: status ? connectedToServer : disconnectedFromServer,
         duration: 2000,
       });
+
+      // Set db transactions mechanism
+      Database.setOffline(!status);
+
+      // If connected, sync remote databse and offline transactions
+      if (status) {
+        this.syncDatabase();
+        this.syncTransactions();
+      }
     }, 2000);
   }
 

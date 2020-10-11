@@ -14,8 +14,17 @@ export const sendQuestionsUrl = `mailto:${config.supportEmail}`;
 export const singleQuestionUrl = questionId =>
   `${rootUrl}/${questionId}`;
 
+// Local IndexedDB Configs
+export const indexedDBName = 'youprefer';
+export const indexedDBVersion = 1;
+export const indexedDBQuestionsStore = 'questions';
+export const indexedDBTransactionsStore = 'transactions';
+export const indexedDBMetadataStore = 'metadata';
+
 // Plain strings
 export const gameTitle = 'מה אתה מעדיף?';
+export const questionsSynced = ' שאלות נשמרו לשימוש במצב לא מקוון';
+export const transactionsSynced = ' הצבעות סונכרנו עם השרת';
 
 // General snackbars
 export const readyForOfflineSnackbar = 'מוכן לשימוש במצב לא מקוון';

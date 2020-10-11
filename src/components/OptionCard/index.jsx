@@ -180,6 +180,7 @@ const OptionCard = ({
     type={type}
     selected={selected}
     enabled={enabled}
+    disabled={!enabled}
     onClick={(!showBack && enabled) ? (() => { onClick(type); }) : undefined}
   >
     {!showBack ? (
