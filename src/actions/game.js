@@ -40,14 +40,14 @@ const actions = {
 
   incrementFirstOption: question => (dispatch) => {
     dispatch(actions.selectFirstOption());
-    Database.incrementVotes(question, 'firstOption');
+    Database.incrementVotes(question.id, 'firstOption');
 
     return Promise.resolve();
   },
 
   incrementSecondOption: question => (dispatch) => {
     dispatch(actions.selectSecondOption());
-    Database.incrementVotes(question, 'secondOption');
+    Database.incrementVotes(question.id, 'secondOption');
 
     return Promise.resolve();
   },

@@ -10,6 +10,7 @@ import {
   disconnectedFromServer,
   readyForOfflineSnackbar,
   questionsSynced,
+  transactionsSynced,
 } from './config/strings';
 
 import Database from './utils/database';
@@ -87,7 +88,7 @@ class App extends React.Component {
 
     if (process.env.NODE_ENV !== 'production') {
       createSnackbar({
-        message: `${pushedTransactions} were synced.`,
+        message: pushedTransactions + transactionsSynced,
         duration: 5000,
       });
     }
@@ -99,6 +100,9 @@ class App extends React.Component {
     if (this.snackbarTimeout) {
       clearTimeout(this.snackbarTimeout);
     }
+
+    // Set db transactions mechanism
+    Database.setOffline(!status);
 
     // If connected, sync remote databse and offline transactions
     if (status) {

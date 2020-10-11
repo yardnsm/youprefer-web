@@ -7,28 +7,34 @@ import {
   indexedDBTransactionsStore,
 } from '../config/strings';
 
-const fetchQuestionCount = () => firebase.database()
-  .ref('quest_packs/pack_1/count')
-  .once('value')
-  .then(snapshot => snapshot.val());
+const RealtimeDatabase = {
+  fetchQuestionCount: () => firebase.database()
+    .ref('quest_packs/pack_1/count')
+    .once('value')
+    .then(snapshot => snapshot.val()),
 
-const fetchSingleQuestion = id => firebase.database()
-  .ref(`quest_packs/pack_1/quests/${id}`)
-  .once('value')
-  .then(snapshot => snapshot.val());
+  fetchSingleQuestion: id => firebase.database()
+    .ref(`quest_packs/pack_1/quests/${id}`)
+    .once('value')
+    .then(snapshot => snapshot.val()),
 
-const fetchMultipleQuestionsFrom = startAt => firebase.database()
-  .ref('quest_packs/pack_1/quests')
-  .orderByKey()
-  .startAt(startAt.toString())
-  .once('value');
+  fetchMultipleQuestionsFrom: startAt => firebase.database()
+    .ref('quest_packs/pack_1/quests')
+    .orderByKey()
+    .startAt(startAt.toString())
+    .once('value')
+    .then(snapshot => snapshot.val()),
 
-const incrementQuestionVotes = ({ id }, optionField) => firebase.database()
-  .ref(`quest_packs/pack_1/quests/${id}/${optionField}/votes`)
-  .transaction(votes => votes + 1);
+  incrementQuestionVotes: (questionId, optionField) => firebase.database()
+    .ref(`quest_packs/pack_1/quests/${questionId}/${optionField}/votes`)
+    .transaction(votes => votes + 1),
+};
+
 
 class Database {
-  indexedDB = null;
+  db = null;
+
+  shouldUseOfflineStrategy = false;
 
   createDatabase = () =>
     idb.openDB(indexedDBName, indexedDBVersion, {
@@ -38,39 +44,47 @@ class Database {
       },
     });
 
+  setOffline(isOffline) {
+    this.shouldUseOfflineStrategy = isOffline;
+  }
+
   async getDatabase() {
-    if (this.indexedDB) {
-      return this.indexedDB;
+    if (this.db) {
+      return this.db;
     }
 
-    this.indexedDB = await this.createDatabase();
-    return this.indexedDB;
+    this.db = await this.createDatabase();
+    return this.db;
   }
 
   async getQuestionsCount(forceLocal = false) {
     const localCount = await (await this.getDatabase()).count(indexedDBQuestionsStore);
 
-    if (!forceLocal && localCount === 0) {
-      return fetchQuestionCount();
+    if (forceLocal) {
+      return localCount;
+    }
+
+    if (!this.shouldUseOfflineStrategy || localCount === 0) {
+      return RealtimeDatabase.fetchQuestionCount();
     }
 
     return localCount;
   }
 
-  async getTransactionsCount() {
-    return (await this.getDatabase()).count(indexedDBTransactionsStore);
+  async clearTransactions() {
+    return (await this.getDatabase()).clear(indexedDBTransactionsStore);
   }
 
   async syncQuestions() {
     const localCount = await this.getQuestionsCount(true);
-    const remoteCount = await fetchQuestionCount();
+    const remoteCount = await RealtimeDatabase.fetchQuestionCount();
 
     // Sync only if the remote count is bigger
     if (remoteCount <= localCount) {
       return 0;
     }
 
-    const questions = (await fetchMultipleQuestionsFrom(localCount)).val();
+    const questions = await RealtimeDatabase.fetchMultipleQuestionsFrom(localCount);
 
     return Promise.all(
       Object.entries(questions).map(([key, value]) => this.setQuestion(key, value)),
@@ -78,13 +92,43 @@ class Database {
   }
 
   async syncTransactions() {
-    return this.getTransactionsCount();
+    if (this.shouldUseOfflineStrategy) {
+      return 0;
+    }
+
+    const transactions = await this.getAllTransactions();
+
+    const fullfilled = await Promise.all(
+      Object.keys(transactions).map(([questionId, optionField]) =>
+        this.incrementVotes(questionId, optionField)),
+    );
+
+    await this.clearTransactions();
+
+    return fullfilled.length;
+  }
+
+  async questionExists(questionId) {
+    return this.getDatabase()
+      .then(db => db.get(indexedDBQuestionsStore, questionId.toString()))
+      .then(question => !!question);
   }
 
   async getQuestion(id) {
+    if (!this.shouldUseOfflineStrategy) {
+      const freshQuestion = await RealtimeDatabase.fetchSingleQuestion(id);
+
+      // Update the question if needed
+      if (await this.questionExists(id)) {
+        await this.setQuestion(id, freshQuestion);
+      }
+
+      return freshQuestion;
+    }
+
     const question = await (await this.getDatabase()).get(
       indexedDBQuestionsStore,
-      id,
+      id.toString(),
     );
 
     if (question) {
@@ -92,31 +136,38 @@ class Database {
     }
 
     // Fallback to firebase
-    return fetchSingleQuestion(id);
+    return RealtimeDatabase.fetchSingleQuestion(id);
   }
 
   async setQuestion(questionId, question) {
-    return (await this.getDatabase()).add(
+    return (await this.getDatabase()).put(
       indexedDBQuestionsStore,
       question,
-      questionId,
+      questionId.toString(),
     );
+  }
+
+  async getAllTransactions() {
+    return (await this.getDatabase()).getAll(indexedDBTransactionsStore);
   }
 
   async setTransaction(questionId, optionField) {
-    return (await this.getDatabase()).add(
+    return (await this.getDatabase()).put(
       indexedDBTransactionsStore,
       optionField,
-      questionId,
+      questionId.toString(),
     );
   }
 
-  async incrementVotes(question, optionField) {
-    // Try firebase, fallback to offline store for later sync
-    incrementQuestionVotes(
-      question,
-      optionField,
-    ).catch(() => this.setTransaction(question.id, optionField));
+  async incrementVotes(questionId, optionField) {
+    if (!this.shouldUseOfflineStrategy) {
+      return RealtimeDatabase.incrementQuestionVotes(
+        questionId,
+        optionField,
+      );
+    }
+
+    return this.setTransaction(questionId, optionField);
   }
 }
 
