@@ -29,20 +29,20 @@ export default {
 
   // Config for Firebase
   firebase: {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
+    apiKey: '{{ FIREBASE_API_KEY }}',
+    authDomain: '{{ FIREBASE_AUTH_DOMAIN }}',
+    databaseURL: '{{ FIREBASE_DATABASE_URL }}',
+    projectId: '{{ FIREBASE_PROJECT_ID }}',
   },
 
   // Config for Adsense
   adsense: {
-    client: 'ca-pub-XXXXXXXXXXXXXXXX',
-    slot: 'XXXXXXXXXX',
+    client: '{{ ADSENSE_CLIENT }}',
+    slot: '{{ ADSENSE_SLOT }}',
   },
 
   // Config for Google Analytics
   analytics: {
-    trackingId: 'UA-XXXXXXXX-X',
+    trackingId: '{{ GA_TRACKING_ID }}',
   },
 };

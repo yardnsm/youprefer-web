@@ -1,4 +1,4 @@
-import delay from '../utils/delay';
+import { delay } from '../utils/delay';
 
 const types = {
   SHOW_DRAWER: 'SHOW_DRAWER',
