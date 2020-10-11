@@ -1,6 +1,10 @@
 name: main
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ '*' ]
 
 jobs:
   build:
@@ -14,12 +18,13 @@ jobs:
     steps:
 
       - uses: actions/checkout@v2
-      
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
 
+      - run: ./scrips/prepare-ci.sh
       - run: npm ci
       - run: npm run build
       - run: npm test

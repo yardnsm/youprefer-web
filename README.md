@@ -5,7 +5,7 @@
   <small><a href="https://youprefer.co.il/" target="_blank">Live version</a></small>
 </div>
 
-[![Build Status](https://travis-ci.org/yardnsm/youprefer-web.svg?branch=master)](https://travis-ci.org/yardnsm/youprefer-web)
+[![Build Status](https://github.com/yardnsm/youprefer-web/workflows/main/badge.svg)](https://github.com/yardnsm/youprefer-web/actions)
 
 ## Introduction
 
