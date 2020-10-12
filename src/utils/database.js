@@ -113,6 +113,8 @@ class Database {
         // Just retry
         return this.getQuestionsCount();
       }
+
+      return remoteCount;
     }
 
     return localCount;

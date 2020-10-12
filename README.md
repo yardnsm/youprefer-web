@@ -152,15 +152,6 @@ $ npm run build
 $ git subtree push --prefix=dist dokku master
 ```
 
-## What's next?
-
-This project status is still in beta, as there more things that I wanted to implement before
-declaring it "stable":
-
-- Add end-to-end tests.
-- Server Side Rendering with Firebase.
-- A Firebase instance for staging / testing.
-
 ---
 
 ## License
