@@ -8,7 +8,7 @@ import {
   optionCardVotes,
 } from '../../config/strings';
 
-/* eslint-disable indent */
+/* eslint-disable indent, no-nested-ternary */
 const Wrapper = withRipple(styled.div`
   box-sizing: border-box;
   position: relative;
@@ -110,8 +110,14 @@ const Wrapper = withRipple(styled.div`
     right: ${props => props.type === 'second' && 0};
 
     transform: ${props => (
-      props.type === 'first' ? 'translate(-62%, -50%)' : 'translate(62%, -50%)'
+      props.type === 'first' ? (
+        props.enabled ? 'translate(-62%, -50%)' : 'translate(-80%,-50%) scale(1.2)'
+      ) : (
+        props.enabled ? 'translate(62%, -50%)' : 'translate(80%,-50%) scale(1.2)'
+      )
     )};
+
+    transition: transform cubic-bezier(0, 0, .2, 1) 700ms;
   }
 
   /* Small devices, need to set properly for row aligning */
@@ -131,7 +137,11 @@ const Wrapper = withRipple(styled.div`
       right: ${props => props.type === 'second' && '50% !important'};
 
       transform: ${props => (
-        props.type === 'first' ? 'translate(-50%, -38%)' : 'translate(50%, -62%)'
+        props.type === 'first' ? (
+          props.enabled ? 'translate(-50%, -40%)' : 'translate(-50%, -30%) scale(1.2)'
+        ) : (
+          props.enabled ? 'translate(50%, -60%)' : 'translate(50%, -70%) scale(1.2)'
+        )
       )} !important;
     }
   }
