@@ -12,7 +12,9 @@ const processColor = (amount, color) => (
 
 /* eslint-disable indent */
 const Button = styled.button`
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? 'initial' : 'pointer')};
+  pointer-events: ${props => (props.disabled ? 'initial' : 'pointer')};
+
   display: inline-block;
   position: relative;
   box-sizing: border-box;
@@ -35,6 +37,7 @@ const Button = styled.button`
 
   color: ${props => props.textColor};
   background: ${props => props.backgroundColor};
+  opacity: ${props => (props.disabled ? '0.5' : '1')};
 
   height: auto;
   width: ${props => (props.fullWidth ? '100%' : 'auto')};
@@ -47,7 +50,8 @@ const Button = styled.button`
 
   will-change: background, box-shadow;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   box-shadow: ${props => (
     !props.raised
@@ -89,6 +93,7 @@ Button.propTypes = {
   textColor: PropTypes.string,
   backgroundColor: PropTypes.string,
   hidden: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   compact: PropTypes.bool,
   raised: PropTypes.bool,
@@ -101,6 +106,7 @@ Button.defaultProps = {
   textColor: '#ffffff',
   backgroundColor: 'rgba(128, 128, 128, 0)',
   hidden: false,
+  disabled: false,
   onClick: () => {},
   compact: false,
   raised: false,

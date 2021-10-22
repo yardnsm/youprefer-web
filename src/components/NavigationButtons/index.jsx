@@ -24,13 +24,14 @@ const Wrapper = styled.div`
 `;
 
 const NavigationButtons = ({
-  onPrevClick, showPrev, onNextClick, showNext,
+  onPrevClick, showPrev, onNextClick, showNext, disabled,
 }) => (
   <Wrapper>
     <Button
       onClick={onPrevClick}
       fullWidth
       hidden={!showPrev}
+      disabled={disabled}
     >
       {navigationButtonsPrev}
     </Button>
@@ -39,6 +40,7 @@ const NavigationButtons = ({
       onClick={onNextClick}
       fullWidth
       hidden={!showNext}
+      disabled={disabled}
     >
       {navigationButtonsNext}
     </Button>
@@ -50,6 +52,7 @@ NavigationButtons.propTypes = {
   showPrev: PropTypes.bool.isRequired,
   onNextClick: PropTypes.func.isRequired,
   showNext: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default NavigationButtons;
