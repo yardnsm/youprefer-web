@@ -229,14 +229,13 @@ class GamePage extends React.Component {
             onSecondOptionSelect={() => incrementSecondOption(currentQuestion)}
           />
 
-          {currentQuestion && (
-            <NavigationButtons
-              onPrevClick={this.handlePrevQuestion}
-              showPrev={hasPrev}
-              onNextClick={this.handleNextQuestion}
-              showNext
-            />
-          )}
+          <NavigationButtons
+            onPrevClick={this.handlePrevQuestion}
+            showPrev={hasPrev}
+            onNextClick={this.handleNextQuestion}
+            showNext
+            disabled={!currentQuestion}
+          />
         </div>
 
         <AdsenseAdContainer />
