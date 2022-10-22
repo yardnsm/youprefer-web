@@ -1,13 +1,41 @@
-import firebase from '../config/firebase';
+import { onValue, ref } from 'firebase/database';
+import { database } from '../config/firebase';
 
-const attachConnectionListener = listener => firebase.database()
-  .ref('.info/connected')
-  .on('value', (snapshot) => {
-    listener(snapshot.val());
-  });
+class ConnectionListener {
+  listeners = [];
 
-const dettachConnectionListeners = () => firebase.database()
-  .ref('.info/connected')
-  .off();
+  ref = null
+
+  unsubscribe = null;
+
+  onValue = (snapshot) => {
+    this.listeners.forEach(fn => fn(snapshot.val()));
+  }
+
+  constructor() {
+    this.ref = ref(database, '.info/connected');
+    this.unsubscribe = onValue(this.ref, this.onValue);
+  }
+
+  attach(fn) {
+    this.listeners.push(fn);
+  }
+
+  detach(fn) {
+    this.listeners = this.listeners.filter(listener => listener !== fn);
+  }
+
+  detachAll() {
+    this.listeners = [];
+  }
+}
+
+const connectionListener = new ConnectionListener();
+
+const attachConnectionListener = listener =>
+  connectionListener.attach(listener);
+
+const dettachConnectionListeners = () =>
+  connectionListener.detachAll();
 
 export { attachConnectionListener, dettachConnectionListeners };

@@ -1,5 +1,10 @@
+import {
+  get, orderByKey, query, ref, runTransaction, startAt,
+} from 'firebase/database';
+
 import * as idb from 'idb';
-import firebase from '../config/firebase';
+
+import { database } from '../config/firebase';
 import {
   indexedDBName,
   indexedDBVersion,
@@ -13,29 +18,29 @@ const wrap = p => runWithTimeout(p, 5000);
 
 const RealtimeDatabase = {
   fetchQuestionCount: () => wrap(
-    firebase.database()
-      .ref('quest_packs/pack_1/count')
-      .once('value')
+    get(ref(database, 'quest_packs/pack_1/count'))
       .then(snapshot => snapshot.val()),
   ),
 
   fetchSingleQuestion: id => wrap(
-    firebase.database()
-      .ref(`quest_packs/pack_1/quests/${id}`)
-      .once('value')
+    get(ref(database, `quest_packs/pack_1/quests/${id}`))
       .then(snapshot => snapshot.val()),
   ),
 
-  fetchMultipleQuestionsFrom: startAt => firebase.database()
-    .ref('quest_packs/pack_1/quests')
-    .orderByKey()
-    .startAt(startAt.toString())
-    .once('value')
-    .then(snapshot => snapshot.val()),
+  fetchMultipleQuestionsFrom: sat =>
+    get(
+      query(
+        ref(database, 'quest_packs/pack_1/quests'),
+        orderByKey(),
+        startAt(sat),
+      ),
+    ).then(snapshot => snapshot.val()),
 
-  incrementQuestionVotes: (questionId, optionField) => firebase.database()
-    .ref(`quest_packs/pack_1/quests/${questionId}/${optionField}/votes`)
-    .transaction(votes => votes + 1),
+  incrementQuestionVotes: (questionId, optionField) =>
+    runTransaction(
+      ref(database, `quest_packs/pack_1/quests/${questionId}/${optionField}/votes`),
+      votes => votes + 1,
+    ),
 };
 
 
