@@ -27,12 +27,12 @@ const RealtimeDatabase = {
       .then(snapshot => snapshot.val()),
   ),
 
-  fetchMultipleQuestionsFrom: sat =>
+  fetchMultipleQuestionsFrom: questionId =>
     get(
       query(
         ref(database, 'quest_packs/pack_1/quests'),
         orderByKey(),
-        startAt(sat),
+        startAt(questionId.toString()),
       ),
     ).then(snapshot => snapshot.val()),
 
