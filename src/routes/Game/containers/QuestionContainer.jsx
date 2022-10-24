@@ -55,7 +55,7 @@ const QuestionContainer = ({
           onClick={onFirstOptionSelect}
         />
 
-        <OrCircle loading={loading} />
+        <OrCircle isLoading={loading} />
 
         <OptionCard
           type="second"

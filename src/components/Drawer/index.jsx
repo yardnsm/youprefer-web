@@ -203,10 +203,15 @@ const Drawer = ({
 Drawer.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
-  onDrawerOpen: PropTypes.func.isRequired,
-  onDrawerClose: PropTypes.func.isRequired,
+  onDrawerOpen: PropTypes.func,
+  onDrawerClose: PropTypes.func,
   position: PropTypes.oneOf(['right', 'bottom']),
   zIndex: PropTypes.number,
+};
+
+Drawer.defaultProps = {
+  onDrawerOpen: () => {},
+  onDrawerClose: () => {},
 };
 
 Drawer.defaultProps = {
