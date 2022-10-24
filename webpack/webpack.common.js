@@ -47,7 +47,7 @@ export default {
       },
     },
     {
-      test: /\.ejs$/i,
+      test: /\.html$/i,
       loader: 'html-loader',
       options: {
         sources: false,
