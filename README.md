@@ -95,13 +95,16 @@ $ npm start
 
 ### Running under https
 
-Webpack Dev Server comes with https certs for us to use. However, we need to add them to our
+Webpack Dev Server can ganarates https certs for us to use. However, we need to add them to our
 system's keychain. On macOS, run the following:
 
 ```console
+# Start the dev server in https mode, then abort it
+$ npm run start:https
+
 # This requires openssl to be installed
 $ openssl x509 -outform der \
-  -in ./node_modules/webpack-dev-server/ssl/server.pem \
+  -in ./node_modules/.cache/webpack-dev-server/server.pem \
   -out ./ssl/server.crt
 
 # Then add it to the system's keychain
