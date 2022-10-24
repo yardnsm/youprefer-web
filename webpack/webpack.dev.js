@@ -11,10 +11,10 @@ export default merge(commonConfig, {
     new webpack.HotModuleReplacementPlugin(),
   ],
 
-  devtool: 'source-maps',
+  devtool: 'eval-source-map',
 
   devServer: {
-    contentBase: path.join(__dirname, '../public'),
+    static: path.join(__dirname, '../public'),
     hot: true,
     historyApiFallback: true,
   },

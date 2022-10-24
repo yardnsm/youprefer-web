@@ -45,6 +45,13 @@ export default {
           ],
         },
       },
+    },
+    {
+      test: /\.ejs$/i,
+      loader: 'html-loader',
+      options: {
+        sources: false,
+      },
     }],
   },
 
