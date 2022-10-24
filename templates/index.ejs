@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
 
-    <%= require('html-loader!./meta.ejs') %>
-    <%= require('html-loader!./styles.ejs') %>
+    <%= require('./meta.html').default %>
+    <%= require('./styles.html').default %>
   </head>
 
   <body>
 
-    <%= require('html-loader!./loader.ejs') %>
+    <%= require('./loader.html').default %>
 
     <!-- App Container -->
     <div id="root">

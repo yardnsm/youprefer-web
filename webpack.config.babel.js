@@ -8,5 +8,6 @@ try {
 }
 
 
-export default env =>
-  require(`./webpack/webpack.${env}.js`);
+export default env => (env.production ?
+  require('./webpack/webpack.prod') :
+  require('./webpack/webpack.dev')).default;
