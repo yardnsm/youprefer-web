@@ -12,10 +12,4 @@ export default merge(commonConfig, {
   ],
 
   devtool: 'eval-source-map',
-
-  devServer: {
-    static: path.join(__dirname, '../public'),
-    hot: true,
-    historyApiFallback: true,
-  },
 });

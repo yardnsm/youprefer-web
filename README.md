@@ -103,6 +103,7 @@ system's keychain. On macOS, run the following:
 $ npm run start:https
 
 # This requires openssl to be installed
+$ cp ./node_modules/.cache/webpack-dev-server/server.pem ssl
 $ openssl x509 -outform der \
   -in ./node_modules/.cache/webpack-dev-server/server.pem \
   -out ./ssl/server.crt

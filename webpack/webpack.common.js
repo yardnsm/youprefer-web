@@ -19,8 +19,8 @@ export default {
   ],
 
   output: {
-    filename: '[name].bundle.[hash:6].js',
-    chunkFilename: '[name].chunk.[hash:6].js',
+    filename: '[name].bundle.[fullhash:6].js',
+    chunkFilename: '[name].chunk.[fullhash:6].js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
@@ -77,6 +77,12 @@ export default {
       defaultAttribute: 'defer',
     }),
   ],
+
+  devServer: {
+    static: path.join(__dirname, '../public'),
+    hot: true,
+    historyApiFallback: true,
+  },
 
   resolve: {
     extensions: ['.js', '.jsx'],
