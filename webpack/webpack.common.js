@@ -2,7 +2,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
 
 // Configs
 import appConfig from '../src/config/app-config';
@@ -14,13 +13,12 @@ const isProduction = process.env.NODE_ENV === 'production';
  */
 export default {
   entry: [
-    'react-hot-loader/patch',
     './src',
   ],
 
   output: {
-    filename: '[name].bundle.[hash:6].js',
-    chunkFilename: '[name].chunk.[hash:6].js',
+    filename: '[name].bundle.[fullhash:6].js',
+    chunkFilename: '[name].chunk.[fullhash:6].js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
@@ -40,9 +38,9 @@ export default {
             '@babel/react',
           ],
           plugins: [
-            'react-hot-loader/babel',
+            !isProduction ? require.resolve('react-refresh/babel') : null,
             '@babel/plugin-proposal-class-properties',
-          ],
+          ].filter(Boolean),
         },
       },
     },
@@ -72,11 +70,13 @@ export default {
         appConfig,
       },
     }),
-
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer',
-    }),
   ],
+
+  devServer: {
+    static: path.join(__dirname, '../public'),
+    hot: true,
+    historyApiFallback: true,
+  },
 
   resolve: {
     extensions: ['.js', '.jsx'],

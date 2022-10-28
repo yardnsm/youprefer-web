@@ -123,7 +123,7 @@ class GamePage extends React.Component {
     }
 
     // Check if we've got the question count
-    if (questionCount !== nextProps.questionCount) {
+    if (nextProps.questionCount !== null && questionCount !== nextProps.questionCount) {
       const { questionId } = match.params;
 
       // Check if valid number

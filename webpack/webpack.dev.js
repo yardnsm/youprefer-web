@@ -1,6 +1,5 @@
 /* eslint import/no-extraneous-dependencies: "off" */
-import path from 'path';
-import webpack from 'webpack';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import merge from 'webpack-merge';
 import commonConfig from './webpack.common';
 
@@ -8,14 +7,8 @@ export default merge(commonConfig, {
   mode: 'development',
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
   ],
 
   devtool: 'eval-source-map',
-
-  devServer: {
-    static: path.join(__dirname, '../public'),
-    hot: true,
-    historyApiFallback: true,
-  },
 });

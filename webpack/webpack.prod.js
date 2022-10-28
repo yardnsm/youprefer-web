@@ -1,20 +1,29 @@
 /* eslint import/no-extraneous-dependencies: "off" */
-import path from 'path';
+// import path from 'path';
 import merge from 'webpack-merge';
-import ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin';
+import WorkboxPlugin from 'workbox-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+// import { createHandlerBoundToURL } from 'workbox-precaching';
+
 import commonConfig from './webpack.common';
 
 export default merge(commonConfig, {
   mode: 'production',
 
   plugins: [
-    new CopyWebpackPlugin([
-      { from: 'public' },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        'public',
+      ],
+    }),
 
-    new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, '../src/sw.js'),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
+
+      navigateFallback: '/index.html',
     }),
   ],
 });
