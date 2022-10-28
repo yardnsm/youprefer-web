@@ -14,7 +14,6 @@ const isProduction = process.env.NODE_ENV === 'production';
  */
 export default {
   entry: [
-    'react-hot-loader/patch',
     './src',
   ],
 
@@ -40,7 +39,7 @@ export default {
             '@babel/react',
           ],
           plugins: [
-            'react-hot-loader/babel',
+            !isProduction ? require.resolve('react-refresh/babel') : null,
             '@babel/plugin-proposal-class-properties',
           ],
         },
