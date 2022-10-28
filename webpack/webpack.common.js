@@ -2,7 +2,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
 
 // Configs
 import appConfig from '../src/config/app-config';
@@ -41,7 +40,7 @@ export default {
           plugins: [
             !isProduction ? require.resolve('react-refresh/babel') : null,
             '@babel/plugin-proposal-class-properties',
-          ],
+          ].filter(Boolean),
         },
       },
     },
@@ -70,10 +69,6 @@ export default {
         // Make the appConfig available in the template
         appConfig,
       },
-    }),
-
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer',
     }),
   ],
 
