@@ -1,9 +1,7 @@
 /* eslint import/no-extraneous-dependencies: "off" */
-// import path from 'path';
 import merge from 'webpack-merge';
 import WorkboxPlugin from 'workbox-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-// import { createHandlerBoundToURL } from 'workbox-precaching';
 
 import commonConfig from './webpack.common';
 

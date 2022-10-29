@@ -17,13 +17,15 @@
     "start": "webpack-dev-server --env=dev --open",
     "start:prod": "NODE_ENV=production webpack-dev-server --env=production --open --https",
     "start:https": "npm start -- --https",
-    "serve:dist": "http-server ./dist --tls -C ./ssl/server.pem -K ./ssl/server.pem",
+    "start:firebase": "npm run build && npm run build:functions && firebase emulators:start --only hosting,functions",
     "build": "NODE_ENV=production webpack --env=production --progress",
+    "build:firebase": "cd functions && npm run build",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx",
     "test": "jest",
     "posttest": "npm run lint",
     "test:watch": "jest --watch",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist",
+    "clean:firebase": "cd functions && npm run clean"
   },
   "dependencies": {
     "firebase": "^9.12.1",
