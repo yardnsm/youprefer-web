@@ -25,7 +25,8 @@
     "posttest": "npm run lint",
     "test:watch": "jest --watch",
     "clean": "rm -rf ./dist",
-    "clean:firebase": "cd functions && npm run clean"
+    "clean:firebase": "cd functions && npm run clean",
+    "postinstall": "cd functions && npm install"
   },
   "dependencies": {
     "firebase": "^9.12.1",
