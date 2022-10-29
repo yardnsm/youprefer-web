@@ -4,7 +4,9 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 import baseHTMLMarkup from '../dist/index.html';
-import { unmask } from '../src/utils/mask';
+import { mask, unmask } from '../src/utils/mask';
+
+import config from '../src/config/app-config';
 
 admin.initializeApp();
 
@@ -33,12 +35,13 @@ function renderHTMLFromDocument(document) {
   return `<!DOCTYPE html>${document.documentElement.outerHTML}`;
 }
 
-function createOpenGraphData(question) {
+function createOpenGraphData(questionId, question) {
   const { firstOption, secondOption } = question;
 
 
   return {
     'og:title': 'מה אתה מעדיף? - שאלה!',
+    'og:url': `${config.rootUrl}/${mask(questionId)}`,
 
     // Taken from ../src/config/strings.jsx
     'og:description': `מה אתה היית מעדיף? ${firstOption.value} או ${secondOption.value}? משחק השאלות המהנה והממכר שכולו העדפה - עכשיו בגרסת דפדפן!`,
@@ -64,7 +67,7 @@ exports.renderQuestion = functions.https.onRequest(async (req, res) => {
 
   // Update OpenGraph meta tags in the HTML
   Object
-    .entries(createOpenGraphData(question))
+    .entries(createOpenGraphData(questionId, question))
     .forEach(([prop, value]) => {
       document.head.querySelector(`meta[property="${prop}"]`).setAttribute('content', value);
     });
