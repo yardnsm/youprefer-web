@@ -25,6 +25,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: ./scripts/prepare-ci.sh
+        env:
+          FIREBASE_AUTH_DOMAIN: stub-project.firebaseapp.com
+          FIREBASE_DATABASE_URL: stub-project.firebaseio.com
+
       - run: npm ci
       - run: npm run build
       - run: npm test
