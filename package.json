@@ -72,7 +72,7 @@
     "workbox-webpack-plugin": "^6.5.4"
   },
   "engines": {
-    "node": ">=4"
+    "node": "18"
   },
   "private": true
 }
