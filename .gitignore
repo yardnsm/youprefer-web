@@ -11,3 +11,4 @@ src/config/app-config.js
 .firebaserc
 .firebase
 ui-debug.log
+firebase-debug.log
