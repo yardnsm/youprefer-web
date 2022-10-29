@@ -9,8 +9,8 @@ export default {
   ],
 
   output: {
-    filename: 'index.dist.js',
-    path: path.resolve(__dirname),
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
   },
 
   externalsType: 'commonjs',
@@ -24,5 +24,16 @@ export default {
 
   node: {
     __dirname: false,
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+        options: {
+          sources: false,
+        },
+      }],
   },
 };

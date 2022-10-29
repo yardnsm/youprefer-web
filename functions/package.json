@@ -8,12 +8,12 @@
     "start": "npm run shell",
     "deploy": "npm run build && firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "clean": "rm -rf index.dist.js"
+    "clean": "rm -rf dist"
   },
   "engines": {
     "node": "16"
   },
-  "main": "index.dist.js",
+  "main": "dist/index.js",
   "dependencies": {
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",

@@ -1,10 +1,9 @@
-import fs from 'fs';
-import path from 'path';
 import { JSDOM } from 'jsdom';
 
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
+import baseHTMLMarkup from '../dist/index.html';
 import { unmask } from '../src/utils/mask';
 
 admin.initializeApp();
@@ -30,6 +29,10 @@ async function fetchQuestion(questionId) {
   return snapshot.val();
 }
 
+function renderHTMLFromDocument(document) {
+  return `<!DOCTYPE html>${document.documentElement.outerHTML}`;
+}
+
 function createOpenGraphData(question) {
   const { firstOption, secondOption } = question;
 
@@ -41,8 +44,6 @@ function createOpenGraphData(question) {
     'og:description': `מה אתה היית מעדיף? ${firstOption.value} או ${secondOption.value}? משחק השאלות המהנה והממכר שכולו העדפה - עכשיו בגרסת דפדפן!`,
   };
 }
-
-const baseHTMLMarkup = fs.readFileSync(path.join(__dirname, '../dist/index.html'), { encoding: 'utf8' });
 
 exports.renderQuestion = functions.https.onRequest(async (req, res) => {
   const questionId = questionIdFromPath(req.path);
@@ -68,5 +69,7 @@ exports.renderQuestion = functions.https.onRequest(async (req, res) => {
       document.head.querySelector(`meta[property="${prop}"]`).setAttribute('content', value);
     });
 
-  res.status(200).send(document.documentElement.outerHTML);
+  res.status(200).send(
+    renderHTMLFromDocument(document),
+  );
 });
