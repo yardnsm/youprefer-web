@@ -131,7 +131,7 @@ class GamePage extends React.Component {
         if (isNumber(questionId) && unmask(questionId) <= nextProps.questionCount) {
           this.fetchQuestion(unmask(questionId));
         } else {
-          this.handleQuestionNotFound();
+          this.handleQuestionNotFound(nextProps.questionCount);
         }
       } else {
         // The first question in the stack
@@ -144,7 +144,7 @@ class GamePage extends React.Component {
     this.unlistenForHistory();
   }
 
-  handleQuestionNotFound() {
+  handleQuestionNotFound(questionCount) {
     const { createSnackbar } = this.props;
 
     // Notify the user
@@ -154,7 +154,7 @@ class GamePage extends React.Component {
     });
 
     // Fetch a new question
-    this.fetchRandomQuestion(undefined, true);
+    this.fetchRandomQuestion(questionCount, true);
   }
 
   pushQuestionToHistory(id) {
